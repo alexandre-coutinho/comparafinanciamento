@@ -45,12 +45,16 @@ function gerarTabelaPrice(pv, i, n, pmt) {
   const rows = [];
   let sd = pv;
   let totalJuros = 0;
+  let totalPagoAcum = 0;
+  let valorRealAcum = 0;
   for (let m = 1; m <= n; m++) {
     const juros = sd * i;
     const amort = pmt - juros;
     totalJuros += juros;
     sd -= amort;
-    rows.push({ mes: m, prestacao: pmt, juros, amortizacao: amort, saldo: Math.max(sd, 0) });
+    totalPagoAcum += pmt;
+    valorRealAcum += amort;
+    rows.push({ mes: m, prestacao: pmt, juros, totalPagoAcum, valorRealAcum, amortizacao: amort, saldo: Math.max(sd, 0) });
   }
   return { tabela: rows, totalPago: pmt * n, totalJuros, totalAmort: pv };
 }
@@ -60,12 +64,16 @@ function gerarTabelaSAC(pv, i, n) {
   const rows = [];
   let sd = pv;
   let totalJuros = 0;
+  let totalPagoAcum = 0;
+  let valorRealAcum = 0;
   for (let m = 1; m <= n; m++) {
     const juros = sd * i;
     const prestacao = amort + juros;
     totalJuros += juros;
     sd -= amort;
-    rows.push({ mes: m, prestacao, juros, amortizacao: amort, saldo: Math.max(sd, 0) });
+    totalPagoAcum += prestacao;
+    valorRealAcum += amort;
+    rows.push({ mes: m, prestacao, juros, totalPagoAcum, valorRealAcum, amortizacao: amort, saldo: Math.max(sd, 0) });
   }
   return { tabela: rows, totalPago: pv + totalJuros, totalJuros, totalAmort: pv };
 }
@@ -92,24 +100,108 @@ function exibirResultado(id, result, isPrice) {
   const { tabela, totalPago, totalJuros } = result;
   if (!tabela || !tabela.length) return;
   const label = isPrice ? 'Prestação fixa' : '1ª prestação';
-  document.getElementById(`resumo-${id}`).innerHTML = `
+  const resumoEl = document.getElementById(`resumo-${id}`);
+  resumoEl.innerHTML = `
     <div class="resumo-item"><span class="rotulo">${label}</span><span class="valor destaque">${fmt.moeda(tabela[0].prestacao)}</span></div>
     <div class="resumo-item"><span class="rotulo">Total pago</span><span class="valor">${fmt.moeda(totalPago)}</span></div>
     <div class="resumo-item"><span class="rotulo">Total juros</span><span class="valor destaque">${fmt.moeda(totalJuros)}</span></div>`;
   renderizarTabela(`tabela-${id}`, tabela);
-  renderizarGrafico(`grafico-${id}`, tabela, isPrice);
+  resumoEl.hidden = false;
   document.getElementById(`resultado-${id}`).hidden = false;
+  resultadosComparativo[id] = result;
+  renderizarGraficoComparativo();
+  const card = document.getElementById('card-comparativo');
+  if (resultadosComparativo.price && resultadosComparativo.sac) card.hidden = false;
 }
 
 function renderizarTabela(elId, tabela) {
-  const nomes = ['Mês', 'Prestação', 'Juros', 'Amortização', 'Saldo devedor'];
+  const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
   const html = `<tr>${nomes.map(n => `<th>${n}</th>`).join('')}</tr>`
-    + tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.amortizacao)}</td><td>${fmt.moeda(r.saldo)}</td></tr>`).join('');
+    + tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.valorRealAcum)}</td><td>${fmt.moeda(r.totalPagoAcum)}</td></tr>`).join('');
   document.getElementById(elId).innerHTML = html;
 }
 
 // ===== GRAFICO =====
 const charts = {};
+const resultadosComparativo = {};
+
+function renderizarGraficoComparativo() {
+  const price = resultadosComparativo.price;
+  const sac = resultadosComparativo.sac;
+  if (!price || !sac) return;
+  const canvas = document.getElementById('grafico-comparativo');
+  if (!canvas) return;
+  if (charts['comparativo']) { charts['comparativo'].destroy(); delete charts['comparativo']; }
+
+  const maxLen = Math.max(price.tabela.length, sac.tabela.length);
+  const labels = Array.from({ length: maxLen }, (_, i) => i + 1);
+
+  charts['comparativo'] = new Chart(canvas.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'PRICE Prestação',
+          data: price.tabela.map(r => r.prestacao),
+          backgroundColor: 'rgba(26,86,219,0.6)',
+          borderColor: '#1a56db',
+          borderWidth: 1,
+          order: 2,
+          pointStyle: 'rect',
+        },
+        {
+          label: 'SAC Prestação',
+          data: sac.tabela.map(r => r.prestacao),
+          backgroundColor: 'rgba(5,150,105,0.6)',
+          borderColor: '#059669',
+          borderWidth: 1,
+          order: 2,
+          pointStyle: 'rect',
+        },
+        {
+          label: 'PRICE Saldo devedor',
+          data: price.tabela.map(r => r.saldo),
+          type: 'line',
+          borderColor: '#1a56db',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 1.5,
+          pointHitRadius: 10,
+          order: 1,
+          yAxisID: 'y1',
+          pointStyle: 'line',
+        },
+        {
+          label: 'SAC Saldo devedor',
+          data: sac.tabela.map(r => r.saldo),
+          type: 'line',
+          borderColor: '#059669',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 1.5,
+          pointHitRadius: 10,
+          order: 1,
+          yAxisID: 'y1',
+          pointStyle: 'line',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: {
+        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 12, padding: 10, font: { size: 10 } } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${fmt.moeda(ctx.raw)}` } },
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 20, font: { size: 9 } } },
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Prestação', font: { size: 10 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: true, text: 'Saldo devedor', font: { size: 10 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+      },
+    },
+  });
+}
 
 function renderizarGrafico(elId, tabela, isPrice) {
   const canvas = document.getElementById(elId);
@@ -125,9 +217,8 @@ function renderizarGrafico(elId, tabela, isPrice) {
     data: {
       labels: tabela.map(r => r.mes),
       datasets: [
-        { label: 'Juros', data: tabela.map(r => r.juros), backgroundColor: 'rgba(239,68,68,0.7)', borderColor: 'rgba(239,68,68,0.9)', borderWidth: 1, order: 2 },
-        { label: `Amortização em ${hoje}`, data: tabela.map(r => r.amortizacao), backgroundColor: corClara, borderColor: cor, borderWidth: 1, order: 2 },
-        { label: 'Saldo devedor', data: tabela.map(r => r.saldo), type: 'line', borderColor: '#1e293b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 2, pointHitRadius: 10, order: 1, yAxisID: 'y1' },
+        { label: 'Prestação', data: tabela.map(r => r.prestacao), backgroundColor: corClara, borderColor: cor, borderWidth: 1, order: 2 },
+        { label: 'Saldo devedor', data: tabela.map(r => r.saldo), type: 'line', borderColor: '#1e293b', backgroundColor: 'rgba(30,41,59,0.15)', fill: true, borderWidth: 2, pointRadius: 2, pointHitRadius: 10, order: 1, yAxisID: 'y1' },
       ],
     },
     options: {
@@ -169,7 +260,7 @@ function exportarPDF(id) {
 
   const dados = extrairTabela(`tabela-${id}`);
   if (dados) {
-    const nomes = ['Mês', 'Prestação', 'Juros', 'Amortização', 'Saldo devedor'];
+    const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
     doc.autoTable({
       head: [nomes], body: dados, startY: doc.lastAutoTable?.finalY || 40,
       theme: 'grid',
@@ -247,6 +338,10 @@ function calcularPrice() {
     alert('Verifique os campos preenchidos. O campo deixado em branco será calculado.'); return;
   }
 
+  if (!isNaN(pv) && !isNaN(n) && !isNaN(pmt) && pv > n * pmt) {
+    alert('Valor financiado deve ser menor.'); return;
+  }
+
   let pvR = pv, iR = i, nR = n, pmtR = pmt;
 
   switch (faltante) {
@@ -268,18 +363,23 @@ function calcularPrice() {
   document.getElementById('price-i-anual').value = fmt.pctInput(TAXA_ANUAL(iR));
 
   exibirResultado('price', gerarTabelaPrice(pvR, iR, nR, pmtR), true);
+  calcularSAC();
 }
 
 function calcularSAC() {
-  const pv = parseMoeda(document.getElementById('sac-pv').value);
-  const i  = parsePct(document.getElementById('sac-i').value);
-  const n  = parseInt(document.getElementById('sac-n').value, 10);
+  const pv = parseMoeda(document.getElementById('price-pv').value);
+  const i  = parsePct(document.getElementById('price-i').value);
+  const n  = parseInt(document.getElementById('price-n').value, 10);
 
-  if (isNaN(pv) || pv <= 0) { alert('Preencha o Valor financiado.'); return; }
-  if (isNaN(i) || i <= 0)   { alert('Preencha a Taxa de juros.'); return; }
-  if (isNaN(n) || n < 1)    { alert('Preencha o Nº de meses.'); return; }
+  if (isNaN(pv) || pv <= 0) { document.getElementById('resultado-sac').hidden = true; return; }
+  if (isNaN(i) || i <= 0)   { document.getElementById('resultado-sac').hidden = true; return; }
+  if (isNaN(n) || n < 1)    { document.getElementById('resultado-sac').hidden = true; return; }
 
-  document.getElementById('sac-i-anual').value = fmt.pctInput(TAXA_ANUAL(i));
+  document.getElementById('sac-pv').value       = document.getElementById('price-pv').value;
+  document.getElementById('sac-i').value         = document.getElementById('price-i').value;
+  document.getElementById('sac-i-anual').value   = document.getElementById('price-i-anual').value;
+  document.getElementById('sac-n').value         = document.getElementById('price-n').value;
+
   exibirResultado('sac', gerarTabelaSAC(pv, i, n), false);
 }
 

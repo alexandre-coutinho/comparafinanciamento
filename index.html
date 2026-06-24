@@ -52,7 +52,7 @@
       </div>
       <div class="banner-afiliado">
         <span class="banner-afiliado__texto">Precisa de crédito?</span>
-        <a href="https://form.typeform.com/to/huSBadZ9" target="_blank" rel="noopener noreferrer" id="link-afiliado-topo" class="banner-afiliado__btn">Simule grátis <i class="fas fa-arrow-right"></i></a>
+        <a href="https://form.typeform.com/to/huSBadZ9" target="_blank" rel="noopener noreferrer" id="link-afiliado-topo" class="banner-afiliado__btn">Fale conosco</a>
       </div>
     </div>
   </header>
@@ -61,8 +61,11 @@
     <!-- PRICE -->
     <div class="card" data-cenario="price">
       <div class="card-header">
-        <h2>PRICE</h2>
-        <span class="badge badge-price">Prestações fixas</span>
+        <div class="card-header__inner">
+          <h2>PRICE</h2>
+          <span class="badge badge-price">Prestações fixas</span>
+          <button class="btn-calcular">Calcular</button>
+        </div>
       </div>
       <div class="card-body">
         <div class="campo">
@@ -89,13 +92,9 @@
             <input type="text" id="price-pmt" class="moeda" placeholder="0,00" inputmode="decimal">
           </div>
         </div>
-        <button class="btn-calcular">Calcular</button>
 
+        <div class="sticky-summary" id="resumo-price" hidden></div>
         <div class="resultado" id="resultado-price" hidden>
-          <div class="resumo" id="resumo-price"></div>
-          <div class="grafico-wrapper">
-            <canvas id="grafico-price"></canvas>
-          </div>
           <div class="tabela-wrapper">
             <table id="tabela-price"></table>
           </div>
@@ -110,35 +109,33 @@
     <!-- SAC -->
     <div class="card" data-cenario="sac">
       <div class="card-header">
-        <h2>SAC</h2>
-        <span class="badge badge-sac">Prestações decrescentes</span>
+        <div class="card-header__inner">
+          <h2>SAC</h2>
+          <span class="badge badge-sac">Prestações decrescentes</span>
+        </div>
       </div>
       <div class="card-body">
         <div class="campo">
           <label for="sac-pv">Valor financiado (R$)</label>
-          <input type="text" id="sac-pv" class="moeda" placeholder="0,00" inputmode="decimal">
+          <input type="text" id="sac-pv" class="moeda" placeholder="Preenchimento automático" inputmode="decimal" disabled readonly>
         </div>
         <div class="rate-row">
           <div class="campo">
             <label for="sac-i">Taxa mensal (%)</label>
-            <input type="text" id="sac-i" class="porcentagem" placeholder="0,00" inputmode="decimal">
+            <input type="text" id="sac-i" class="porcentagem" placeholder="Preenchimento automático" inputmode="decimal" disabled readonly>
           </div>
           <div class="campo">
             <label for="sac-i-anual">Taxa anual (%)</label>
-            <input type="text" id="sac-i-anual" class="porcentagem" placeholder="0,00" inputmode="decimal">
+            <input type="text" id="sac-i-anual" class="porcentagem" placeholder="Preenchimento automático" inputmode="decimal" disabled readonly>
           </div>
         </div>
         <div class="campo">
           <label for="sac-n">Nº de meses</label>
-          <input type="number" id="sac-n" class="numero" placeholder="1" min="1" step="1">
+          <input type="number" id="sac-n" class="numero" placeholder="Preenchimento automático" min="1" step="1" disabled readonly>
         </div>
-        <button class="btn-calcular">Calcular</button>
 
+        <div class="sticky-summary" id="resumo-sac" hidden></div>
         <div class="resultado" id="resultado-sac" hidden>
-          <div class="resumo" id="resumo-sac"></div>
-          <div class="grafico-wrapper">
-            <canvas id="grafico-sac"></canvas>
-          </div>
           <div class="tabela-wrapper">
             <table id="tabela-sac"></table>
           </div>
@@ -146,6 +143,17 @@
             <button class="btn-pdf">PDF</button>
             <button class="btn-copiar">Copiar tabela</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Comparativo -->
+    <div class="card card-comparativo" id="card-comparativo" hidden>
+      <div class="card-header">
+        <h2>Comparativo PRICE × SAC</h2>
+      </div>
+      <div class="card-body">
+        <div class="grafico-wrapper grafico-wrapper--comparativo">
+          <canvas id="grafico-comparativo"></canvas>
         </div>
       </div>
     </div>
@@ -158,7 +166,7 @@
           <i class="fas fa-calculator"></i>
           <span>Compara <span>Financiamento</span></span>
         </div>
-        <p class="footer__desc">Compare os sistemas PRICE e SAC.<br>Simule prestações, juros e amortização de forma rápida e gratuita.</p>
+        <p class="footer__desc">Simule prestações, juros, amortização de forma rápida e gratuita.</p>
       </div>
       <div class="footer__info">
         <h4>O QUE ELA FAZ</h4>
