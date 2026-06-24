@@ -10,6 +10,7 @@ Calculadora interativa para comparar os sistemas de amortização **PRICE** (pre
 - Cópia da tabela para a área de transferência
 - Sincronização automática entre taxa mensal e anual
 - Layout responsivo (desktop lado a lado, mobile empilhado)
+- Captura de leads via Typeform integrado no banner e footer
 
 ## Tecnologias
 
@@ -25,3 +26,7 @@ Abra `index.html` no navegador ou faça deploy em qualquer static host.
 ## Deploy
 
 `comparafinanciamento.com.br`
+
+## Lead Capture
+
+Formulário Typeform integrado: https://form.typeform.com/to/huSBadZ9

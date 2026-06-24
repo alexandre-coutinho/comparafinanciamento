@@ -78,8 +78,9 @@ main {
 
 .card-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 0.75rem;
   padding: 1rem 1.25rem;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
@@ -94,6 +95,7 @@ main {
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  text-align: center;
 }
 
 .badge-price { background: var(--primary-light); color: var(--primary); }
@@ -317,8 +319,9 @@ footer {
 }
 
 .footer__dev-logo {
-  height: 64px;
+  height: 70px;
   width: auto;
+  border-radius: 8px;
   opacity: 0.85;
   transition: opacity 0.2s;
 }

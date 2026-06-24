@@ -8,8 +8,15 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 - `styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
 - `script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks
 - `sitemap.xml` / `robots.txt` / `README.md` — SEO files
+- `.gitignore` — excludes `opencode.json` (contains secrets)
 
-## Architecture (script.js sections, 318 lines)
+## Lead Capture (Typeform)
+- Typeform ID: `huSBadZ9`, URL: `https://form.typeform.com/to/huSBadZ9`
+- Fields: Bem vindo(a)! (statement), Nome, Email, Telefone (WhatsApp), Tipo (Casa/Terreno/Carro/Moto/Crédito Pessoal/Outro), Valor desejado, Mensagem (opcional)
+- Affiliate links in header and footer point to Typeform
+- Token stored in `opencode.json` (gitignored)
+
+## Architecture (script.js sections, 362 lines)
 | Section | Lines | Description |
 |---------|-------|-------------|
 | FINANCE | 1-72 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
@@ -36,7 +43,7 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 
 ## Affiliates
 - **Financia Tudo**: banner in header (`#link-afiliado-topo`, orange CTA button) + logo + heading in footer (`#link-afiliado-footer`)
-- Links are placeholders (`#`) awaiting affiliate account approval
+- Links point to Typeform lead capture form (`https://form.typeform.com/to/huSBadZ9`)
 
 ## Dependencies (CDN, defer)
 - Chart.js 4.4.7 (bar+line chart)
@@ -48,6 +55,9 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 - Open Graph + Twitter Card meta tags
 - JSON-LD structured data (WebApplication, FinanceApplication)
 - `sitemap.xml` + `robots.txt`
+
+## .gitignore
+- `opencode.json` contains the Typeform API token and must never be committed
 
 ## Gotchas
 - Currency/percentage masks fire on `blur` (not `input`) — allows typing "0" without interference
