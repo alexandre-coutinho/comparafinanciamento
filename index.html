@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compara Financiamento — Simulador PRICE vs SAC</title>
+  <meta name="description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização do seu financiamento gratuitamente.">
+  <meta name="keywords" content="calculadora financiamento, simular financiamento, PRICE, SAC, tabela price, sistema sac, amortização, simulador financiamento imobiliário">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/">
+
+  <meta property="og:title" content="Compara Financiamento — Simulador PRICE vs SAC">
+  <meta property="og:description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Compara Financiamento — Simulador PRICE vs SAC">
+  <meta name="twitter:description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Compara Financiamento",
+    "url": "https://comparafinanciamento.com.br/",
+    "description": "Simulador de financiamento que compara os sistemas PRICE e SAC lado a lado.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="header__content">
+      <div class="header__brand">
+        <h1>Compara Financiamento</h1>
+        <p>Compare os sistemas <strong>PRICE</strong> e <strong>SAC</strong></p>
+      </div>
+      <div class="banner-afiliado">
+        <span class="banner-afiliado__texto">Precisa de crédito?</span>
+        <a href="#" target="_blank" rel="noopener noreferrer" id="link-afiliado-topo" class="banner-afiliado__btn">Simule grátis <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- PRICE -->
+    <div class="card" data-cenario="price">
+      <div class="card-header">
+        <h2>PRICE</h2>
+        <span class="badge badge-price">Prestações fixas</span>
+      </div>
+      <div class="card-body">
+        <div class="campo">
+          <label for="price-pv">Valor financiado (R$)</label>
+          <input type="text" id="price-pv" class="moeda" placeholder="0,00" inputmode="decimal">
+        </div>
+        <div class="rate-row">
+          <div class="campo">
+            <label for="price-i">Taxa mensal (%)</label>
+            <input type="text" id="price-i" class="porcentagem" placeholder="0,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="price-i-anual">Taxa anual (%)</label>
+            <input type="text" id="price-i-anual" class="porcentagem" placeholder="0,00" inputmode="decimal">
+          </div>
+        </div>
+        <div class="rate-row">
+          <div class="campo">
+            <label for="price-n">Nº de meses</label>
+            <input type="number" id="price-n" class="numero" placeholder="1" min="1" step="1">
+          </div>
+          <div class="campo">
+            <label for="price-pmt">Valor da prestação (R$)</label>
+            <input type="text" id="price-pmt" class="moeda" placeholder="0,00" inputmode="decimal">
+          </div>
+        </div>
+        <button class="btn-calcular">Calcular</button>
+
+        <div class="resultado" id="resultado-price" hidden>
+          <div class="resumo" id="resumo-price"></div>
+          <div class="grafico-wrapper">
+            <canvas id="grafico-price"></canvas>
+          </div>
+          <div class="tabela-wrapper">
+            <table id="tabela-price"></table>
+          </div>
+          <div class="acoes">
+            <button class="btn-pdf">PDF</button>
+            <button class="btn-copiar">Copiar tabela</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAC -->
+    <div class="card" data-cenario="sac">
+      <div class="card-header">
+        <h2>SAC</h2>
+        <span class="badge badge-sac">Amortização constante</span>
+      </div>
+      <div class="card-body">
+        <div class="campo">
+          <label for="sac-pv">Valor financiado (R$)</label>
+          <input type="text" id="sac-pv" class="moeda" placeholder="0,00" inputmode="decimal">
+        </div>
+        <div class="rate-row">
+          <div class="campo">
+            <label for="sac-i">Taxa mensal (%)</label>
+            <input type="text" id="sac-i" class="porcentagem" placeholder="0,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="sac-i-anual">Taxa anual (%)</label>
+            <input type="text" id="sac-i-anual" class="porcentagem" placeholder="0,00" inputmode="decimal">
+          </div>
+        </div>
+        <div class="campo">
+          <label for="sac-n">Nº de meses</label>
+          <input type="number" id="sac-n" class="numero" placeholder="1" min="1" step="1">
+        </div>
+        <button class="btn-calcular">Calcular</button>
+
+        <div class="resultado" id="resultado-sac" hidden>
+          <div class="resumo" id="resumo-sac"></div>
+          <div class="grafico-wrapper">
+            <canvas id="grafico-sac"></canvas>
+          </div>
+          <div class="tabela-wrapper">
+            <table id="tabela-sac"></table>
+          </div>
+          <div class="acoes">
+            <button class="btn-pdf">PDF</button>
+            <button class="btn-copiar">Copiar tabela</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <i class="fas fa-calculator"></i>
+          <span>Compara <span>Financiamento</span></span>
+        </div>
+        <p class="footer__desc">Compare os sistemas PRICE e SAC.<br>Simule prestações, juros e amortização de forma rápida e gratuita.</p>
+      </div>
+      <div class="footer__info">
+        <h4>O QUE ELA FAZ</h4>
+        <ul>
+          <li><i class="fas fa-calculator"></i> Cálculos de taxas</li>
+          <li><i class="fas fa-chart-bar"></i> Gráficos</li>
+          <li><i class="fas fa-file-pdf"></i> Exportação em PDF</li>
+        </ul>
+      </div>
+      <div class="footer__afiliado">
+        <h4>SIMULE SEU FINANCIAMENTO</h4>
+        <a href="#" target="_blank" rel="noopener noreferrer" id="link-afiliado-footer">
+          <img src="https://www.financiatudo.com.br/content/theme/assets/img/logo.png" alt="Financia Tudo" class="footer__afiliado-logo">
+        </a>
+      </div>
+      <div class="footer__dev">
+        <h4>Desenvolvido por</h4>
+        <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
+          <img src="https://solucoesite.com.br/assets/img/Preview.png" alt="SoluçõeSite" class="footer__dev-logo">
+        </a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

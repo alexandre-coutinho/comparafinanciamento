@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://comparafinanciamento.com.br/sitemap.xml
