@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error('Erro ao enviar');
       form.reset();
       fecharModal();
-      alert('Mensagem enviada.');
+      setTimeout(() => alert('Mensagem enviada.'), 100);
     } catch {
       alert('Erro ao enviar. Tente novamente mais tarde.');
     } finally {
