@@ -318,6 +318,22 @@ footer {
   max-width: 360px;
 }
 
+.footer__email {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.footer__email a {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer__email a:hover {
+  color: #93bbfc;
+  text-decoration: underline;
+}
+
 .footer h4 {
   color: #fff;
   font-size: 0.9rem;
@@ -358,17 +374,14 @@ footer {
   text-align: center;
 }
 
-.footer__afiliado-logo {
-  height: 42px;
-  width: auto;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
-  transition: opacity 0.2s;
-}
-
-.footer__afiliado-logo:hover { opacity: 1; }
-
 .footer__info { text-align: center; }
+
+#btn-abrir-lead-footer {
+  background: var(--primary);
+}
+#btn-abrir-lead-footer:hover {
+  background: #1e40af;
+}
 .footer__info ul { list-style: none; padding: 0; margin: 0; display: inline-block; text-align: left; }
 
 .footer__info li i {
@@ -505,6 +518,4 @@ footer {
 .modal__submit:hover { background: #1e40af; }
 .modal__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.footer__afiliado-btn {
-  background: none; border: none; cursor: pointer; padding: 0;
-}
+
