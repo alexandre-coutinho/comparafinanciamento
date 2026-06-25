@@ -340,7 +340,7 @@ footer {
 }
 
 .footer__email {
-  margin-top: 0.5rem;
+  margin-top: -1rem;
   font-size: 0.85rem;
 }
 
@@ -440,7 +440,7 @@ footer {
   white-space: nowrap;
 }
 
-.banner-afiliado__btn {
+.fale-conosco_bnt {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -475,7 +475,14 @@ footer {
   .header__content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .header__brand h1 { font-size: 1.3rem; }
   .banner-afiliado { width: 100%; }
-  .banner-afiliado__btn { flex: 1; justify-content: center; }
+  .fale-conosco_bnt { flex: 1; justify-content: center; }
+  .header__brand { text-align: center; width: 100%; }
+  .badge { display: block; width: 100%; text-align: center; }
+  .card[data-cenario="sac"] .card-header__inner { flex-wrap: wrap; }
+  .card[data-cenario="sac"] .card-header__inner h2 { order: 1; }
+  .card[data-cenario="sac"] .card-header__inner .badge { order: 2; }
+  .card[data-cenario="sac"] .card-header__inner .btn-escrever { order: 3; }
+  .footer__content > div { text-align: center; align-items: center; }
   .grafico-wrapper { height: 180px; }
   .resumo { grid-template-columns: 1fr 1fr; }
   .resumo-item .valor { font-size: 0.9rem; }
