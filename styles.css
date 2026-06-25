@@ -453,3 +453,58 @@ footer {
   .rate-row { flex-direction: column; gap: 0.5rem; }
   .resumo { grid-template-columns: 1fr; }
 }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay[hidden] { display: none; }
+
+.modal {
+  background: #fff; border-radius: var(--radius);
+  padding: 2rem; width: 100%; max-width: 440px;
+  position: relative; max-height: 90vh; overflow-y: auto;
+}
+
+.modal__close {
+  position: absolute; top: 0.75rem; right: 1rem;
+  background: none; border: none; font-size: 1.5rem;
+  cursor: pointer; color: var(--text-secondary); line-height: 1;
+}
+
+.modal h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+.modal__sub { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+.modal form label {
+  display: block; margin-bottom: 0.75rem;
+  font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);
+}
+.modal form input,
+.modal form select,
+.modal form textarea {
+  display: block; width: 100%; margin-top: 0.25rem;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 0.95rem; font-family: var(--font); color: var(--text);
+  outline: none; transition: border-color 0.2s;
+}
+.modal form input:focus,
+.modal form select:focus,
+.modal form textarea:focus { border-color: var(--primary); }
+
+.modal__submit {
+  width: 100%; padding: 0.65rem; margin-top: 0.5rem;
+  border: none; border-radius: 8px;
+  background: var(--primary); color: #fff;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.modal__submit:hover { background: #1e40af; }
+.modal__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.footer__afiliado-btn {
+  background: none; border: none; cursor: pointer; padding: 0;
+}

@@ -6,25 +6,28 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 ## Key Files
 - `index.html` — page structure (2 cards, sticky header with affiliate banner, footer with 4 columns)
 - `styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
-- `script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks
+- `script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
+- `config.js` — Telegram bot token and chat ID (gitignored)
 - `sitemap.xml` / `robots.txt` / `README.md` — SEO files
-- `.gitignore` — excludes `opencode.json` (contains secrets)
+- `.gitignore` — excludes `opencode.json` and `config.js` (contain secrets)
 
-## Lead Capture (Typeform)
-- Typeform ID: `huSBadZ9`, URL: `https://form.typeform.com/to/huSBadZ9`
-- Fields: Bem vindo(a)! (statement), Nome, Email, Telefone (WhatsApp), Tipo (Casa/Terreno/Carro/Moto/Crédito Pessoal/Outro), Valor desejado, Mensagem (opcional)
-- Affiliate links in header and footer point to Typeform
-- Token stored in `opencode.json` (gitignored)
+## Lead Capture (Telegram)
+- Bot: @comparaBot_bot (token em `config.js`, gitignorado)
+- Chat ID: `6215630573`
+- Modal com form nativo (Nome, Email, Telefone, Tipo, Valor, Mensagem) → envia via `api.telegram.org/botTOKEN/sendMessage`
+- Botões "Fale conosco" no header e footer abrem o modal
+- Sucesso → `alert('Mensagem enviada.')`; erro → `alert('Erro ao enviar...')`
 
-## Architecture (script.js sections, 362 lines)
+## Architecture (script.js sections, 514 lines)
 | Section | Lines | Description |
 |---------|-------|-------------|
-| FINANCE | 1-72 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
-| FORMAT | 73-89 | `fmt.moeda`, `fmt.numero`, `fmt.pctInput`, `parseMoeda`, `parsePct` |
-| UI | 90-148 | `exibirResultado`, `renderizarTabela`, `renderizarGrafico`, `mostrarToast` |
-| PDF / COPIAR | 149-215 | `exportarPDF`, `copiarTabela`, helpers |
-| CALCULAR | 216-288 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
-| INIT | 289-318 | `DOMContentLoaded`: masks, rate sync, event delegation for buttons |
+| FINANCE | 1-80 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
+| FORMAT | 82-97 | `fmt.moeda`, `fmt.numero`, `fmt.pctInput`, `parseMoeda`, `parsePct` |
+| UI | 98-122 | `exibirResultado`, `renderizarTabela`, `renderizarGrafico`, `mostrarToast` |
+| GRAFICO | 124-238 | Chart.js — `renderizarGraficoComparativo`, `renderizarGrafico` |
+| PDF / COPIAR | 240-305 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
+| CALCULAR | 307-387 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
+| INIT | 389-514 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
 
 ## Finance Logic
 - PRICE: `PMT = PV * i * (1+i)^n / ((1+i)^n - 1)`. Fill-3-get-4th: any 3 of PV, i, n, PMT → calculates the missing one.
@@ -36,14 +39,15 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 ## Styling
 - CSS custom properties for colors/theming
 - `--price-color: #1a56db`, `--sac-color: #059669`
-- Toast uses `.toast` + `.toast--fade` classes
+- Toast uses `.toast` + `.toast--fade` classes (z-index 9999)
+- Modal overlay z-index 1000, form dentro usa inputs/select/textarea padronizados
 - Header: blue gradient with flexbox layout (brand left, affiliate CTA right)
 - Footer: dark gradient (`#1e293b → #0f172a`), 4-column grid on desktop (≥768px), stacked on mobile
 - Affiliate banner uses Financia Tudo brand orange `#ff7a30`
 
 ## Affiliates
-- **Financia Tudo**: banner in header (`#link-afiliado-topo`, orange CTA button) + logo + heading in footer (`#link-afiliado-footer`)
-- Links point to Typeform lead capture form (`https://form.typeform.com/to/huSBadZ9`)
+- **Financia Tudo**: banner in header (`#btn-abrir-lead`, orange CTA button) + logo + heading in footer (`#btn-abrir-lead-footer`)
+- Both buttons open the lead form modal instead of external links
 
 ## Dependencies (CDN, defer)
 - Chart.js 4.4.7 (bar+line chart)
@@ -57,7 +61,7 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 - `sitemap.xml` + `robots.txt`
 
 ## .gitignore
-- `opencode.json` contains the Typeform API token and must never be committed
+- `opencode.json` and `config.js` contain secrets and must never be committed
 
 ## Gotchas
 - Currency/percentage masks fire on `blur` (not `input`) — allows typing "0" without interference
@@ -65,3 +69,4 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 - Chart instances destroyed before recreate to avoid memory leaks
 - `calcular()` dispatches via `CALCULATORS` map — add new key for new amortization systems
 - All monetary values use `pt-BR` locale (comma decimal, period thousands)
+- Lead form success usa `alert()` em vez de toast porque o modal fechava antes do toast aparecer

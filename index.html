@@ -52,7 +52,7 @@
       </div>
       <div class="banner-afiliado">
         <span class="banner-afiliado__texto">Precisa de crédito?</span>
-        <a href="https://form.typeform.com/to/huSBadZ9" target="_blank" rel="noopener noreferrer" id="link-afiliado-topo" class="banner-afiliado__btn">Fale conosco</a>
+        <button class="banner-afiliado__btn" id="btn-abrir-lead">Fale conosco</button>
       </div>
     </div>
   </header>
@@ -159,6 +159,34 @@
     </div>
   </main>
 
+  <!-- Lead form modal -->
+  <div class="modal-overlay" id="modal-lead" hidden>
+    <div class="modal">
+      <button class="modal__close" id="btn-fechar-lead" aria-label="Fechar">&times;</button>
+      <h3>Solicitar Simulação</h3>
+      <p class="modal__sub">Preencha seus dados que entraremos em contato.</p>
+      <form id="form-lead">
+        <label>Nome *<input type="text" name="nome" required></label>
+        <label>Email *<input type="email" name="email" required></label>
+        <label>Telefone (WhatsApp) *<input type="tel" name="telefone" required></label>
+        <label>Tipo
+          <select name="tipo">
+            <option value="">Selecione</option>
+            <option value="Casa">Casa</option>
+            <option value="Terreno">Terreno</option>
+            <option value="Carro">Carro</option>
+            <option value="Moto">Moto</option>
+            <option value="Crédito Pessoal">Crédito Pessoal</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </label>
+        <label>Valor desejado <input type="text" name="valor" placeholder="R$ 0,00"></label>
+        <label>Mensagem (opcional)<textarea name="mensagem" rows="3"></textarea></label>
+        <button type="submit" class="modal__submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="footer__content">
       <div class="footer__brand">
@@ -178,9 +206,9 @@
       </div>
       <div class="footer__afiliado">
         <h4>SIMULE SEU FINANCIAMENTO</h4>
-        <a href="https://form.typeform.com/to/huSBadZ9" target="_blank" rel="noopener noreferrer" id="link-afiliado-footer">
+        <button id="btn-abrir-lead-footer" class="footer__afiliado-btn">
           <img src="https://www.financiatudo.com.br/content/theme/assets/img/logo.png" alt="Financia Tudo" class="footer__afiliado-logo">
-        </a>
+        </button>
       </div>
       <div class="footer__dev">
         <h4>Desenvolvido por</h4>
@@ -194,6 +222,7 @@
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

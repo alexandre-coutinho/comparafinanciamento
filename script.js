@@ -459,4 +459,56 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn.classList.contains('btn-pdf')) exportarPDF(id);
     if (btn.classList.contains('btn-copiar')) copiarTabela(id);
   });
+
+  // ===== LEAD FORM (Telegram) =====
+  const modal = document.getElementById('modal-lead');
+  const form = document.getElementById('form-lead');
+
+  function abrirModal() { modal.hidden = false; }
+  function fecharModal() { modal.hidden = true; }
+
+  document.getElementById('btn-abrir-lead').addEventListener('click', abrirModal);
+  document.getElementById('btn-abrir-lead-footer').addEventListener('click', abrirModal);
+  document.getElementById('btn-fechar-lead').addEventListener('click', fecharModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
+
+  document.querySelector('#form-lead input[name="valor"]').addEventListener('blur', function () {
+    if (!this.value) return;
+    const v = parseMoeda(this.value);
+    if (!isNaN(v)) this.value = fmt.numero(Math.round(v * 100) / 100);
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.modal__submit');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+
+    const dados = Object.fromEntries(new FormData(form));
+    const msg = [
+      `Compara Financiamento`,
+      ``,
+      `*Nome:* ${dados.nome}`,
+      `*Email:* ${dados.email}`,
+      `*Telefone:* ${dados.telefone}`,
+      `*Tipo:* ${dados.tipo || 'Não informado'}`,
+      `*Valor:* ${dados.valor || 'Não informado'}`,
+      dados.mensagem ? `*Mensagem:* ${dados.mensagem}` : null,
+    ].filter(Boolean).join('\n');
+
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }),
+      });
+      if (!res.ok) throw new Error('Erro ao enviar');
+      form.reset();
+      fecharModal();
+      alert('Mensagem enviada.');
+    } catch {
+      alert('Erro ao enviar. Tente novamente mais tarde.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Enviar';
+    }
+  });
 });
