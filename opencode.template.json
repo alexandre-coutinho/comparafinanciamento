@@ -5,7 +5,7 @@
       "type": "remote",
       "url": "https://api.typeform.com/mcp",
       "headers": {
-        "Authorization": "Bearer {env:TYPEFORM_TOKEN}"
+        "Authorization": "Bearer SEU_TOKEN_AQUI"
       }
     },
     "cloudflare": {
