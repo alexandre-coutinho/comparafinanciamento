@@ -1,12 +1,5 @@
 {
   "mcp": {
-    "typeform": {
-      "type": "remote",
-      "url": "https://api.typeform.com/mcp",
-      "headers": {
-        "Authorization": "Bearer SEU_TOKEN_AQUI"
-      }
-    },
     "cloudflare": {
       "type": "remote",
       "url": "https://mcp.cloudflare.com/mcp"
