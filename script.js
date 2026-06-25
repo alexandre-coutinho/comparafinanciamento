@@ -116,8 +116,8 @@ function exibirResultado(id, result, isPrice) {
 
 function renderizarTabela(elId, tabela) {
   const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
-  const html = `<tr>${nomes.map(n => `<th>${n}</th>`).join('')}</tr>`
-    + tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.valorRealAcum)}</td><td>${fmt.moeda(r.totalPagoAcum)}</td></tr>`).join('');
+  const html = `<thead><tr>${nomes.map(n => `<th>${n}</th>`).join('')}</tr></thead>`
+    + `<tbody>${tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.valorRealAcum)}</td><td>${fmt.moeda(r.totalPagoAcum)}</td></tr>`).join('')}</tbody>`;
   document.getElementById(elId).innerHTML = html;
 }
 

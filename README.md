@@ -10,7 +10,7 @@ Calculadora interativa para comparar os sistemas de amortização **PRICE** (pre
 - Cópia da tabela para a área de transferência
 - Sincronização automática entre taxa mensal e anual
 - Layout responsivo (desktop lado a lado, mobile empilhado)
-- Captura de leads via Typeform integrado no banner e footer
+- Captura de leads via formulário nativo com envio para Telegram
 
 ## Tecnologias
 
@@ -29,4 +29,4 @@ Abra `index.html` no navegador ou faça deploy em qualquer static host.
 
 ## Lead Capture
 
-Formulário Typeform integrado: https://form.typeform.com/to/huSBadZ9
+Formulário nativo no modal com envio para Telegram (@comparaBot_bot)
