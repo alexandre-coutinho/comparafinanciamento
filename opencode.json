@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "typeform": {
+      "type": "remote",
+      "url": "https://api.typeform.com/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:TYPEFORM_TOKEN}"
+      }
+    },
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
