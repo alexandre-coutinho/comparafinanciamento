@@ -495,7 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function fecharModal() { modal.hidden = true; }
 
   document.getElementById('btn-abrir-lead').addEventListener('click', abrirModal);
-  document.getElementById('btn-abrir-lead-footer').addEventListener('click', abrirModal);
   document.getElementById('btn-fechar-lead').addEventListener('click', fecharModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
 
