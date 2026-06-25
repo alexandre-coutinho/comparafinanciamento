@@ -367,18 +367,29 @@ function calcularPrice() {
 }
 
 function calcularSAC() {
-  const pv = parseMoeda(document.getElementById('price-pv').value);
-  const i  = parsePct(document.getElementById('price-i').value);
-  const n  = parseInt(document.getElementById('price-n').value, 10);
+  const sacPv = document.getElementById('sac-pv');
+  const independente = !sacPv.disabled;
+
+  let pv, i, n;
+
+  if (independente) {
+    pv = parseMoeda(sacPv.value);
+    i  = parsePct(document.getElementById('sac-i').value);
+    n  = parseInt(document.getElementById('sac-n').value, 10);
+  } else {
+    pv = parseMoeda(document.getElementById('price-pv').value);
+    i  = parsePct(document.getElementById('price-i').value);
+    n  = parseInt(document.getElementById('price-n').value, 10);
+
+    document.getElementById('sac-pv').value       = document.getElementById('price-pv').value;
+    document.getElementById('sac-i').value         = document.getElementById('price-i').value;
+    document.getElementById('sac-i-anual').value   = document.getElementById('price-i-anual').value;
+    document.getElementById('sac-n').value         = document.getElementById('price-n').value;
+  }
 
   if (isNaN(pv) || pv <= 0) { document.getElementById('resultado-sac').hidden = true; return; }
   if (isNaN(i) || i <= 0)   { document.getElementById('resultado-sac').hidden = true; return; }
   if (isNaN(n) || n < 1)    { document.getElementById('resultado-sac').hidden = true; return; }
-
-  document.getElementById('sac-pv').value       = document.getElementById('price-pv').value;
-  document.getElementById('sac-i').value         = document.getElementById('price-i').value;
-  document.getElementById('sac-i-anual').value   = document.getElementById('price-i-anual').value;
-  document.getElementById('sac-n').value         = document.getElementById('price-n').value;
 
   exibirResultado('sac', gerarTabelaSAC(pv, i, n), false);
 }
@@ -429,6 +440,22 @@ document.addEventListener('DOMContentLoaded', () => {
         : TAXA_MENSAL(v / 100) * 100
       ).toFixed(2).replace('.', ',');
       delete dest.dataset.syncing;
+    });
+  });
+
+  // Botão Escrever — libera campos SAC para edição manual
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-escrever');
+    if (!btn) return;
+    btn.disabled = true;
+    btn.textContent = 'Editando';
+    const card = btn.closest('.card');
+    if (!card) return;
+    const placeholders = { 'sac-pv': '0,00', 'sac-i': '0,00', 'sac-i-anual': '0,00', 'sac-n': '1' };
+    card.querySelectorAll('.card-body input').forEach(inp => {
+      inp.disabled = false;
+      inp.readOnly = false;
+      inp.placeholder = placeholders[inp.id] ?? '';
     });
   });
 
