@@ -242,12 +242,16 @@ function exportarPDF(id) {
   if (!window.jspdf) { alert('Aguarde o carregamento da biblioteca PDF.'); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-  const titulo = id === 'price' ? 'PRICE - Prestações Fixas' : 'SAC - Amortização Constante';
+  const titulo = id === 'price' ? 'PRICE - Prestações fixas' : 'SAC - Prestações decrescentes';
   doc.setFontSize(16);
   doc.text('Calculadora de Financiamento - ' + titulo, 14, 20);
+  doc.setFontSize(10);
+  doc.setTextColor(100);
+  doc.text('https://comparafinanciamento.com.br/', 14, 26);
+  doc.setTextColor(0);
 
   const resumoEl = document.getElementById(`resumo-${id}`);
-  let y = 30;
+  let y = 34;
   if (resumoEl) {
     doc.setFontSize(10);
     resumoEl.querySelectorAll('.resumo-item').forEach(item => {

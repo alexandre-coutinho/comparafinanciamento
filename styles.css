@@ -99,17 +99,6 @@ main {
 
 .card-header h2 { font-size: 1.25rem; font-weight: 800; }
 
-.badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  letter-spacing: 0.04em;
-}
-
-.badge-price { background: var(--primary-light); color: var(--primary); }
-.badge-sac { background: #d1fae5; color: var(--sac-color); }
-
 .card-body { padding: 1.25rem; }
 
 .campo { min-width: 0; }
@@ -475,24 +464,18 @@ footer {
   header { padding: 0.75rem 0.75rem; }
   .header__content { flex-direction: column; align-items: center; gap: 0.5rem; }
   .header__brand h1 { font-size: 1.3rem; }
-  .banner-afiliado { width: 100%; }
-  .fale-conosco_bnt { flex: 1; justify-content: center; }
+  .banner-afiliado { justify-content: center; }
   .header__brand { text-align: center; width: 100%; }
-  .badge { flex: 0 0 100%; text-align: center; }
   .card[data-cenario="sac"] .card-header__inner { flex-wrap: wrap; }
-  .card[data-cenario="sac"] .card-header__inner h2 { order: 1; }
-  .card[data-cenario="sac"] .card-header__inner .badge { order: 2; }
   .card[data-cenario="sac"] .card-header__inner .btn-escrever { order: 3; }
-  .card[data-cenario="price"] .card-header__inner { flex-wrap: wrap; }
-  .card[data-cenario="price"] .card-header__inner h2 { order: 1; }
-  .card[data-cenario="price"] .card-header__inner .badge { order: 2; }
-  .card[data-cenario="price"] .card-header__inner .btn-calcular { order: 3; }
-  .footer__content > div { text-align: center; align-items: center; }
-  .footer__logo { justify-content: center; }
-  .footer__desc { max-width: none; }
-  .footer__dev { align-items: center; text-align: center; }
-  .footer__info ul { text-align: center; }
-  .footer__afiliado { align-items: center; }
+  .footer__content > div { text-align: center !important; align-items: center !important; }
+  .footer__logo { justify-content: center !important; }
+  .footer__desc { max-width: none !important; text-align: center !important; }
+  .footer__dev { align-items: center !important; text-align: center !important; }
+  .footer__info ul { text-align: center !important; }
+  .footer__afiliado { align-items: center !important; }
+  .footer__email { text-align: center !important; }
+  .footer h4 { text-align: center !important; }
   .grafico-wrapper { height: 180px; }
   .resumo { grid-template-columns: 1fr 1fr; }
   .sticky-summary { grid-template-columns: 1fr; }
