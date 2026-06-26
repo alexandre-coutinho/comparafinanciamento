@@ -386,12 +386,6 @@ footer {
 
 .footer__info { text-align: center; }
 
-#btn-abrir-lead-footer {
-  background: var(--primary);
-}
-#btn-abrir-lead-footer:hover {
-  background: #1e40af;
-}
 .footer__info ul { list-style: none; padding: 0; margin: 0; display: inline-block; text-align: left; }
 
 .footer__info li i {
@@ -483,29 +477,54 @@ footer {
   .header__brand { text-align: center; width: 100%; }
   .card[data-cenario="sac"] .card-header__inner { flex-wrap: wrap; }
   .card[data-cenario="sac"] .card-header__inner .btn-escrever { order: 3; }
-  .footer__content > div { text-align: center !important; align-items: center !important; }
   .footer__content {
+    grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+    gap: 1.75rem;
   }
   .footer__content > div {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .footer__logo { justify-content: center !important; }
-  .footer__desc { max-width: none !important; text-align: center !important; }
-  .footer__dev { align-items: center !important; text-align: center !important; }
+  .footer__logo {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer__desc {
+    max-width: 24rem;
+    text-align: center;
+  }
+  .footer__email {
+    margin-top: 0;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
   .footer__info ul {
     display: block;
+    width: 100%;
     text-align: center !important;
   }
   .footer__info li {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
-  .footer__afiliado { align-items: center !important; }
-  .footer__email { text-align: center !important; }
-  .footer h4 { text-align: center !important; }
+  .footer__info li i {
+    margin-right: 0.4rem;
+  }
+  .footer__dev {
+    align-items: center;
+    text-align: center;
+  }
+  .footer h4 {
+    width: 100%;
+    text-align: center;
+  }
   .grafico-wrapper { height: 180px; }
   .resumo { grid-template-columns: 1fr 1fr; }
   .sticky-summary { grid-template-columns: 1fr; }
