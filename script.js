@@ -458,6 +458,11 @@ document.addEventListener('DOMContentLoaded', () => {
       inp.readOnly = false;
       inp.placeholder = placeholders[inp.id] ?? '';
     });
+    document.getElementById('price-pv').value       = document.getElementById('sac-pv').value;
+    document.getElementById('price-i').value         = document.getElementById('sac-i').value;
+    document.getElementById('price-i-anual').value   = document.getElementById('sac-i-anual').value;
+    document.getElementById('price-n').value         = document.getElementById('sac-n').value;
+    calcular('price');
   });
 
   // Botões Calcular (event delegation)
