@@ -485,6 +485,7 @@ footer {
   .footer__content > div { text-align: center; align-items: center; }
   .grafico-wrapper { height: 180px; }
   .resumo { grid-template-columns: 1fr 1fr; }
+  .sticky-summary { grid-template-columns: 1fr; }
   .resumo-item .valor { font-size: 0.9rem; }
   table { font-size: 0.72rem; }
   th, td { padding: 0.3rem 0.4rem; }

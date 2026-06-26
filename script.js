@@ -192,7 +192,7 @@ function renderizarGraficoComparativo() {
       interaction: { intersect: false, mode: 'index' },
       plugins: {
         legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 12, padding: 10, font: { size: 10 } } },
-        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${fmt.moeda(ctx.raw)}` } },
+        tooltip: false,
       },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 20, font: { size: 9 } } },
@@ -226,7 +226,7 @@ function renderizarGrafico(elId, tabela, isPrice) {
       interaction: { intersect: false, mode: 'index' },
       plugins: {
         legend: { position: 'top', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } },
-        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${fmt.moeda(ctx.raw)}` } },
+        tooltip: false,
       },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: { size: 9 } } },
