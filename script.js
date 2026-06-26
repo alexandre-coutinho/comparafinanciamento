@@ -247,22 +247,23 @@ function exportarPDF(id) {
   doc.text('Calculadora de Financiamento - ' + titulo, 14, 20);
 
   const resumoEl = document.getElementById(`resumo-${id}`);
+  let y = 30;
   if (resumoEl) {
     doc.setFontSize(10);
-    let y = 30;
     resumoEl.querySelectorAll('.resumo-item').forEach(item => {
       const label = item.querySelector('.rotulo')?.textContent || '';
       const valor = item.querySelector('.valor')?.textContent || '';
       doc.text(`${label}: ${valor}`, 14, y);
       y += 5;
     });
+    y += 5;
   }
 
   const dados = extrairTabela(`tabela-${id}`);
   if (dados) {
     const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
     doc.autoTable({
-      head: [nomes], body: dados, startY: doc.lastAutoTable?.finalY || 40,
+      head: [nomes], body: dados, startY: y,
       theme: 'grid',
       headStyles: { fillColor: id === 'price' ? [26, 86, 219] : [5, 150, 105], fontSize: 8 },
       bodyStyles: { fontSize: 7 },
@@ -270,7 +271,7 @@ function exportarPDF(id) {
       columnStyles: { 0: { halign: 'center' } },
     });
   }
-  doc.save(`financiamento-${id}.pdf`);
+  doc.save('compara-financiamento.pdf');
 }
 
 function extrairTabela(elId) {
@@ -510,22 +511,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.disabled = true; btn.textContent = 'Enviando...';
 
     const dados = Object.fromEntries(new FormData(form));
-    const msg = [
-      `Compara Financiamento`,
-      ``,
-      `*Nome:* ${dados.nome}`,
-      `*Email:* ${dados.email}`,
-      `*Telefone:* ${dados.telefone}`,
-      `*Tipo:* ${dados.tipo || 'Não informado'}`,
-      `*Valor:* ${dados.valor || 'Não informado'}`,
-      dados.mensagem ? `*Mensagem:* ${dados.mensagem}` : null,
-    ].filter(Boolean).join('\n');
 
     try {
-      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }),
+        body: JSON.stringify(dados),
       });
       if (!res.ok) throw new Error('Erro ao enviar');
       form.reset();
