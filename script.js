@@ -473,7 +473,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = e.target.closest('.btn-calcular');
     if (!btn) return;
     const card = btn.closest('.card');
-    if (card) calcular(card.dataset.cenario);
+    if (!card) return;
+    const sacPv = document.getElementById('sac-pv');
+    if (!sacPv.disabled) {
+      document.getElementById('price-pv').value       = document.getElementById('sac-pv').value;
+      document.getElementById('price-i').value         = document.getElementById('sac-i').value;
+      document.getElementById('price-i-anual').value   = document.getElementById('sac-i-anual').value;
+      document.getElementById('price-n').value         = document.getElementById('sac-n').value;
+    }
+    calcular(card.dataset.cenario);
   });
 
   // Enter nos inputs
