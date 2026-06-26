@@ -510,12 +510,14 @@ footer {
   }
   .footer__info li {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.25rem;
     text-align: center;
   }
   .footer__info li i {
-    margin-right: 0.4rem;
+    margin-right: 0;
   }
   .footer__dev {
     align-items: center;

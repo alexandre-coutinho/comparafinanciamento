@@ -250,18 +250,15 @@ function exportarPDF(id) {
   doc.text('https://comparafinanciamento.com.br/', 14, 26);
   doc.setTextColor(0);
 
-  const resumoEl = document.getElementById(`resumo-${id}`);
   let y = 34;
-  if (resumoEl) {
-    doc.setFontSize(10);
-    resumoEl.querySelectorAll('.resumo-item').forEach(item => {
-      const label = item.querySelector('.rotulo')?.textContent || '';
-      const valor = item.querySelector('.valor')?.textContent || '';
-      doc.text(`${label}: ${valor}`, 14, y);
-      y += 5;
-    });
-    y += 5;
-  }
+  const resumo = obterResumoPDF(id);
+  doc.setFontSize(10);
+  doc.text(`Valor financiado R$: ${resumo.valorFinanciado}     Nº de meses: ${resumo.meses}`, 14, y);
+  y += 5;
+  doc.text(`Total juros: ${resumo.totalJuros}     Taxa mensal (%): ${resumo.taxaMensal}`, 14, y);
+  y += 5;
+  doc.text(`Total pago: ${resumo.totalPago}     Taxa anual (%): ${resumo.taxaAnual}`, 14, y);
+  y += 10;
 
   const dados = extrairTabela(`tabela-${id}`);
   if (dados) {
@@ -276,6 +273,29 @@ function exportarPDF(id) {
     });
   }
   doc.save('compara-financiamento.pdf');
+}
+
+function obterResumoPDF(id) {
+  const resumoEl = document.getElementById(`resumo-${id}`);
+  const resumoItens = Array.from(resumoEl?.querySelectorAll('.resumo-item') || []);
+  const obterValorResumo = (labelBusca) => {
+    const item = resumoItens.find(el => (el.querySelector('.rotulo')?.textContent || '').trim() === labelBusca);
+    return item?.querySelector('.valor')?.textContent || 'R$ 0,00';
+  };
+
+  const valorFinanciado = document.getElementById(`${id}-pv`)?.value || '0,00';
+  const meses = document.getElementById(`${id}-n`)?.value || '0';
+  const taxaMensal = document.getElementById(`${id}-i`)?.value || '0,00';
+  const taxaAnual = document.getElementById(`${id}-i-anual`)?.value || '0,00';
+
+  return {
+    valorFinanciado,
+    meses,
+    taxaMensal,
+    taxaAnual,
+    totalJuros: obterValorResumo('Total juros'),
+    totalPago: obterValorResumo('Total pago'),
+  };
 }
 
 function extrairTabela(elId) {
