@@ -253,11 +253,14 @@ function exportarPDF(id) {
   let y = 34;
   const resumo = obterResumoPDF(id);
   doc.setFontSize(10);
-  doc.text(`Valor financiado R$: ${resumo.valorFinanciado}     Nº de meses: ${resumo.meses}`, 14, y);
+  doc.text(`Valor financiado R$: ${resumo.valorFinanciado}`, 14, y);
+  doc.text(`Nº de meses: ${resumo.meses}`, 115, y);
   y += 5;
-  doc.text(`Total juros: ${resumo.totalJuros}     Taxa mensal (%): ${resumo.taxaMensal}`, 14, y);
+  doc.text(`Total juros: ${resumo.totalJuros}`, 14, y);
+  doc.text(`Taxa mensal (%): ${resumo.taxaMensal}`, 115, y);
   y += 5;
-  doc.text(`Total pago: ${resumo.totalPago}     Taxa anual (%): ${resumo.taxaAnual}`, 14, y);
+  doc.text(`Total pago: ${resumo.totalPago}`, 14, y);
+  doc.text(`Taxa anual (%): ${resumo.taxaAnual}`, 115, y);
   y += 10;
 
   const dados = extrairTabela(`tabela-${id}`);
