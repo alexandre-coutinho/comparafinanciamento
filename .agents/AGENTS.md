@@ -9,6 +9,7 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - `js/script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
 - `js/worker-telegram.js` — Telegram worker
 - `config.js` — Telegram bot token and chat ID (gitignored)
+- `img/logo.png` — logotipo do site
 - `functions/api/lead.js` — Cloudflare Function para envio do lead form
 - `sitemap.xml` / `robots.txt` — SEO files
 - `.gitignore` — excludes `opencode.json` and `config.js` (contain secrets)
@@ -43,6 +44,7 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 /
 ├── index.html            # Página principal
 ├── css/styles.css        # Estilos
+├── img/logo.png          # Logotipo
 ├── js/
 │   ├── script.js         # Lógica do simulador
 │   └── worker-telegram.js
@@ -63,8 +65,8 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - Affiliate banner uses Financia Tudo brand orange `#ff7a30`
 
 ## Affiliates
-- **Financia Tudo**: banner in header (`#btn-abrir-lead`, orange CTA button) + logo + heading in footer (`#btn-abrir-lead-footer`)
-- Both buttons open the lead form modal instead of external links
+- **Financia Tudo**: banner in header (`#btn-abrir-lead`, orange CTA button)
+- O botão no header abre o modal de lead form
 
 ## Dependencies (CDN, defer)
 - Chart.js 4.4.7 (bar+line chart)

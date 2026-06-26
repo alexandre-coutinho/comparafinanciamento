@@ -45,7 +45,11 @@ header {
   gap: 1rem;
 }
 
-.header__brand { text-align: left; }
+.header__brand { text-align: left; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+.header__logo { height: 60px; width: auto; }
+
+.header__brand-text { display: flex; flex-direction: column; }
 
 .header__brand h1 { font-size: 1.75rem; margin-bottom: 0.1rem; }
 .header__brand p { font-size: 0.9rem; opacity: 0.9; }
@@ -328,7 +332,7 @@ footer {
   margin-bottom: 0.75rem;
 }
 
-.footer__logo i { font-size: 1.3rem; color: var(--primary); }
+.footer__logo-img { height: 32px; width: auto; }
 .footer__logo span span { color: #60a5fa; }
 
 .footer__desc {
@@ -472,6 +476,7 @@ footer {
     gap: 0.55rem;
     text-align: center;
   }
+  .header__brand { justify-content: center; }
   .header__brand h1 { font-size: 1.3rem; }
   .header__brand p { text-align: center; }
   .banner-afiliado {
