@@ -1,10 +1,10 @@
 # Compara Financiamento
 
-Calculadora interativa para comparar os sistemas de amortização **PRICE** (prestações fixas) e **SAC** (amortização constante) lado a lado.
+Calculadora interativa para comparar os sistemas de amortização **Tabela PRICE** (prestações fixas) e **Tabela SAC** (amortização constante) lado a lado.
 
 ## Funcionalidades
 
-- Cálculo de PRICE e SAC com preenchimento automático (forneça 3 valores, obtenha o 4º)
+- Cálculo de Tabela PRICE e Tabela SAC com preenchimento automático (forneça 3 valores, obtenha o 4º)
 - Gráfico de amortização com Chart.js
 - Exportação da tabela em PDF
 - Cópia da tabela para a área de transferência

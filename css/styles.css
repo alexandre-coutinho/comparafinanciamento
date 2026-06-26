@@ -124,6 +124,10 @@ main {
   outline: none;
 }
 
+.campo input::placeholder {
+  font-size: 12px;
+}
+
 .campo input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
@@ -146,6 +150,11 @@ main {
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
+}
+
+.card-body .btn-calcular {
+  display: block;
+  margin: 1rem auto 0;
 }
 
 .btn-calcular:hover { background: #1e40af; }
@@ -517,7 +526,7 @@ footer {
     text-align: center;
   }
   .footer__info li i {
-    margin-right: 0;
+    display: none;
   }
   .footer__dev {
     align-items: center;

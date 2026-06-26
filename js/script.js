@@ -142,7 +142,7 @@ function renderizarGraficoComparativo() {
       labels,
       datasets: [
         {
-          label: 'PRICE Prestação',
+          label: 'Tabela PRICE Prestação',
           data: price.tabela.map(r => r.prestacao),
           backgroundColor: 'rgba(26,86,219,0.6)',
           borderColor: '#1a56db',
@@ -151,7 +151,7 @@ function renderizarGraficoComparativo() {
           pointStyle: 'rect',
         },
         {
-          label: 'SAC Prestação',
+          label: 'Tabela SAC Prestação',
           data: sac.tabela.map(r => r.prestacao),
           backgroundColor: 'rgba(5,150,105,0.6)',
           borderColor: '#059669',
@@ -160,7 +160,7 @@ function renderizarGraficoComparativo() {
           pointStyle: 'rect',
         },
         {
-          label: 'PRICE Saldo devedor',
+          label: 'Tabela PRICE Saldo devedor',
           data: price.tabela.map(r => r.saldo),
           type: 'line',
           borderColor: '#1a56db',
@@ -173,7 +173,7 @@ function renderizarGraficoComparativo() {
           pointStyle: 'line',
         },
         {
-          label: 'SAC Saldo devedor',
+          label: 'Tabela SAC Saldo devedor',
           data: sac.tabela.map(r => r.saldo),
           type: 'line',
           borderColor: '#059669',
@@ -242,7 +242,7 @@ function exportarPDF(id) {
   if (!window.jspdf) { alert('Aguarde o carregamento da biblioteca PDF.'); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-  const titulo = id === 'price' ? 'PRICE - Prestações fixas' : 'SAC - Prestações decrescentes';
+  const titulo = id === 'price' ? 'Tabela PRICE - Prestações fixas' : 'Tabela SAC - Prestações decrescentes';
   doc.setFontSize(16);
   doc.text('Calculadora de Financiamento - ' + titulo, 14, 20);
   doc.setFontSize(10);
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Botão Escrever — libera campos SAC para edição manual
+  // Botão Editar — libera campos SAC para edição manual
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-escrever');
     if (!btn) return;

@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compara Financiamento — Simulador PRICE vs SAC</title>
-  <meta name="description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização do seu financiamento gratuitamente.">
-  <meta name="keywords" content="calculadora financiamento, simular financiamento, PRICE, SAC, tabela price, sistema sac, amortização, simulador financiamento imobiliário">
+  <title>Compara Financiamento — Simulador Tabela PRICE vs Tabela SAC</title>
+  <meta name="description" content="Compare Tabela PRICE e Tabela SAC lado a lado. Simule prestações, juros e amortização do seu financiamento gratuitamente.">
+  <meta name="keywords" content="calculadora financiamento, simular financiamento, Tabela PRICE, Tabela SAC, tabela price, sistema sac, amortização, simulador financiamento imobiliário">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://comparafinanciamento.com.br/">
 
-  <meta property="og:title" content="Compara Financiamento — Simulador PRICE vs SAC">
-  <meta property="og:description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
+  <meta property="og:title" content="Compara Financiamento — Simulador Tabela PRICE vs Tabela SAC">
+  <meta property="og:description" content="Compare Tabela PRICE e Tabela SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
   <meta property="og:url" content="https://comparafinanciamento.com.br/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Compara Financiamento — Simulador PRICE vs SAC">
-  <meta name="twitter:description" content="Compare PRICE e SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
+  <meta name="twitter:title" content="Compara Financiamento — Simulador Tabela PRICE vs Tabela SAC">
+  <meta name="twitter:description" content="Compare Tabela PRICE e Tabela SAC lado a lado. Simule prestações, juros e amortização gratuitamente.">
 
   <script type="application/ld+json">
   {
@@ -25,7 +25,7 @@
     "@type": "WebApplication",
     "name": "Compara Financiamento",
     "url": "https://comparafinanciamento.com.br/",
-    "description": "Simulador de financiamento que compara os sistemas PRICE e SAC lado a lado.",
+    "description": "Simulador de financiamento que compara os sistemas Tabela PRICE e Tabela SAC lado a lado.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -38,7 +38,7 @@
   </script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js" defer></script>
@@ -48,7 +48,7 @@
     <div class="header__content">
       <div class="header__brand">
         <h1>Compara Financiamento</h1>
-        <p>Compare os sistemas <strong>PRICE</strong> e <strong>SAC</strong></p>
+        <p>Compare os sistemas <strong>Tabela PRICE</strong> e <strong>Tabela SAC</strong></p>
       </div>
       <div class="banner-afiliado">
         <span class="banner-afiliado__texto">Precisa de crédito?</span>
@@ -58,12 +58,11 @@
   </header>
 
   <main>
-    <!-- PRICE -->
+    <!-- Tabela PRICE -->
     <div class="card" data-cenario="price">
       <div class="card-header">
         <div class="card-header__inner">
-          <h2>PRICE</h2>
-          <button class="btn-calcular">Calcular</button>
+          <h2>Tabela PRICE</h2>
         </div>
       </div>
       <div class="card-body">
@@ -102,15 +101,16 @@
             <button class="btn-copiar">Copiar tabela</button>
           </div>
         </div>
+        <button class="btn-calcular">Calcular</button>
       </div>
     </div>
 
-    <!-- SAC -->
+    <!-- Tabela SAC -->
     <div class="card" data-cenario="sac">
       <div class="card-header">
         <div class="card-header__inner">
-          <button class="btn-escrever">Escrever</button>
-          <h2>SAC</h2>
+          <button class="btn-escrever">Editar</button>
+          <h2>Tabela SAC</h2>
         </div>
       </div>
       <div class="card-body">
@@ -143,12 +143,13 @@
             <button class="btn-copiar">Copiar tabela</button>
           </div>
         </div>
+        <button class="btn-calcular">Calcular</button>
       </div>
     </div>
     <!-- Comparativo -->
     <div class="card card-comparativo" id="card-comparativo" hidden>
       <div class="card-header">
-        <h2>Comparativo PRICE × SAC</h2>
+        <h2>Comparativo Tabela PRICE × Tabela SAC</h2>
       </div>
       <div class="card-body">
         <div class="grafico-wrapper grafico-wrapper--comparativo">
@@ -195,10 +196,6 @@
         </div>
         <p class="footer__desc">Simule prestações, juros, amortização de forma rápida e gratuita.</p>
       </div>
-      <div class="footer__afiliado">
-        <h4>ENTRE EM CONTATO</h4>
-        <p class="footer__email"><a href="mailto:suporte@comparafinanciamento.com.br">suporte@comparafinanciamento.com.br</a></p>
-      </div>
       <div class="footer__info">
         <h4>O QUE FAZEMOS</h4>
         <ul>
@@ -206,6 +203,10 @@
           <li><i class="fas fa-chart-bar"></i> Gráficos</li>
           <li><i class="fas fa-file-pdf"></i> Exportação em PDF</li>
         </ul>
+      </div>
+      <div class="footer__afiliado">
+        <h4>ENTRE EM CONTATO</h4>
+        <p class="footer__email"><a href="mailto:suporte@comparafinanciamento.com.br">suporte@comparafinanciamento.com.br</a></p>
       </div>
       <div class="footer__dev">
         <h4>Desenvolvido por</h4>
@@ -219,6 +220,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

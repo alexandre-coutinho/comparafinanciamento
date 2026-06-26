@@ -1,14 +1,16 @@
-# Compara Financiamento (PRICE vs SAC) — Agent Guidelines
+# Compara Financiamento (Tabela PRICE vs Tabela SAC) — Agent Guidelines
 
 ## Project Overview
-Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (amortização constante) loan amortization systems side-by-side. Domain: `comparafinanciamento.com.br`.
+Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and Tabela SAC (amortização constante) loan amortization systems side-by-side. Domain: `comparafinanciamento.com.br`.
 
 ## Key Files
 - `index.html` — page structure (2 cards, sticky header with affiliate banner, footer with 4 columns)
-- `styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
-- `script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
+- `css/styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
+- `js/script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
+- `js/worker-telegram.js` — Telegram worker
 - `config.js` — Telegram bot token and chat ID (gitignored)
-- `sitemap.xml` / `robots.txt` / `README.md` — SEO files
+- `functions/api/lead.js` — Cloudflare Function para envio do lead form
+- `sitemap.xml` / `robots.txt` — SEO files
 - `.gitignore` — excludes `opencode.json` and `config.js` (contain secrets)
 
 ## Lead Capture (Telegram)
@@ -18,7 +20,7 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 - Botões "Fale conosco" no header e footer abrem o modal
 - Sucesso → `alert('Mensagem enviada.')`; erro → `alert('Erro ao enviar...')`
 
-## Architecture (script.js sections, 514 lines)
+## Architecture (js/script.js sections, 574 lines)
 | Section | Lines | Description |
 |---------|-------|-------------|
 | FINANCE | 1-80 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
@@ -27,14 +29,29 @@ Static HTML + CSS + JS site that compares PRICE (prestações fixas) and SAC (am
 | GRAFICO | 124-238 | Chart.js — `renderizarGraficoComparativo`, `renderizarGrafico` |
 | PDF / COPIAR | 240-305 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
 | CALCULAR | 307-387 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
-| INIT | 389-514 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
+| INIT | 389-574 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
 
 ## Finance Logic
-- PRICE: `PMT = PV * i * (1+i)^n / ((1+i)^n - 1)`. Fill-3-get-4th: any 3 of PV, i, n, PMT → calculates the missing one.
-- SAC: amortization = PV/n (constant), payment = amort + interest (decreasing).
+- Tabela PRICE: `PMT = PV * i * (1+i)^n / ((1+i)^n - 1)`. Fill-3-get-4th: any 3 of PV, i, n, PMT → calculates the missing one.
+- Tabela SAC: amortization = PV/n (constant), payment = amort + interest (decreasing).
 - `iPrice` uses binary search with dynamic hi (starts at 0.01, doubles until bracket, 200 iterations, tolerance ~1e-6 on PMT). Sem limite fixo.
 - Monthly ↔ Annual: `(1+i)^12 - 1` and `(1+ia)^(1/12) - 1`.
 - `fmt.pctInput`: converts decimal rate to "0,00" format for display.
+
+## Folder Structure
+```
+/
+├── index.html            # Página principal
+├── css/styles.css        # Estilos
+├── js/
+│   ├── script.js         # Lógica do simulador
+│   └── worker-telegram.js
+├── functions/api/lead.js # Cloudflare Function
+├── .agents/              # Agentes e guidelines
+├── config.js             # Telegram secrets (gitignored)
+├── robots.txt / sitemap.xml
+└── .gitignore
+```
 
 ## Styling
 - CSS custom properties for colors/theming
