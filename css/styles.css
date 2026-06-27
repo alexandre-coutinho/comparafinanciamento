@@ -625,6 +625,11 @@ footer {
 /* FAQ */
 .card-faq {
   grid-column: 1 / -1;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
 }
 
 .faq-list {
