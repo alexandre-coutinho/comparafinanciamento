@@ -7,7 +7,6 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - `index.html` — page structure (2 cards, sticky header with affiliate banner, footer with 4 columns)
 - `css/styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
 - `js/script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
-- `js/worker-telegram.js` — Telegram worker
 - `config.js` — Telegram bot token and chat ID (gitignored)
 - `img/logo.png` — logotipo do site
 - `functions/api/lead.js` — Cloudflare Function para envio do lead form
@@ -26,9 +25,9 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 |---------|-------|-------------|
 | FINANCE | 1-80 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
 | FORMAT | 82-97 | `fmt.moeda`, `fmt.numero`, `fmt.pctInput`, `parseMoeda`, `parsePct` |
-| UI | 98-122 | `exibirResultado`, `renderizarTabela`, `renderizarGrafico`, `mostrarToast` |
-| GRAFICO | 124-238 | Chart.js — `renderizarGraficoComparativo`, `renderizarGrafico` |
-| PDF / COPIAR | 240-305 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
+| UI | 98-122 | `exibirResultado`, `renderizarTabela`, `mostrarToast` |
+| GRAFICO | 124-204 | Chart.js — `renderizarGraficoComparativo` |
+| PDF / COPIAR | 206-271 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
 | CALCULAR | 307-387 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
 | INIT | 389-574 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
 
@@ -46,8 +45,7 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 ├── css/styles.css        # Estilos
 ├── img/logo.png          # Logotipo
 ├── js/
-│   ├── script.js         # Lógica do simulador
-│   └── worker-telegram.js
+│   └── script.js         # Lógica do simulador
 ├── functions/api/lead.js # Cloudflare Function
 ├── .agents/              # Agentes e guidelines
 ├── config.js             # Telegram secrets (gitignored)

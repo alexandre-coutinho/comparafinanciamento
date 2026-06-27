@@ -88,7 +88,7 @@
         <div class="rate-row">
           <div class="campo">
             <label for="price-n">Nº de meses</label>
-            <input type="number" id="price-n" class="numero" placeholder="1" min="1" step="1">
+            <input type="text" id="price-n" class="numero" placeholder="1" inputmode="numeric">
           </div>
           <div class="campo">
             <label for="price-pmt">Valor da prestação (R$)</label>
@@ -96,8 +96,8 @@
           </div>
         </div>
 
-        <div class="sticky-summary" id="resumo-price" hidden></div>
-        <div class="resultado" id="resultado-price" hidden>
+        <div class="sticky-summary" id="resumo-price" aria-live="polite" hidden></div>
+        <div class="resultado" id="resultado-price" aria-live="polite" hidden>
           <div class="tabela-wrapper">
             <table id="tabela-price"></table>
           </div>
@@ -135,11 +135,11 @@
         </div>
         <div class="campo">
           <label for="sac-n">Nº de meses</label>
-          <input type="number" id="sac-n" class="numero" placeholder="1" min="1" step="1">
+          <input type="text" id="sac-n" class="numero" placeholder="1" inputmode="numeric">
         </div>
 
-        <div class="sticky-summary" id="resumo-sac" hidden></div>
-        <div class="resultado" id="resultado-sac" hidden>
+        <div class="sticky-summary" id="resumo-sac" aria-live="polite" hidden></div>
+        <div class="resultado" id="resultado-sac" aria-live="polite" hidden>
           <div class="tabela-wrapper">
             <table id="tabela-sac"></table>
           </div>
@@ -171,11 +171,11 @@
       <h3>Solicitar Simulação</h3>
       <p class="modal__sub">Preencha seus dados que entraremos em contato.</p>
       <form id="form-lead">
-        <label>Nome *<input type="text" name="nome" required></label>
-        <label>Email *<input type="email" name="email" required></label>
-        <label>Telefone (WhatsApp) *<input type="tel" name="telefone" required></label>
-        <label>Tipo
-          <select name="tipo">
+        <label for="lead-nome">Nome *<input type="text" id="lead-nome" name="nome" required></label>
+        <label for="lead-email">Email *<input type="email" id="lead-email" name="email" required></label>
+        <label for="lead-telefone">Telefone (WhatsApp) *<input type="tel" id="lead-telefone" name="telefone" required></label>
+        <label for="lead-tipo">Tipo
+          <select id="lead-tipo" name="tipo">
             <option value="">Selecione</option>
             <option value="Casa">Casa</option>
             <option value="Terreno">Terreno</option>
@@ -185,8 +185,8 @@
             <option value="Outro">Outro</option>
           </select>
         </label>
-        <label>Valor desejado <input type="text" name="valor" placeholder="R$ 0,00"></label>
-        <label>Mensagem (opcional)<textarea name="mensagem" rows="3"></textarea></label>
+        <label for="lead-valor">Valor desejado <input type="text" id="lead-valor" name="valor" placeholder="R$ 0,00"></label>
+        <label for="lead-mensagem">Mensagem (opcional)<textarea id="lead-mensagem" name="mensagem" rows="3"></textarea></label>
         <button type="submit" class="modal__submit">Enviar</button>
       </form>
     </div>

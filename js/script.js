@@ -203,40 +203,6 @@ function renderizarGraficoComparativo() {
   });
 }
 
-function renderizarGrafico(elId, tabela, isPrice) {
-  const canvas = document.getElementById(elId);
-  if (charts[elId]) { charts[elId].destroy(); delete charts[elId]; }
-  if (!canvas) return;
-
-  const hoje = new Date().toLocaleDateString('pt-BR');
-  const cor = isPrice ? '#1a56db' : '#059669';
-  const corClara = isPrice ? 'rgba(26,86,219,0.12)' : 'rgba(5,150,105,0.12)';
-
-  charts[elId] = new Chart(canvas.getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: tabela.map(r => r.mes),
-      datasets: [
-        { label: 'Prestação', data: tabela.map(r => r.prestacao), backgroundColor: corClara, borderColor: cor, borderWidth: 1, order: 2 },
-        { label: 'Saldo devedor', data: tabela.map(r => r.saldo), type: 'line', borderColor: '#1e293b', backgroundColor: 'rgba(30,41,59,0.15)', fill: true, borderWidth: 2, pointRadius: 2, pointHitRadius: 10, order: 1, yAxisID: 'y1' },
-      ],
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { position: 'top', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } },
-        tooltip: false,
-      },
-      scales: {
-        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: { size: 9 } } },
-        y: { beginAtZero: true, position: 'left', ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
-        y1: { beginAtZero: true, position: 'right', grid: { display: false }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
-      },
-    },
-  });
-}
-
 // ===== PDF =====
 function exportarPDF(id) {
   if (!window.jspdf) { alert('Aguarde o carregamento da biblioteca PDF.'); return; }
@@ -424,6 +390,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!inp.value) return;
       const v = parseMoeda(inp.value);
       if (!isNaN(v)) inp.value = fmt.numero(Math.round(v * 100) / 100);
+    });
+  });
+
+  // Máscara número inteiro no blur
+  document.querySelectorAll('.numero').forEach(inp => {
+    inp.addEventListener('blur', () => {
+      if (!inp.value) return;
+      const v = parseInt(inp.value.replace(/\D/g, ''), 10);
+      if (!isNaN(v) && v >= 1) inp.value = v;
     });
   });
 
