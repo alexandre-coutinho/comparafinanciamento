@@ -614,6 +614,14 @@ footer {
 .modal__submit:hover { background: #1e40af; }
 .modal__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
+.lgpd-notice {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.4;
+}
+
 /* FAQ */
 .card-faq {
   grid-column: 1 / -1;
