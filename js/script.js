@@ -454,6 +454,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const resultado = card.querySelector('.resultado');
     if (resultado) resultado.hidden = true;
+    const id = card.dataset.cenario;
+    const resumo = document.getElementById(`resumo-${id}`);
+    if (resumo) resumo.hidden = true;
     const comparativo = document.getElementById('card-comparativo');
     if (comparativo) comparativo.hidden = true;
   });
