@@ -196,8 +196,8 @@ function renderizarGraficoComparativo() {
       },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 20, font: { size: 9 } } },
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Prestação', font: { size: 10 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
-        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: true, text: 'Saldo devedor', font: { size: 10 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Prestação', font: { size: 10 }, padding: { right: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: true, text: 'Saldo devedor', font: { size: 10 }, padding: { left: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
       },
     },
   });
@@ -351,17 +351,19 @@ function validarPrice(pv, i, n, pmt, chave) {
 }
 
 function calcularPrice() {
-  const pv  = parseMoeda(document.getElementById('price-pv').value);
-  const i   = parsePct(document.getElementById('price-i').value);
-  const n   = parseInt(document.getElementById('price-n').value, 10);
-  const pmt = parseMoeda(document.getElementById('price-pmt').value);
+  let pv  = parseMoeda(document.getElementById('price-pv').value);
+  let i   = parsePct(document.getElementById('price-i').value);
+  let n   = parseInt(document.getElementById('price-n').value, 10);
+  let pmt = parseMoeda(document.getElementById('price-pmt').value);
 
-  if (isNaN(pv) && isNaN(i) && isNaN(n) && isNaN(pmt)) {
-    alert('Preencha pelo menos 3 campos.'); return;
+  if (isNaN(i)) {
+    i = 0.02;
+    document.getElementById('price-i').value = fmt.pctInput(i);
+    document.getElementById('price-i-anual').value = fmt.pctInput(TAXA_ANUAL(i));
   }
 
   const faltante = findFaltante({ pv, i, n, pmt });
-  if (!faltante) { alert('Preencha pelo menos 3 campos.'); return; }
+  if (!faltante) return;
   if (!validarPrice(pv, i, n, pmt, faltante)) {
     alert('Verifique os campos preenchidos. O campo deixado em branco será calculado.'); return;
   }
@@ -391,28 +393,17 @@ function calcularPrice() {
   document.getElementById('price-i-anual').value = fmt.pctInput(TAXA_ANUAL(iR));
 
   exibirResultado('price', gerarTabelaPrice(pvR, iR, nR, pmtR), true);
-  calcularSAC();
 }
 
 function calcularSAC() {
-  const sacPv = document.getElementById('sac-pv');
-  const independente = !sacPv.disabled;
+  const pv = parseMoeda(document.getElementById('sac-pv').value);
+  let i  = parsePct(document.getElementById('sac-i').value);
+  const n  = parseInt(document.getElementById('sac-n').value, 10);
 
-  let pv, i, n;
-
-  if (independente) {
-    pv = parseMoeda(sacPv.value);
-    i  = parsePct(document.getElementById('sac-i').value);
-    n  = parseInt(document.getElementById('sac-n').value, 10);
-  } else {
-    pv = parseMoeda(document.getElementById('price-pv').value);
-    i  = parsePct(document.getElementById('price-i').value);
-    n  = parseInt(document.getElementById('price-n').value, 10);
-
-    document.getElementById('sac-pv').value       = document.getElementById('price-pv').value;
-    document.getElementById('sac-i').value         = document.getElementById('price-i').value;
-    document.getElementById('sac-i-anual').value   = document.getElementById('price-i-anual').value;
-    document.getElementById('sac-n').value         = document.getElementById('price-n').value;
+  if (isNaN(i)) {
+    i = 0.02;
+    document.getElementById('sac-i').value = fmt.pctInput(i);
+    document.getElementById('sac-i-anual').value = fmt.pctInput(TAXA_ANUAL(i));
   }
 
   if (isNaN(pv) || pv <= 0) { document.getElementById('resultado-sac').hidden = true; return; }
@@ -471,28 +462,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Botão Editar — libera campos SAC para edição manual
+  // Botão Editar — redefine valores padrão
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-escrever');
     if (!btn) return;
-    btn.disabled = true;
-    btn.textContent = 'Editando';
     const card = btn.closest('.card');
     if (!card) return;
-    const placeholders = { 'sac-pv': '0,00', 'sac-i': '0,00', 'sac-i-anual': '0,00', 'sac-n': '1' };
+    const defaults = { 'pv': '0,00', 'i': '2,00', 'i-anual': '0,00', 'n': '1', 'pmt': '0,00' };
+    const placeholders = { 'sac-pv': '0,00', 'sac-i': '2,00', 'sac-i-anual': '0,00', 'sac-n': '1' };
     card.querySelectorAll('.card-body input').forEach(inp => {
+      const key = inp.id.replace(/^(price|sac)-/, '');
+      inp.value = defaults[key] ?? '';
       inp.disabled = false;
       inp.readOnly = false;
       inp.placeholder = placeholders[inp.id] ?? '';
     });
-    const pv = parseMoeda(document.getElementById('sac-pv').value);
-    if (!isNaN(pv)) {
-      document.getElementById('price-pv').value       = document.getElementById('sac-pv').value;
-      document.getElementById('price-i').value         = document.getElementById('sac-i').value;
-      document.getElementById('price-i-anual').value   = document.getElementById('sac-i-anual').value;
-      document.getElementById('price-n').value         = document.getElementById('sac-n').value;
-      calcular('price');
-    }
+    const resultado = card.querySelector('.resultado');
+    if (resultado) resultado.hidden = true;
+    const comparativo = document.getElementById('card-comparativo');
+    if (comparativo) comparativo.hidden = true;
   });
 
   // Botões Calcular (event delegation)
@@ -501,13 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
     const card = btn.closest('.card');
     if (!card) return;
-    const sacPv = document.getElementById('sac-pv');
-    if (!sacPv.disabled) {
-      document.getElementById('price-pv').value       = document.getElementById('sac-pv').value;
-      document.getElementById('price-i').value         = document.getElementById('sac-i').value;
-      document.getElementById('price-i-anual').value   = document.getElementById('sac-i-anual').value;
-      document.getElementById('price-n').value         = document.getElementById('sac-n').value;
-    }
     calcular(card.dataset.cenario);
   });
 

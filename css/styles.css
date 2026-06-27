@@ -120,7 +120,7 @@ main {
   padding: 0.6rem 0.75rem;
   border: 1.5px solid var(--border);
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-family: var(--font);
   color: var(--text);
   background: #fff;
@@ -129,7 +129,7 @@ main {
 }
 
 .campo input::placeholder {
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 
 .campo input:focus {
@@ -162,21 +162,30 @@ main {
 }
 
 .btn-calcular:hover { background: #1e40af; }
-.btn-calcular:active { transform: scale(0.98); }
 
 .btn-escrever {
   padding: 0.5rem 1.25rem;
-  border: 1.5px solid var(--sac-color);
   border-radius: 8px;
   background: transparent;
-  color: var(--sac-color);
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 0.04em;
 }
-.btn-escrever:hover {
+.card[data-cenario="price"] .btn-escrever {
+  border: 1.5px solid var(--price-color);
+  color: var(--price-color);
+}
+.card[data-cenario="price"] .btn-escrever:hover {
+  background: var(--price-color);
+  color: #fff;
+}
+.card[data-cenario="sac"] .btn-escrever {
+  border: 1.5px solid var(--sac-color);
+  color: var(--sac-color);
+}
+.card[data-cenario="sac"] .btn-escrever:hover {
   background: var(--sac-color);
   color: #fff;
 }
@@ -489,8 +498,8 @@ footer {
     line-height: 1.2;
   }
   .header__brand { text-align: center; width: 100%; }
-  .card[data-cenario="sac"] .card-header__inner { flex-wrap: wrap; }
-  .card[data-cenario="sac"] .card-header__inner .btn-escrever { order: 3; }
+  .card .card-header__inner { flex-wrap: wrap; }
+  .card .card-header__inner .btn-escrever { order: 3; }
   .footer__content {
     grid-template-columns: 1fr;
     justify-items: center;
