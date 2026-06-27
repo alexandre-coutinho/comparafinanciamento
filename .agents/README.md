@@ -4,7 +4,7 @@ Calculadora interativa para comparar os sistemas de amortização **Tabela PRICE
 
 ## Funcionalidades
 
-- Cálculo de Tabela PRICE e Tabela SAC com preenchimento automático (forneça 3 valores, obtenha o 4º)
+- Cálculo de Tabela PRICE e Tabela SAC com preenchimento automático (forneça 2 valores, obtenha o 4º)
 - Gráfico de amortização com Chart.js
 - Exportação da tabela em PDF
 - Cópia da tabela para a área de transferência

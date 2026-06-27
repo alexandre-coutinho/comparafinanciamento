@@ -4,9 +4,9 @@
 Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and Tabela SAC (amortização constante) loan amortization systems side-by-side. Domain: `comparafinanciamento.com.br`.
 
 ## Key Files
-- `index.html` — page structure (2 cards, sticky header with affiliate banner, footer with 4 columns)
-- `css/styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming
-- `js/script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks, lead form
+- `index.html` — page structure (2 cards, FAQ accordion, sticky header with affiliate banner, footer with 4 columns, lead form modal com LGPD notice)
+- `css/styles.css` — responsive grid (2-column ≥992px), sticky header, dark footer, toast, BEM naming, FAQ accordion
+- `js/script.js` — all logic: finance formulas, chart (Chart.js), PDF (jsPDF), clipboard, rate sync, masks (`.numero` incluído), lead form
 - `config.js` — Telegram bot token and chat ID (gitignored)
 - `img/logo.png` — logotipo do site
 - `functions/api/lead.js` — Cloudflare Function para envio do lead form
@@ -20,16 +20,16 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - Botões "Fale conosco" no header e footer abrem o modal
 - Sucesso → `alert('Mensagem enviada.')`; erro → `alert('Erro ao enviar...')`
 
-## Architecture (js/script.js sections, 574 lines)
+## Architecture (js/script.js sections, 533 lines)
 | Section | Lines | Description |
 |---------|-------|-------------|
 | FINANCE | 1-80 | Pure functions: `pmtPrice`, `pvPrice`, `nPrice`, `iPrice`, `gerarTabelaPrice`, `gerarTabelaSAC` |
 | FORMAT | 82-97 | `fmt.moeda`, `fmt.numero`, `fmt.pctInput`, `parseMoeda`, `parsePct` |
 | UI | 98-122 | `exibirResultado`, `renderizarTabela`, `mostrarToast` |
 | GRAFICO | 124-204 | Chart.js — `renderizarGraficoComparativo` |
-| PDF / COPIAR | 206-271 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
-| CALCULAR | 307-387 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
-| INIT | 389-574 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
+| PDF / COPIAR | 206-299 | `exportarPDF`, `copiarTabela`, `mostrarToast`, helpers |
+| CALCULAR | 301-383 | `findFaltante`, `validarPrice`, `calcularPrice`, `calcularSAC`, `calcular` (dispatch) |
+| INIT | 385-533 | `DOMContentLoaded`: masks, rate sync, event delegation, lead form |
 
 ## Finance Logic
 - Tabela PRICE: `PMT = PV * i * (1+i)^n / ((1+i)^n - 1)`. Fill-3-get-4th: any 3 of PV, i, n, PMT → calculates the missing one.
@@ -41,6 +41,7 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 ## Folder Structure
 ```
 /
+├── README.md              # Documentação do projeto
 ├── index.html            # Página principal
 ├── css/styles.css        # Estilos
 ├── img/logo.png          # Logotipo
@@ -74,7 +75,8 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 ## SEO
 - Domain: `comparafinanciamento.com.br`
 - Open Graph + Twitter Card meta tags
-- JSON-LD structured data (WebApplication, FinanceApplication)
+- JSON-LD structured data (WebApplication + FAQPage schemas)
+- Seção FAQ visível na página (~4 perguntas, `<details>` accordion) com termos PRICE (azul) e SAC (verde) destacados
 - `sitemap.xml` + `robots.txt`
 
 ## .gitignore
@@ -86,4 +88,6 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - Chart instances destroyed before recreate to avoid memory leaks
 - `calcular()` dispatches via `CALCULATORS` map — add new key for new amortization systems
 - All monetary values use `pt-BR` locale (comma decimal, period thousands)
+- `.numero` mask (`blur`): strips non-digits from `#price-n`/`#sac-n`, enforcing integer ≥ 1
 - Lead form success usa `alert()` em vez de toast porque o modal fechava antes do toast aparecer
+- Botão "Editar" oculta `.resultado`, `#resumo-*` e `#card-comparativo`
