@@ -23,17 +23,90 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O que é melhor: Tabela PRICE ou Tabela SAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende do seu perfil. A Tabela PRICE tem prestações fixas do início ao fim, ideal para quem planeja o orçamento com previsibilidade. A Tabela SAC começa com prestações mais altas que diminuem com o tempo, ideal para quem espera aumento de renda ou quer pagar menos juros totais. No final, a SAC quase sempre resulta em menos juros pagos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como calcular a primeira parcela da Tabela SAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Na Tabela SAC a amortização é constante: divida o valor financiado pelo número de meses (PV ÷ n). A primeira prestação é essa amortização mais os juros sobre o saldo devedor total. Exemplo: R$ 100.000 em 240 meses a 0,8% ao mês → amortização de R$ 416,67 + juros de R$ 800,00 = primeira parcela de R$ 1.216,67."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual tabela escolher para financiamento imobiliário?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A maioria dos bancos brasileiros oferece a Tabela SAC como padrão para financiamento imobiliário, pois o saldo devedor cai mais rápido e os juros totais são menores. A Tabela PRICE é mais comum em financiamentos de veículos e crédito pessoal. Use o simulador para comparar os dois sistemas lado a lado com seus números reais."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual a diferença entre Tabela PRICE e Tabela SAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A diferença principal está na regra de amortização. Na PRICE, a prestação é fixa: você paga o mesmo valor todo mês, com uma parcela crescente de amortização e decrescente de juros. Na SAC, a amortização é fixa: você paga o mesmo valor de amortização todo mês, e os juros diminuem conforme o saldo cai, resultando em prestações decrescentes."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Compara Financiamento",
     "url": "https://comparafinanciamento.com.br/",
-    "description": "Simulador de financiamento que compara os sistemas Tabela PRICE e Tabela SAC lado a lado.",
+    "description": "Simule e compare Tabela PRICE vs Tabela SAC lado a lado. Calcule prestações, juros totais, amortização e saldo devedor do seu financiamento gratuitamente.",
     "applicationCategory": "FinanceApplication",
+    "applicationSubCategory": "Loan Amortization Calculator",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
+    "inLanguage": "pt-BR",
+    "featureList": [
+      "Cálculo Tabela PRICE com prestações fixas",
+      "Cálculo Tabela SAC com amortização constante",
+      "Comparativo lado a lado com gráfico interativo",
+      "Exportação de tabela em PDF",
+      "Cópia de tabela para área de transferência",
+      "Simulação com qualquer 3 de 4 campos (PV, i, n, PMT)"
+    ],
+    "image": "https://comparafinanciamento.com.br/img/logo.png",
+    "author": {
+      "@type": "Person",
+      "name": "Compara Financiamento"
+    },
+    "dateModified": "2026-06-27",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "BRL"
+    },
+    "potentialAction": {
+      "@type": "UseAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://comparafinanciamento.com.br/",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "expects": {
+        "@type": "PropertyValue",
+        "name": "PV, i, n, PMT",
+        "description": "Preencha 3 dos 4 campos (valor financiado, taxa mensal, número de meses, valor da prestação) para calcular o restante."
+      }
     }
   }
   </script>
@@ -163,6 +236,31 @@
       </div>
     </div>
   </main>
+
+  <!-- FAQ -->
+  <section class="card card-faq" aria-label="Perguntas frequentes sobre Tabela PRICE e SAC">
+    <div class="card-header">
+      <h2>Perguntas Frequentes sobre PRICE e SAC</h2>
+    </div>
+    <div class="card-body faq-list">
+      <details class="faq-item" name="faq">
+        <summary>O que é melhor: Tabela PRICE ou Tabela SAC?</summary>
+        <p>Depende do seu perfil. A <strong>Tabela PRICE</strong> tem prestações fixas do início ao fim — ideal para quem planeja o orçamento com previsibilidade. A <strong>Tabela SAC</strong> começa com prestações mais altas, que diminuem com o tempo — ideal para quem espera aumento de renda ou quer pagar menos juros totais. No final, a SAC quase sempre resulta em menos juros pagos.</p>
+      </details>
+      <details class="faq-item" name="faq">
+        <summary>Como calcular a primeira parcela da Tabela SAC?</summary>
+        <p>Na Tabela SAC a amortização é constante: divida o valor financiado pelo número de meses (PV ÷ n). A primeira prestação é essa amortização mais os juros sobre o saldo devedor total. Exemplo: R$ 100.000 em 240 meses a 0,8% ao mês → amortização de R$ 416,67 + juros de R$ 800,00 = primeira parcela de R$ 1.216,67.</p>
+      </details>
+      <details class="faq-item" name="faq">
+        <summary>Qual tabela escolher para financiamento imobiliário?</summary>
+        <p>A maioria dos bancos brasileiros oferece a <strong>Tabela SAC</strong> como padrão para financiamento imobiliário, pois o saldo devedor cai mais rápido e os juros totais são menores. A Tabela PRICE é mais comum em financiamentos de veículos e crédito pessoal. Use o simulador acima para comparar os dois sistemas lado a lado com seus números reais.</p>
+      </details>
+      <details class="faq-item" name="faq">
+        <summary>Qual a diferença entre Tabela PRICE e Tabela SAC?</summary>
+        <p>A diferença principal está na regra de amortização. Na <strong>PRICE</strong>, a prestação é fixa: você paga o mesmo valor todo mês, com uma parcela crescente de amortização e decrescente de juros. Na <strong>SAC</strong>, a amortização é fixa: você paga o mesmo valor de amortização todo mês, e os juros diminuem conforme o saldo cai — resultando em prestações decrescentes.</p>
+      </details>
+    </div>
+  </section>
 
   <!-- Lead form modal -->
   <div class="modal-overlay" id="modal-lead" hidden>

@@ -60,11 +60,11 @@ Static HTML + CSS + JS site that compares Tabela PRICE (prestações fixas) and 
 - Modal overlay z-index 1000, form dentro usa inputs/select/textarea padronizados
 - Header: blue gradient with flexbox layout (brand left, affiliate CTA right)
 - Footer: dark gradient (`#1e293b → #0f172a`), 4-column grid on desktop (≥768px), stacked on mobile
-- Affiliate banner uses Financia Tudo brand orange `#ff7a30`
+- CTA button in header uses orange `#ff7a30`
 
-## Affiliates
-- **Financia Tudo**: banner in header (`#btn-abrir-lead`, orange CTA button)
-- O botão no header abre o modal de lead form
+## Lead Capture
+- Banner "Precisa de crédito? Fale conosco" no header (`#btn-abrir-lead`, orange CTA button)
+- Abre o modal de lead form que envia dados para o Telegram
 
 ## Dependencies (CDN, defer)
 - Chart.js 4.4.7 (bar+line chart)
