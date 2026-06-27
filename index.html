@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Tabela PRICE vs SAC — Simulador de Financiamento Grátis</title>
-  <meta name="description" content="Compare Tabela PRICE e Tabela SAC lado a lado nesta calculadora de financiamento grátis. Simule prestações, juros, amortização e descubra qual a melhor opção para seu imóvel ou veículo.">
+  <title>PRICE vs SAC — Simulador de Financiamento Grátis</title>
+  <meta name="description" content="Compare Tabela PRICE e SAC lado a lado. Simule prestações, juros e amortização e descubra a melhor opção para seu financiamento imobiliário ou veículo.">
   <meta name="keywords" content="calculadora financiamento, simular financiamento, Tabela PRICE, Tabela SAC, tabela price, sistema sac, amortização, simulador financiamento imobiliário">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://comparafinanciamento.com.br/">
@@ -15,6 +15,8 @@
   <meta property="og:url" content="https://comparafinanciamento.com.br/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
+  <meta property="og:image:alt" content="Compara Financiamento — Simulador PRICE vs SAC">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Compara Financiamento — Simulador Tabela PRICE vs Tabela SAC">
@@ -110,15 +112,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
   <header>
     <div class="header__content">
       <div class="header__brand">
-        <img src="img/logo.png" alt="Compara Financiamento" class="header__logo">
+        <img src="img/logo.png" alt="Compara Financiamento" class="header__logo" width="316" height="250">
         <div class="header__brand-text">
           <h1>Compara Financiamento</h1>
           <p>Compare os sistemas <strong>Tabela PRICE</strong> e <strong>Tabela SAC</strong></p>
         </div>
       </div>
+      <nav class="header__nav">
+        <a href="#price">PRICE</a>
+        <a href="#sac">SAC</a>
+        <a href="#faq">FAQ</a>
+      </nav>
       <div class="banner-afiliado">
         <span class="banner-afiliado__texto">Precisa de crédito?</span>
         <button class="fale-conosco_bnt" id="btn-abrir-lead">Fale conosco</button>
@@ -126,9 +134,9 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- Tabela PRICE -->
-    <div class="card" data-cenario="price">
+    <div class="card" id="price" data-cenario="price">
       <div class="card-header">
         <div class="card-header__inner">
           <button class="btn-escrever">Editar</button>
@@ -176,7 +184,7 @@
     </div>
 
     <!-- Tabela SAC -->
-    <div class="card" data-cenario="sac">
+    <div class="card" id="sac" data-cenario="sac">
       <div class="card-header">
         <div class="card-header__inner">
           <button class="btn-escrever">Editar</button>
@@ -283,7 +291,7 @@
     <div class="footer__content">
       <div class="footer__brand">
         <div class="footer__logo">
-          <img src="img/logo.png" alt="Compara Financiamento" class="footer__logo-img">
+          <img src="img/logo.png" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
           <span>Compara <span>Financiamento</span></span>
         </div>
         <p class="footer__desc">Simule prestações, juros, amortização de forma rápida e gratuita.</p>
@@ -303,7 +311,7 @@
       <div class="footer__dev">
         <h4>Desenvolvido por</h4>
         <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
-          <img src="https://solucoesite.com.br/assets/img/Preview.png" alt="SoluçõeSite" class="footer__dev-logo">
+          <img src="https://solucoesite.com.br/assets/img/Preview.png" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
         </a>
       </div>
     </div>

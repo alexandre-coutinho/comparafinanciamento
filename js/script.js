@@ -191,7 +191,15 @@ function renderizarGraficoComparativo() {
       responsive: true, maintainAspectRatio: false,
       interaction: { intersect: false, mode: 'index' },
       plugins: {
-        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 12, padding: 10, font: { size: 10 } } },
+        legend: {
+          position: window.innerWidth < 992 ? 'bottom' : 'top',
+          labels: {
+            usePointStyle: true,
+            boxWidth: window.innerWidth < 992 ? 8 : 12,
+            padding: window.innerWidth < 992 ? 4 : 10,
+            font: { size: window.innerWidth < 992 ? 8 : 10 },
+          },
+        },
         tooltip: false,
       },
       scales: {
@@ -468,6 +476,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = btn.closest('.card');
     if (!card) return;
     calcular(card.dataset.cenario);
+  });
+
+  // Re-renderiza gráfico no resize
+  window.addEventListener('resize', () => {
+    if (resultadosComparativo.price && resultadosComparativo.sac) {
+      renderizarGraficoComparativo();
+    }
   });
 
   // Enter nos inputs
