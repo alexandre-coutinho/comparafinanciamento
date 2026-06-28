@@ -115,9 +115,9 @@ function exibirResultado(id, result, isPrice) {
 }
 
 function renderizarTabela(elId, tabela) {
-  const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
+  const nomes = ['Mês', 'Prestação', 'Juros', 'Total acumulado'];
   const html = `<thead><tr>${nomes.map(n => `<th>${n}</th>`).join('')}</tr></thead>`
-    + `<tbody>${tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.valorRealAcum)}</td><td>${fmt.moeda(r.totalPagoAcum)}</td></tr>`).join('')}</tbody>`;
+    + `<tbody>${tabela.map(r => `<tr><td>${r.mes}</td><td>${fmt.moeda(r.prestacao)}</td><td>${fmt.moeda(r.juros)}</td><td>${fmt.moeda(r.totalPagoAcum)}</td></tr>`).join('')}</tbody>`;
   document.getElementById(elId).innerHTML = html;
 }
 
@@ -198,6 +198,7 @@ function renderizarGraficoComparativo() {
             boxWidth: window.innerWidth < 992 ? 8 : 12,
             padding: window.innerWidth < 992 ? 4 : 10,
             font: { size: window.innerWidth < 992 ? 8 : 10 },
+            filter: (item) => window.innerWidth < 992 ? !/Prestação|Saldo devedor/.test(item.text) : true,
           },
         },
         tooltip: false,
@@ -239,7 +240,7 @@ function exportarPDF(id) {
 
   const dados = extrairTabela(`tabela-${id}`);
   if (dados) {
-    const nomes = ['Mês', 'Prestação', 'Juros', 'Real acumulado', 'Total acumulado'];
+    const nomes = ['Mês', 'Prestação', 'Juros', 'Total acumulado'];
     doc.autoTable({
       head: [nomes], body: dados, startY: y,
       theme: 'grid',
@@ -515,6 +516,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-abrir-lead').addEventListener('click', abrirModal);
   document.getElementById('btn-fechar-lead').addEventListener('click', fecharModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('btn-hamburger');
+  const headerNav = document.getElementById('header-nav');
+  hamburger?.addEventListener('click', () => {
+    const open = headerNav.classList.toggle('header__nav--open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  headerNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    headerNav.classList.remove('header__nav--open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }));
 
   document.querySelector('#form-lead input[name="valor"]').addEventListener('blur', function () {
     if (!this.value) return;
