@@ -558,15 +558,15 @@ footer {
 @media (max-width: 767px) {
   header { padding: 0.75rem 0.75rem; }
   .header__content {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 0.55rem;
-    text-align: center;
   }
-  .header__brand { justify-content: center; }
+  .header__brand { justify-content: flex-start; flex: 1; }
   .header__brand h1 { font-size: 1.3rem; }
-  .header__brand p { text-align: center; }
+  .header__brand p { text-align: left; }
   .banner-afiliado {
     justify-content: center;
     width: 100%;
@@ -576,7 +576,7 @@ footer {
     min-width: 0;
     line-height: 1.2;
   }
-  .header__brand { text-align: center; width: 100%; }
+  .header__brand { text-align: left; flex: 1; }
   .card .card-header__inner { flex-wrap: wrap; }
   .card .card-header__inner .btn-escrever { order: 3; }
   .footer__content {
