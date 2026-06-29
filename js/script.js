@@ -266,6 +266,11 @@ function carregarPdfJs() {
 }
 
 function exportarPDF(id) {
+  const resultadoEl = document.getElementById(`resultado-${id}`);
+  if (!resultadoEl || resultadoEl.hidden) {
+    mostrarToast('Calcule primeiro antes de exportar PDF');
+    return;
+  }
   if (!window.jspdf) {
     carregarPdfJs().then(() => exportarPDF(id));
     return;
