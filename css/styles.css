@@ -557,26 +557,33 @@ footer {
 
 @media (max-width: 767px) {
   header { padding: 0.75rem 0.75rem; }
+  .header__logo { height: 40px; }
+  .header__brand { display: contents; }
+  .header__brand-text { display: block; }
   .header__content {
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 0.75rem;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.55rem;
   }
-  .header__brand { justify-content: flex-start; flex: 1; }
-  .header__brand h1 { font-size: 1.3rem; }
-  .header__brand p { text-align: left; }
+  .header__logo { grid-column: 1; grid-row: 1; }
   .banner-afiliado {
-    justify-content: center;
-    width: 100%;
+    grid-column: 2; grid-row: 1;
+    justify-self: end;
+    width: auto;
+  }
+  .header__brand-text { grid-column: 1; grid-row: 2; }
+  .header__hamburger {
+    grid-column: 2; grid-row: 2;
+    justify-self: end;
+    align-self: center;
   }
   .fale-conosco_bnt {
     justify-content: center;
     min-width: 0;
     line-height: 1.2;
   }
-  .header__brand { text-align: left; flex: 1; }
   .card .card-header__inner { flex-wrap: wrap; }
   .card .card-header__inner .btn-escrever { order: 3; }
   .footer__content {

@@ -109,10 +109,9 @@
     ],
     "image": "https://comparafinanciamento.com.br/img/logo.png",
     "author": {
-      "@type": "Person",
+      "@type": "Organization",
       "name": "Compara Financiamento"
     },
-    "dateModified": "2026-06-28",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -136,9 +135,10 @@
     }
   }
   </script>
+  <script>(function(){var s=document.querySelectorAll('script[type="application/ld+json"]')[1];if(!s)return;var d=JSON.parse(s.textContent);d.dateModified=new Date().toISOString().split('T')[0];s.textContent=JSON.stringify(d,null,2)})()</script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js" defer></script>
@@ -148,10 +148,10 @@
   <header>
     <div class="header__content">
       <div class="header__brand">
-        <img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250">
+        <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" loading="lazy"></a>
         <div class="header__brand-text">
-          <h1>Simulador PRICE vs SAC — Compara Financiamento</h1>
-          <p>Compare os sistemas <strong>Tabela PRICE</strong> e <strong>Tabela SAC</strong></p>
+          <h1>Simulador PRICE vs SAC</h1>
+          <p>Compara Financiamento dos sistemas <strong>Tabela PRICE</strong> e <strong>Tabela SAC</strong></p>
         </div>
       </div>
       <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
@@ -366,7 +366,7 @@
       <div class="footer__dev">
         <h4>Desenvolvido por</h4>
         <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
-          <img src="https://solucoesite.com.br/assets/img/Preview.png" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
+          <img src="img/Preview.webp" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
         </a>
       </div>
     </div>
@@ -375,6 +375,6 @@
     </div>
   </footer>
 
-  <script src="js/script.js" defer></script>
+  <script src="js/script.min.js" defer></script>
 </body>
 </html>

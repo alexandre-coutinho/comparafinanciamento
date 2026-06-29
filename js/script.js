@@ -198,15 +198,14 @@ function renderizarGraficoComparativo() {
             boxWidth: window.innerWidth < 992 ? 8 : 12,
             padding: window.innerWidth < 992 ? 4 : 10,
             font: { size: window.innerWidth < 992 ? 8 : 10 },
-            filter: (item) => window.innerWidth < 992 ? !/Prestação|Saldo devedor/.test(item.text) : true,
           },
         },
         tooltip: false,
       },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 20, font: { size: 9 } } },
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Prestação', font: { size: 10 }, padding: { right: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
-        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: true, text: 'Saldo devedor', font: { size: 10 }, padding: { left: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+        y: { beginAtZero: true, position: 'left', title: { display: window.innerWidth >= 992, text: 'Prestação', font: { size: 10 }, padding: { right: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: window.innerWidth >= 992, text: 'Saldo devedor', font: { size: 10 }, padding: { left: 8 } }, ticks: { callback: (v) => fmt.moeda(v), font: { size: 9 } } },
       },
     },
   });
