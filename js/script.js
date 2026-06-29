@@ -390,6 +390,22 @@ function calcularSAC() {
 const CALCULATORS = { price: calcularPrice, sac: calcularSAC };
 function calcular(id) { CALCULATORS[id]?.(); }
 
+function visaoRapida() {
+  const ia = 0.08;
+  const im = TAXA_MENSAL(ia);
+  ['price', 'sac'].forEach(id => {
+    document.getElementById(`${id}-pv`).value = fmt.numero(200000);
+    document.getElementById(`${id}-i`).value = fmt.pctInput(im);
+    document.getElementById(`${id}-i-anual`).value = fmt.pctInput(ia);
+    document.getElementById(`${id}-n`).value = '360';
+    if (id === 'price') document.getElementById(`${id}-pmt`).value = '';
+  });
+  calcular('price');
+  calcular('sac');
+  const chart = document.getElementById('card-comparativo');
+  if (chart) setTimeout(() => chart.scrollIntoView({ behavior: 'smooth' }), 350);
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   // Máscara moeda no blur
@@ -527,6 +543,8 @@ document.addEventListener('DOMContentLoaded', () => {
     headerNav.classList.remove('header__nav--open');
     hamburger.setAttribute('aria-expanded', 'false');
   }));
+
+  document.getElementById('btn-visao-rapida')?.addEventListener('click', visaoRapida);
 
   document.querySelector('#form-lead input[name="valor"]').addEventListener('blur', function () {
     if (!this.value) return;
