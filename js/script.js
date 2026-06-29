@@ -593,24 +593,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function renderizarDepoimentos() {
-    const grid = document.getElementById('depoimentos-grid');
-    if (!grid) return;
-    const saved = JSON.parse(localStorage.getItem('depoimentos') || '[]');
-    saved.forEach(d => {
-      const card = document.createElement('div');
-      card.className = 'depoimento-card';
-      card.innerHTML = `
-        <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <blockquote class="depoimento__texto">"${d.mensagem}"</blockquote>
-        <div class="depoimento__autor"><strong>${d.nome}</strong>${d.cidade ? '<span>'+d.cidade+'</span>' : ''}</div>
-        ${d.sistema ? '<div class="depoimento__economia"><i class="fas fa-circle" style="color:'+(d.sistema==='PRICE'?'#1a56db':'#059669')+'"></i> '+d.sistema + (d.economia ? ' · Economizou <strong>R$ '+d.economia+'</strong>' : '')+'</div>' : ''}`;
-      grid.appendChild(card);
-    });
-  }
-
   const modalDep = document.getElementById('modal-depoimento');
   const formDep = document.getElementById('form-depoimento');
+
+  // Star rating
+  const starRating = document.getElementById('star-rating');
+  const depEstrelas = document.getElementById('dep-estrelas');
+  starRating?.addEventListener('click', (e) => {
+    const star = e.target.closest('i');
+    if (!star) return;
+    const val = parseInt(star.dataset.value);
+    depEstrelas.value = val;
+    starRating.querySelectorAll('i').forEach(s => {
+      s.classList.toggle('active', parseInt(s.dataset.value) <= val);
+    });
+  });
+  starRating?.querySelectorAll('i').forEach(s => {
+    s.addEventListener('mouseenter', () => {
+      const val = parseInt(s.dataset.value);
+      starRating.querySelectorAll('i').forEach(st => {
+        st.classList.toggle('active', parseInt(st.dataset.value) <= val);
+      });
+    });
+    s.addEventListener('mouseleave', () => {
+      const val = parseInt(depEstrelas.value);
+      starRating.querySelectorAll('i').forEach(st => {
+        st.classList.toggle('active', parseInt(st.dataset.value) <= val);
+      });
+    });
+  });
 
   function abrirModalDep() { if (modalDep) modalDep.hidden = false; }
   function fecharModalDep() { if (modalDep) modalDep.hidden = true; }
@@ -632,15 +643,6 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(dados),
       });
       if (!res.ok) throw new Error('Erro ao enviar');
-      const saved = JSON.parse(localStorage.getItem('depoimentos') || '[]');
-      saved.push({
-        nome: dados.nome,
-        cidade: dados.cidade || '',
-        sistema: dados.sistema || '',
-        economia: dados.economia || '',
-        mensagem: dados.mensagem,
-      });
-      localStorage.setItem('depoimentos', JSON.stringify(saved));
       formDep.reset();
       fecharModalDep();
       setTimeout(() => alert('Depoimento enviado! Após moderação ele aparecerá no site.'), 100);
@@ -650,8 +652,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = false; btn.textContent = 'Enviar depoimento';
     }
   });
-
-  renderizarDepoimentos();
 
   // ===== LEAD FORM (Telegram) =====
   const modal = document.getElementById('modal-lead');

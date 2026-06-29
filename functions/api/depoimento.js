@@ -21,12 +21,13 @@ export async function onRequest(context) {
 
   try {
     const dados = await request.json();
-    const { nome, cidade, sistema, economia, mensagem } = dados;
+    const { nome, cidade, sistema, economia, mensagem, estrelas } = dados;
 
     const msg = [
       '📝 *Novo Depoimento*',
       '',
       `*Nome:* ${escapeMarkdown(nome) || 'Nao informado'}`,
+      estrelas ? `*Estrelas:* ${'⭐'.repeat(parseInt(estrelas) || 0)}` : null,
       cidade ? `*Cidade:* ${escapeMarkdown(cidade)}` : null,
       sistema ? `*Sistema:* ${escapeMarkdown(sistema)}` : null,
       economia ? `*Economizou:* R$ ${escapeMarkdown(economia)}` : null,

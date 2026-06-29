@@ -352,8 +352,19 @@
     <div class="modal">
       <button class="modal__close" id="btn-fechar-depoimento" aria-label="Fechar">&times;</button>
       <h3>Deixe seu depoimento</h3>
-      <p class="modal__sub">Compartilhe sua experiência com o simulador.</p>
+      <p class="modal__sub">Compartilhe sua experiência conosco.</p>
       <form id="form-depoimento">
+        <label>
+          Avaliação
+          <div class="star-rating" id="star-rating">
+            <i class="fas fa-star" data-value="1"></i>
+            <i class="fas fa-star" data-value="2"></i>
+            <i class="fas fa-star" data-value="3"></i>
+            <i class="fas fa-star" data-value="4"></i>
+            <i class="fas fa-star" data-value="5"></i>
+          </div>
+          <input type="hidden" name="estrelas" id="dep-estrelas" value="5">
+        </label>
         <label for="dep-nome">Nome *<input type="text" id="dep-nome" name="nome" required></label>
         <label for="dep-cidade">Cidade <input type="text" id="dep-cidade" name="cidade" placeholder="Ex: São Paulo, SP"></label>
         <label for="dep-sistema">Sistema utilizado
