@@ -83,7 +83,7 @@ main {
 }
 
 @media (min-width: 992px) {
-  main { max-width: 900px; grid-template-columns: 1fr 1fr; justify-content: center; align-items: start; }
+  main { grid-template-columns: minmax(0, 440px) minmax(0, 440px); justify-content: center; align-items: start; }
 }
 
 .card-comparativo {
@@ -92,10 +92,6 @@ main {
 
 .card-visao-rapida {
   grid-column: 1 / -1;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  box-sizing: border-box;
   background: linear-gradient(135deg, #e8effd, #f0fdf4);
   border: 1.5px solid #c7d2fe;
 }
@@ -763,10 +759,7 @@ footer {
 /* FAQ */
 .card-faq {
   grid-column: 1 / -1;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 2rem;
-  box-sizing: border-box;
+  margin-bottom: 2rem;
 }
 
 .faq-list {
@@ -825,10 +818,7 @@ footer {
 /* Depoimentos */
 .card-depoimentos {
   grid-column: 1 / -1;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 2rem;
-  box-sizing: border-box;
+  margin-bottom: 2rem;
 }
 .depoimentos-grid {
   display: grid;
