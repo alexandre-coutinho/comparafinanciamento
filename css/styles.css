@@ -774,7 +774,7 @@ footer {
 }
 
 .faq-item {
-  border: 1px solid var(--border);
+  border: 1px solid var(--primary);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -784,7 +784,8 @@ footer {
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  background: var(--bg);
+  background: var(--primary);
+  color: #fff;
   transition: background 0.2s;
   list-style: none;
 }
@@ -799,7 +800,7 @@ footer {
   font-weight: 900;
   font-size: 0.75rem;
   margin-right: 0.6rem;
-  color: var(--primary);
+  color: #fff;
   transition: transform 0.2s;
 }
 
@@ -808,16 +809,17 @@ footer {
 }
 
 .faq-item summary:hover {
-  background: var(--primary-light);
+  background: #1d4ed8;
 }
 
 .faq-item p {
   padding: 0.75rem 1rem;
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: #fff;
   margin: 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  background: #1d4ed8;
 }
 
 /* Depoimentos */
