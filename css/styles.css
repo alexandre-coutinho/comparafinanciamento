@@ -822,7 +822,7 @@ footer {
 .card-depoimentos {
   grid-column: 1 / -1;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
 }
 .depoimentos-grid {
   display: grid;
