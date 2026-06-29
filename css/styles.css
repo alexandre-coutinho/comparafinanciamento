@@ -759,7 +759,6 @@ footer {
 /* FAQ */
 .card-faq {
   grid-column: 1 / -1;
-  margin-bottom: 2rem;
 }
 
 .faq-list {
@@ -818,7 +817,6 @@ footer {
 /* Depoimentos */
 .card-depoimentos {
   grid-column: 1 / -1;
-  margin-bottom: 2rem;
 }
 .depoimentos-grid {
   display: grid;
