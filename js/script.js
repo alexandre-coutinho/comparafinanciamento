@@ -125,7 +125,39 @@ function renderizarTabela(elId, tabela) {
 const charts = {};
 const resultadosComparativo = {};
 
+let _carregandoChart = null;
+function carregarChartJs() {
+  if (window.Chart) return Promise.resolve();
+  if (_carregandoChart) return _carregandoChart;
+  _carregandoChart = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+  return _carregandoChart;
+}
+
+// Pré-carrega Chart.js quando o card comparativo entrar na viewport
+(function() {
+  const alvo = document.getElementById('card-comparativo');
+  if (alvo && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) {
+        carregarChartJs();
+        obs.disconnect();
+      }
+    }, { rootMargin: '300px' });
+    obs.observe(alvo);
+  }
+})();
+
 function renderizarGraficoComparativo() {
+  if (typeof Chart === 'undefined') {
+    carregarChartJs().then(() => renderizarGraficoComparativo());
+    return;
+  }
   const price = resultadosComparativo.price;
   const sac = resultadosComparativo.sac;
   if (!price || !sac) return;
@@ -212,8 +244,32 @@ function renderizarGraficoComparativo() {
 }
 
 // ===== PDF =====
+let _carregandoPdf = null;
+function carregarPdfJs() {
+  if (window.jspdf) return Promise.resolve();
+  if (_carregandoPdf) return _carregandoPdf;
+  _carregandoPdf = (async () => {
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  })();
+  return _carregandoPdf;
+}
+
 function exportarPDF(id) {
-  if (!window.jspdf) { alert('Aguarde o carregamento da biblioteca PDF.'); return; }
+  if (!window.jspdf) {
+    carregarPdfJs().then(() => exportarPDF(id));
+    return;
+  }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const titulo = id === 'price' ? 'Tabela PRICE - Prestações fixas' : 'Tabela SAC - Prestações decrescentes';
