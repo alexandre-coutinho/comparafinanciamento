@@ -324,6 +324,57 @@
     </div>
   </section>
 
+  <!-- Depoimentos -->
+  <section class="card card-depoimentos" id="depoimentos" aria-label="Depoimentos">
+    <div class="card-header">
+      <h2>Quem usou, aprovou</h2>
+    </div>
+    <div class="card-body">
+      <div class="depoimentos-grid" id="depoimentos-grid">
+        <div class="depoimento-card">
+          <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <blockquote class="depoimento__texto">"Simulei antes de financiar meu apartamento. A tabela SAC me economizou mais de R$ 47 mil em juros. Ferramenta indispensável!"</blockquote>
+          <div class="depoimento__autor"><strong>Carlos Mendes</strong><span>São Paulo, SP</span></div>
+          <div class="depoimento__economia"><i class="fas fa-circle" style="color:#059669"></i> SAC · Economizou <strong>R$ 47.320</strong></div>
+        </div>
+        <div class="depoimento-card">
+          <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <blockquote class="depoimento__texto">"Com a tabela PRICE consegui parcelas fixas que cabem no orçamento. Simulei prazos e economizei mais de R$ 12 mil em juros!"</blockquote>
+          <div class="depoimento__autor"><strong>Ana Beatriz Oliveira</strong><span>Belo Horizonte, MG</span></div>
+          <div class="depoimento__economia"><i class="fas fa-circle" style="color:#1a56db"></i> PRICE · Economizou <strong>R$ 12.800</strong></div>
+        </div>
+      </div>
+      <div class="depoimentos-cta">
+        <button class="btn-depoimento" id="btn-abrir-depoimento"><i class="fas fa-pen"></i> Deixe seu depoimento</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal depoimento -->
+  <div class="modal-overlay" id="modal-depoimento" hidden>
+    <div class="modal">
+      <button class="modal__close" id="btn-fechar-depoimento" aria-label="Fechar">&times;</button>
+      <h3>Deixe seu depoimento</h3>
+      <p class="modal__sub">Compartilhe sua experiência com o simulador.</p>
+      <form id="form-depoimento">
+        <label for="dep-nome">Nome *<input type="text" id="dep-nome" name="nome" required></label>
+        <label for="dep-cidade">Cidade <input type="text" id="dep-cidade" name="cidade" placeholder="Ex: São Paulo, SP"></label>
+        <label for="dep-sistema">Sistema utilizado
+          <select id="dep-sistema" name="sistema">
+            <option value="">Selecione</option>
+            <option value="PRICE">Tabela PRICE</option>
+            <option value="SAC">Tabela SAC</option>
+            <option value="Ambos">Ambos</option>
+          </select>
+        </label>
+        <label for="dep-economia">Valor economizado (R$) <input type="text" id="dep-economia" name="economia" class="moeda" placeholder="0,00"></label>
+        <label for="dep-mensagem">Seu depoimento *<textarea id="dep-mensagem" name="mensagem" rows="4" required placeholder="Conte como o simulador ajudou você..."></textarea></label>
+        <button type="submit" class="modal__submit">Enviar depoimento</button>
+        <p class="lgpd-notice">Seu depoimento poderá aparecer no site após moderação.</p>
+      </form>
+    </div>
+  </div>
+
   <!-- Lead form modal -->
   <div class="modal-overlay" id="modal-lead" hidden>
     <div class="modal">

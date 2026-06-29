@@ -521,6 +521,77 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn.classList.contains('btn-copiar')) copiarTabela(id);
   });
 
+  // ===== DEPOIMENTOS =====
+  const depNome = document.getElementById('dep-nome');
+  const depEconomia = document.getElementById('dep-economia');
+  if (depEconomia) {
+    depEconomia.addEventListener('blur', function () {
+      if (!this.value) return;
+      const v = parseMoeda(this.value);
+      if (!isNaN(v)) this.value = fmt.numero(Math.round(v * 100) / 100);
+    });
+  }
+
+  function renderizarDepoimentos() {
+    const grid = document.getElementById('depoimentos-grid');
+    if (!grid) return;
+    const saved = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+    saved.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'depoimento-card';
+      card.innerHTML = `
+        <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <blockquote class="depoimento__texto">"${d.mensagem}"</blockquote>
+        <div class="depoimento__autor"><strong>${d.nome}</strong>${d.cidade ? '<span>'+d.cidade+'</span>' : ''}</div>
+        ${d.sistema ? '<div class="depoimento__economia"><i class="fas fa-circle" style="color:'+(d.sistema==='PRICE'?'#1a56db':'#059669')+'"></i> '+d.sistema + (d.economia ? ' · Economizou <strong>R$ '+d.economia+'</strong>' : '')+'</div>' : ''}`;
+      grid.appendChild(card);
+    });
+  }
+
+  const modalDep = document.getElementById('modal-depoimento');
+  const formDep = document.getElementById('form-depoimento');
+
+  function abrirModalDep() { if (modalDep) modalDep.hidden = false; }
+  function fecharModalDep() { if (modalDep) modalDep.hidden = true; }
+
+  document.getElementById('btn-abrir-depoimento')?.addEventListener('click', abrirModalDep);
+  document.getElementById('btn-fechar-depoimento')?.addEventListener('click', fecharModalDep);
+  modalDep?.addEventListener('click', (e) => { if (e.target === modalDep) fecharModalDep(); });
+
+  formDep?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = formDep.querySelector('.modal__submit');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    const dados = Object.fromEntries(new FormData(formDep));
+
+    try {
+      const res = await fetch('/api/depoimento', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados),
+      });
+      if (!res.ok) throw new Error('Erro ao enviar');
+      const saved = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+      saved.push({
+        nome: dados.nome,
+        cidade: dados.cidade || '',
+        sistema: dados.sistema || '',
+        economia: dados.economia || '',
+        mensagem: dados.mensagem,
+      });
+      localStorage.setItem('depoimentos', JSON.stringify(saved));
+      formDep.reset();
+      fecharModalDep();
+      setTimeout(() => alert('Depoimento enviado! Após moderação ele aparecerá no site.'), 100);
+    } catch {
+      alert('Erro ao enviar. Tente novamente mais tarde.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Enviar depoimento';
+    }
+  });
+
+  renderizarDepoimentos();
+
   // ===== LEAD FORM (Telegram) =====
   const modal = document.getElementById('modal-lead');
   const form = document.getElementById('form-lead');

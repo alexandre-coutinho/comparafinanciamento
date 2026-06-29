@@ -817,3 +817,80 @@ footer {
   margin: 0;
   border-top: 1px solid var(--border);
 }
+
+/* Depoimentos */
+.card-depoimentos {
+  grid-column: 1 / -1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.depoimentos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 767px) {
+  .depoimentos-grid { grid-template-columns: 1fr; }
+}
+.depoimento-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.depoimento__stars {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+.depoimento__texto {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+  margin: 0;
+}
+.depoimento__autor {
+  display: flex;
+  flex-direction: column;
+}
+.depoimento__autor strong {
+  font-size: 0.85rem;
+}
+.depoimento__autor span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+.depoimento__economia {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+.depoimento__economia i {
+  font-size: 0.6rem;
+  vertical-align: middle;
+}
+.depoimentos-cta {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.btn-depoimento {
+  padding: 0.6rem 1.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-depoimento:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+}
