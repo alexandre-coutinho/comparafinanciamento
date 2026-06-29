@@ -627,6 +627,8 @@ footer {
     justify-self: end;
     align-self: center;
   }
+  .banner-afiliado__texto { white-space: normal; }
+  .banner-afiliado { gap: 0.35rem; }
   .fale-conosco_bnt {
     justify-content: center;
     min-width: 0;
