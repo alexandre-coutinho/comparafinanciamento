@@ -92,6 +92,10 @@ main {
 
 .card-visao-rapida {
   grid-column: 1 / -1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
   background: linear-gradient(135deg, #e8effd, #f0fdf4);
   border: 1.5px solid #c7d2fe;
 }
@@ -821,8 +825,10 @@ footer {
 /* Depoimentos */
 .card-depoimentos {
   grid-column: 1 / -1;
+  width: 100%;
   max-width: 900px;
   margin: 0 auto 2rem;
+  box-sizing: border-box;
 }
 .depoimentos-grid {
   display: grid;
