@@ -67,7 +67,7 @@ header {
 
 .header__logo { grid-column: 1; grid-row: 1; height: 60px; width: auto; }
 
-.header__brand-text { grid-column: 2; grid-row: 1; text-align: center; display: block; align-self: center; }
+.header__brand-text { grid-column: 2; grid-row: 1; text-align: center; display: block; align-self: center; overflow: hidden; }
 
 .header__brand h1 { font-size: 1.75rem; margin-bottom: 0.1rem; }
 .mobile-break { display: inline; }
@@ -588,8 +588,9 @@ footer {
   .mobile-break { display: inline; }
   header { padding: 0.75rem 0.75rem; }
   .header__logo { height: 40px; }
-  .header__brand h1 { font-size: 1.5rem; }
-  .header__content { gap: 0.35rem 0.75rem; }
+  .header__brand h1 { font-size: 1.1rem; }
+  .header__brand p { font-size: 0.6rem; display: block; opacity: 0.8; }
+  .header__content { gap: 0.35rem 0.5rem; }
   .fale-conosco_bnt {
     justify-content: center;
     min-width: 0;
