@@ -1,3 +1,6 @@
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; img-src 'self' https://solucoesite.com.br data:; font-src 'self' cdnjs.cloudflare.com data:; connect-src 'self' https://economia.awesomeapi.com.br; form-action 'self'; frame-ancestors 'none'; base-uri 'self'
+
+/sitemap.xml
+  Content-Type: application/xml
