@@ -1,16 +1,16 @@
 # Compara Financiamento
 
-Calculadora interativa para comparar os sistemas de amortização **Tabela PRICE** (prestações fixas) e **Tabela SAC** (amortização constante) lado a lado.
+Conjunto de ferramentas financeiras gratuitas: simulador PRICE vs SAC, conversor de moedas e calculadora de juros compostos.
 
 ## Funcionalidades
 
-- Cálculo de Tabela PRICE e Tabela SAC com preenchimento automático
-- Comparativo lado a lado com gráfico interativo (Chart.js)
-- Exportação da tabela em PDF
-- Cópia da tabela para a área de transferência
+- **Simulador PRICE vs SAC** — Compare tabela PRICE (prestações fixas) e SAC (amortização constante) lado a lado com gráfico interativo
+- **Conversor de Moedas** — Cotações em tempo real via AwesomeAPI, com gráfico dos últimos 30 dias
+- **Juros Compostos** — Simule investimentos com aportes mensais, gráfico de evolução e tabela mês a mês
+- Exportação de tabela em PDF
+- Cópia de tabela para área de transferência
 - Sincronização automática entre taxa mensal e anual
-- Layout responsivo (desktop lado a lado, mobile empilhado)
-- Captura de leads via formulário nativo com envio para Telegram
+- Captura de leads via formulário com envio para Telegram (Cloudflare Functions)
 - Dados estruturados (FAQPage + WebApplication) para SEO
 
 ## Tecnologias
@@ -19,11 +19,16 @@ Calculadora interativa para comparar os sistemas de amortização **Tabela PRICE
 - Chart.js 4.4.7
 - jsPDF 2.5.1 + jspdf-autotable 3.8.4
 - Font Awesome 6.5.1
-- Cloudflare Functions (lead form)
+- Cloudflare Functions (formulários)
+- AwesomeAPI (cotações)
 
-## Como usar
+## Páginas
 
-Abra `index.html` no navegador ou acesse o link abaixo.
+| Página | Descrição |
+|--------|-----------|
+| `/` | Simulador Tabela PRICE vs Tabela SAC |
+| `/conversor-moedas.html` | Conversor de moedas em tempo real |
+| `/juros-compostos.html` | Calculadora de juros compostos com aportes |
 
 ## Deploy
 
