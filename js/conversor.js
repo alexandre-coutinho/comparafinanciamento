@@ -258,19 +258,6 @@ function renderChart (from, to) {
   });
 }
 
-let _chartLoading = null;
-function carregarChartJs () {
-  if (window.Chart) return Promise.resolve();
-  if (_chartLoading) return _chartLoading;
-  _chartLoading = new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
-    s.onload = resolve; s.onerror = reject;
-    document.head.appendChild(s);
-  });
-  return _chartLoading;
-}
-
 function swapCurrencies () {
   const from = document.getElementById('conv-from');
   const to = document.getElementById('conv-to');
@@ -326,14 +313,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   converter();
 
-  const hamburger = document.getElementById('btn-hamburger');
-  const headerNav = document.getElementById('header-nav');
-  hamburger?.addEventListener('click', () => {
-    const open = headerNav.classList.toggle('header__nav--open');
-    hamburger.setAttribute('aria-expanded', open);
-  });
-  headerNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    headerNav.classList.remove('header__nav--open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }));
+  setupHamburgerMenu();
 });

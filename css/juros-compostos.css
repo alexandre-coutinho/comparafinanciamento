@@ -1,0 +1,118 @@
+.juros-compostos-main {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.juros-compostos-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.juros-compostos-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.juros-compostos-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.juros-compostos-card .card-body > .campo {
+  margin-bottom: 1rem;
+}
+
+.juros-compostos-card .btn-calcular {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-bottom: 1rem;
+}
+
+.juros-compostos-card .btn-calcular:hover {
+  background: #1e40af;
+  transform: scale(1.01);
+}
+
+.juros-compostos-card .btn-calcular:active {
+  transform: scale(0.98);
+}
+
+.resumo-jc {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.resumo-jc .resumo-item {
+  background: var(--bg);
+  padding: 0.6rem 0.5rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.resumo-jc .resumo-item .rotulo {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.resumo-jc .resumo-item .valor {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+.resumo-jc .resumo-item .valor.destaque {
+  color: var(--primary);
+}
+
+.resumo-jc .resumo-item .valor.destaque-verde {
+  color: var(--sac-color);
+}
+
+.grafico-wrapper-jc {
+  position: relative;
+  height: 280px;
+  margin-bottom: 1rem;
+}
+
+#resultado-jc[hidden] {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .juros-compostos-main {
+    padding: 0;
+  }
+
+  .resumo-jc {
+    grid-template-columns: 1fr;
+  }
+
+.juros-compostos-main .card-visao-rapida__body {
+  justify-content: center;
+  text-align: center;
+}
+
+.grafico-wrapper-jc {
+    height: 200px;
+  }
+}
