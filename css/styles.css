@@ -84,6 +84,10 @@ main {
   gap: 1.5rem;
 }
 
+@media (min-width: 992px) {
+  main { grid-template-columns: minmax(0, 440px) minmax(0, 440px); }
+}
+
 .card-comparativo {
   grid-column: 1 / -1;
 }
