@@ -522,30 +522,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Botão Editar — redefine valores padrão
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-escrever');
-    if (!btn) return;
-    const card = btn.closest('.card');
-    if (!card) return;
-    const defaults = { 'pv': '0,00', 'i': '2,00', 'i-anual': '0,00', 'n': '1', 'pmt': '0,00' };
-    const placeholders = { 'sac-pv': '0,00', 'sac-i': '2,00', 'sac-i-anual': '0,00', 'sac-n': '1' };
-    card.querySelectorAll('.card-body input').forEach(inp => {
-      const key = inp.id.replace(/^(price|sac)-/, '');
-      inp.value = defaults[key] ?? '';
-      inp.disabled = false;
-      inp.readOnly = false;
-      inp.placeholder = placeholders[inp.id] ?? '';
-    });
-    const resultado = card.querySelector('.resultado');
-    if (resultado) resultado.hidden = true;
-    const id = card.dataset.cenario;
-    const resumo = document.getElementById(`resumo-${id}`);
-    if (resumo) resumo.hidden = true;
-    const comparativo = document.getElementById('card-comparativo');
-    if (comparativo) comparativo.hidden = true;
-  });
-
   // Botões Calcular (event delegation)
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-calcular');
@@ -660,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function abrirModal() { modal.hidden = false; }
   function fecharModal() { modal.hidden = true; }
 
-  document.getElementById('btn-abrir-lead').addEventListener('click', abrirModal);
+  document.querySelectorAll('.btn-lead').forEach(btn => btn.addEventListener('click', abrirModal));
   document.getElementById('btn-fechar-lead').addEventListener('click', fecharModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) fecharModal(); });
 

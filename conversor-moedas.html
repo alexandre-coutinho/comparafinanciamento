@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Moedas Grátis — Cotações em Tempo Real</title>
+  <meta name="description" content="Converta moedas online grátis: USD, EUR, BTC e muito mais. Cotação em tempo real com gráfico dos últimos 30 dias. Conversor de moedas rápido e preciso.">
+  <meta name="keywords" content="conversor de moedas, cotação, dólar, euro, bitcoin, câmbio, converter moeda, calculadora moedas">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/conversor-moedas.html">
+  <link rel="icon" type="image/png" href="img/logo.png">
+
+  <meta property="og:title" content="Conversor de Moedas Grátis — Cotações em Tempo Real">
+  <meta property="og:description" content="Converta moedas online com cotação em tempo real. USD, EUR, BTC, GBP e muito mais. Gráfico dos últimos 30 dias.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/conversor-moedas.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
+  <meta property="og:image:alt" content="Conversor de Moedas — Compara Financiamento">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Conversor de Moedas Grátis — Cotações em Tempo Real">
+  <meta name="twitter:description" content="Converta moedas online com cotação em tempo real. USD, EUR, BTC, GBP e muito mais.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Conversor de Moedas",
+    "url": "https://comparafinanciamento.com.br/conversor-moedas.html",
+    "description": "Converta moedas online gratuitamente com cotações em tempo real da AwesomeAPI. Suporte a USD, EUR, BTC, GBP, ARS e mais de 30 moedas com gráfico de 30 dias.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": "pt-BR",
+    "featureList": [
+      "Conversão de moedas em tempo real",
+      "Busca por código ou nome da moeda",
+      "Gráfico dos últimos 30 dias",
+      "Cotações USD, EUR, BTC, GBP e mais"
+    ],
+    "image": "https://comparafinanciamento.com.br/img/logo.png",
+    "author": {
+      "@type": "Organization",
+      "name": "Compara Financiamento"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/conversor.min.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+  <header>
+    <div class="header__content">
+      <div class="header__brand">
+        <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" loading="lazy"></a>
+        <div class="header__brand-text">
+          <h1>Conversor de Moedas</h1>
+          <p>Cotações em <strong>Tempo Real</strong></p>
+        </div>
+      </div>
+      <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="header__nav" id="header-nav">
+        <a href="/">HOME</a>
+        <a href="/#price">PRICE</a>
+        <a href="/#sac">SAC</a>
+        <a href="/#depoimentos">DEPOIMENTOS</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="conversor-main">
+    <div class="conversor-card">
+      <div class="card-header">
+        <h2><i class="fas fa-exchange-alt"></i> Conversor de Moedas</h2>
+      </div>
+      <div class="card-body">
+        <div class="conversor-grid">
+          <div class="conversor-row">
+            <div class="campo">
+              <label for="conv-amount">Valor</label>
+              <input type="text" id="conv-amount" placeholder="1,00" inputmode="decimal" value="1,00">
+            </div>
+            <div class="campo">
+              <label for="conv-from">De</label>
+              <select id="conv-from" data-code="USD"></select>
+            </div>
+            <button class="conversor-btn-swap" id="btn-swap" aria-label="Inverter moedas">
+              <i class="fas fa-arrows-alt-h"></i>
+            </button>
+            <div class="campo">
+              <label for="conv-to">Para</label>
+              <select id="conv-to" data-code="BRL"></select>
+            </div>
+          </div>
+          <button class="conversor-btn-converter" id="btn-converter">Converter</button>
+        </div>
+
+        <div class="conversor-resultado" id="conv-resultado" hidden>
+          <p class="conversor-resultado__valor" id="conv-valor"></p>
+          <div class="conversor-resultado__info" id="conv-info" hidden>
+            <span id="conv-variacao" class="conversor-resultado__variacao"></span>
+            <span id="conv-high"></span>
+            <span id="conv-low"></span>
+          </div>
+          <p id="conv-data" class="conversor-resultado__data" hidden></p>
+          <p id="conv-erro" class="conversor-resultado__erro" hidden></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="conversor-card" id="card-grafico" hidden>
+      <div class="card-header">
+        <h2><i class="fas fa-chart-line"></i> Variação — Últimos 30 dias</h2>
+      </div>
+      <div class="card-body">
+        <div class="conversor-grafico-wrapper">
+          <canvas id="chart-conversor"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="img/logo.webp" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
+          <span>Compara <span>Financiamento</span></span>
+        </div>
+        <p class="footer__desc">Simule prestações, juros, amortização e converta moedas de forma rápida e gratuita.</p>
+      </div>
+      <div class="footer__info">
+        <h4>FERRAMENTAS</h4>
+        <ul>
+          <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Simulador PRICE vs SAC</a></li>
+          <li><a href="conversor-moedas.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+        </ul>
+      </div>
+      <div class="footer__afiliado">
+        <h4>ENTRE EM CONTATO</h4>
+        <p class="footer__email"><a href="mailto:suporte@comparafinanciamento.com.br" data-cfemail="false">suporte@comparafinanciamento.com.br</a></p>
+      </div>
+      <div class="footer__dev">
+        <h4>Desenvolvido por</h4>
+        <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
+          <img src="img/Preview.webp" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
+        </a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/conversor.js" defer></script>
+</body>
+</html>
