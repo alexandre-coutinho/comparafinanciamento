@@ -62,7 +62,7 @@ function calcularPct() {
     case 'pct-of': {
       if (isNaN(x) || x < 0) { mostrarToast('Informe a porcentagem.'); return; }
       resultado = y * x;
-      rotulo = `${fmt.pctInput(x).replace(',', ',')}% de ${fmt.moeda(y)}`;
+      rotulo = `${fmt.pctInput(x)}% de ${fmt.moeda(y)}`;
       break;
     }
     case 'is-pct': {

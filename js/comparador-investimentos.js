@@ -113,11 +113,13 @@ function calcularInvestimentos() {
       r.paraVencer = 'vencedor';
       return;
     }
-    const taxaAMNeeded = r.tributado
-      ? Math.pow((R - 1) / (1 - irAliquota) + 1, 1 / n) - 1
-      : Math.pow(R, 1 / n) - 1;
-    const taxaAANeeded = TAXA_ANUAL(taxaAMNeeded);
-    if (r.idx <= 2) {
+    const base = r.tributado ? (R - 1) / (1 - irAliquota) + 1 : R;
+    const taxaAMNeeded = base > 0 ? Math.pow(base, 1 / n) - 1 : NaN;
+    const taxaAANeeded = !isNaN(taxaAMNeeded) ? TAXA_ANUAL(taxaAMNeeded) : NaN;
+
+    if (isNaN(taxaAANeeded)) {
+      r.paraVencer = '—';
+    } else if (r.idx <= 2) {
       r.paraVencer = (taxaAANeeded / cdiAA * 100).toFixed(1).replace('.', ',') + '% CDI';
     } else if (r.idx <= 4) {
       r.paraVencer = fmt.pct(taxaAANeeded);
