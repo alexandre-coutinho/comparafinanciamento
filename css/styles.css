@@ -603,6 +603,8 @@ footer {
     line-height: 1.2;
   }
   .card-visao-rapida__body { flex-direction: column; text-align: center; align-items: center; }
+  .btn-visao-rapida { white-space: normal; width: 100%; }
+  .header__nav a { font-size: 0.9rem; padding: 0.5rem 0.6rem; }
   .card .card-header__inner { flex-wrap: wrap; }
   .footer__content {
     grid-template-columns: 1fr;

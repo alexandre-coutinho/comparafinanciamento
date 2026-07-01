@@ -287,20 +287,3 @@
     font-size: 1.25rem;
   }
 }
-
-.conversor-content-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.conversor-content-text {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-}
-
-.conversor-content-text:last-child {
-  margin-bottom: 0;
-}

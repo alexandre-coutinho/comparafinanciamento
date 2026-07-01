@@ -135,8 +135,6 @@
     }
   }
   </script>
-  <script>(function(){var s=document.querySelectorAll('script[type="application/ld+json"]')[1];if(!s)return;var d=JSON.parse(s.textContent);d.dateModified=new Date().toISOString().split('T')[0];s.textContent=JSON.stringify(d,null,2)})()</script>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.min.css">
 </head>
@@ -155,18 +153,19 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="header__nav" id="header-nav">
-        <a href="#price">PRICE</a>
-        <a href="#sac">SAC</a>
-        <a href="conversor-moedas.html">CONVERSOR</a>
-        <a href="juros-compostos.html">JUROS COMPOSTOS</a>
-        <a href="calculadora-de-porcentagem.html">PORCENTAGEM</a>
-        <a href="calculadora-de-porcentagem.html#taxa">TAXA DE JUROS</a>
-        <a href="calculadora-de-porcentagem.html#correcao">CORREÇÃO MONETÁRIA</a>
-        <a href="calculadora-de-porcentagem.html#consumo">COMBUSTÍVEL</a>
-        <a href="calculadora-de-porcentagem.html#unidades">CONVERSOR DE UNIDADES</a>
-        <a href="comparador-investimentos.html">INVESTIMENTOS</a>
+        <a href="#price">Price</a>
+        <a href="#sac">Sac</a>
+        <a href="conversor-moedas.html">Conversor Moeda</a>
+        <a href="calculadoras.html">Calculadoras</a>
+        <a href="calculadoras.html#taxa">Conversor de taxa de juros</a>
+        <a href="calculadoras.html#correcao">Correção monetária</a>
+        <a href="calculadoras.html#porcentagem">Porcentagem</a>
+        <a href="calculadoras.html#juros-compostos">Juros compostos</a>
+        <a href="calculadoras.html#consumo">Consumo de combustível</a>
+        <a href="calculadoras.html#unidades">Conversor de unidades</a>
+        <a href="comparador-investimentos.html">Investimentos</a>
         <a href="#faq">FAQ</a>
-        <a href="#depoimentos">DEPOIMENTOS</a>
+        <a href="#depoimentos">Depoimentos</a>
       </nav>
     </div>
   </header>
@@ -351,7 +350,7 @@
           <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
           <blockquote class="depoimento__texto">"Estou usando a calculadora de juros compostos sempre... Em 5 anos meu dinheiro cresceu muito. Só precisa ter paciência e não mexer na grana."</blockquote>
           <div class="depoimento__autor"><strong>Ana Beatriz Oliveira</strong><span>Belo Horizonte, MG</span></div>
-          <div class="depoimento__economia"><i class="fas fa-chart-pie" style="color:#1a56db"></i> <a href="juros-compostos.html" style="color:var(--text-secondary);text-decoration:none">Juros Compostos</a></div>
+          <div class="depoimento__economia"><i class="fas fa-chart-pie" style="color:#1a56db"></i> <a href="calculadoras.html#juros-compostos" style="color:var(--text-secondary);text-decoration:none">Juros Compostos</a></div>
         </div>
       </div>
       <div class="depoimentos-cta">
@@ -440,8 +439,8 @@
         <ul>
           <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Simulador PRICE vs SAC</a></li>
           <li><a href="conversor-moedas.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
-          <li><a href="juros-compostos.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-pie"></i> Juros Compostos</a></li>
-          <li><a href="calculadora-de-porcentagem.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-percent"></i> Calculadora de Porcentagem</a></li>
+          <li><a href="calculadoras.html#juros-compostos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-pie"></i> Juros Compostos</a></li>
+          <li><a href="calculadoras.html#porcentagem" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-percent"></i> Porcentagem</a></li>
           <li><a href="comparador-investimentos.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
         </ul>
       </div>
@@ -461,6 +460,7 @@
     </div>
   </footer>
 
+  <script src="js/utils.min.js" defer></script>
   <script src="js/script.min.js" defer></script>
 </body>
 </html>

@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Porcentagem — Conversor de Taxas e Unidades</title>
+  <title>Calculadoras Financeiras — Porcentagem, Taxa de Juros, Correção Monetária</title>
   <meta name="description" content="Calcule porcentagem online grátis, converta taxas de juros, corrija valores por IPCA/IGP-M/Poupança/SELIC/CDI, calcule consumo de combustível (km/l) e converta unidades (temperatura, distância, massa).">
   <meta name="keywords" content="calculadora de porcentagem, calcular porcentagem, converter taxa de juros, correção monetária, IPCA, IGP-M, poupança, SELIC, CDI, consumo combustível, km/l, conversor de unidades">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://comparafinanciamento.com.br/calculadora-de-porcentagem">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/calculadoras">
   <link rel="icon" type="image/png" href="img/logo.png">
 
-  <meta property="og:title" content="Calculadora de Porcentagem — Conversor de Taxa, Correção Monetária, Combustível e Unidades">
+  <meta property="og:title" content="Calculadoras Financeiras — Porcentagem, Taxa de Juros, Correção Monetária">
   <meta property="og:description" content="Calcule porcentagem, converta taxas de juros, corrija valores por índices, calcule consumo de combustível e converta unidades. Grátis e online.">
-  <meta property="og:url" content="https://comparafinanciamento.com.br/calculadora-de-porcentagem">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/calculadoras">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
-  <meta property="og:image:alt" content="Calculadora de Porcentagem — Compara Financiamento">
+  <meta property="og:image:alt" content="Calculadoras — Compara Financiamento">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Calculadora de Porcentagem — Conversor de Taxa, Correção Monetária, Combustível e Unidades">
+  <meta name="twitter:title" content="Calculadoras Financeiras — Porcentagem, Taxa de Juros, Correção Monetária">
   <meta name="twitter:description" content="Calcule porcentagem, converta taxas de juros e corrija valores monetários. Grátis e online.">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Calculadora de Porcentagem",
-    "url": "https://comparafinanciamento.com.br/calculadora-de-porcentagem",
+    "name": "Calculadoras",
+    "url": "https://comparafinanciamento.com.br/calculadoras",
     "description": "Calcule porcentagens (X% de Y, aumento, desconto, proporção), converta taxas de juros entre períodos e corrija valores monetários por índices como IPCA, IGP-M, Poupança, SELIC e CDI.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
@@ -55,6 +55,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.min.css">
   <link rel="stylesheet" href="css/calculadora-de-porcentagem.min.css">
+  <link rel="stylesheet" href="css/juros-compostos.min.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
@@ -63,65 +64,32 @@
       <div class="header__brand">
         <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" loading="lazy"></a>
         <div class="header__brand-text">
-          <h1>Calculadora de Porcentagem</h1>
-          <p>Conversor de taxa de juros e <strong>correção monetária</strong></p>
+          <h1>Calculadoras Financeiras</h1>
+          <p>Porcentagem, taxa de juros, correção monetária, juros compostos e muito mais</p>
         </div>
       </div>
       <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <nav class="header__nav" id="header-nav">
-        <a href="/#price">PRICE</a>
-        <a href="/#sac">SAC</a>
-        <a href="conversor-moedas">CONVERSOR</a>
-        <a href="juros-compostos">JUROS COMPOSTOS</a>
-        <a href="calculadora-de-porcentagem">PORCENTAGEM</a>
-        <a href="calculadora-de-porcentagem.html#taxa">TAXA DE JUROS</a>
-        <a href="calculadora-de-porcentagem.html#correcao">CORREÇÃO MONETÁRIA</a>
-        <a href="calculadora-de-porcentagem.html#consumo">COMBUSTÍVEL</a>
-        <a href="calculadora-de-porcentagem.html#unidades">CONVERSOR DE UNIDADES</a>
-        <a href="comparador-investimentos">INVESTIMENTOS</a>
+        <a href="/#price">Price</a>
+        <a href="/#sac">Sac</a>
+        <a href="conversor-moedas.html">Conversor Moeda</a>
+        <a href="calculadoras.html">Calculadoras</a>
+        <a href="calculadoras.html#taxa">Conversor de taxa de juros</a>
+        <a href="calculadoras.html#correcao">Correção monetária</a>
+        <a href="calculadoras.html#porcentagem">Porcentagem</a>
+        <a href="calculadoras.html#juros-compostos">Juros compostos</a>
+        <a href="calculadoras.html#consumo">Consumo de combustível</a>
+        <a href="calculadoras.html#unidades">Conversor de unidades</a>
+        <a href="comparador-investimentos.html">Investimentos</a>
         <a href="/#faq">FAQ</a>
-        <a href="/#depoimentos">DEPOIMENTOS</a>
+        <a href="/#depoimentos">Depoimentos</a>
       </nav>
     </div>
   </header>
 
   <main id="main-content" class="pct-main">
-    <div class="card pct-card">
-      <div class="card-header">
-        <h2><i class="fas fa-percent"></i> Calculadora de Porcentagem</h2>
-      </div>
-      <div class="card-body">
-        <div class="pct-mode-selector" role="tablist" aria-label="Modalidades de porcentagem">
-          <button class="pct-mode-btn active" role="tab" aria-selected="true" data-mode="pct-of">% de</button>
-          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="is-pct">é quantos %</button>
-          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="increase">Aumento</button>
-          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="discount">Desconto</button>
-        </div>
-
-        <div id="pct-inputs" class="pct-inputs">
-          <div class="campo">
-            <label for="pct-x">Valor da porcentagem (%)</label>
-            <input type="text" id="pct-x" class="porcentagem" placeholder="20" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="pct-y">Valor principal (R$)</label>
-            <input type="text" id="pct-y" class="moeda" placeholder="1.500,00" inputmode="decimal">
-          </div>
-        </div>
-
-        <button class="btn-calcular" id="btn-calcular-pct">Calcular</button>
-
-        <div id="resultado-pct" hidden>
-          <div class="pct-resultado-item">
-            <span class="pct-resultado__rotulo" id="pct-rotulo">Resultado</span>
-            <span class="pct-resultado__valor" id="pct-valor"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="card taxa-card" id="taxa">
       <div class="card-header">
         <h2><i class="fas fa-exchange-alt"></i> Conversor de Taxa de Juros</h2>
@@ -154,6 +122,127 @@
           <div class="pct-resultado-item">
             <span class="pct-resultado__rotulo">Taxa Equivalente</span>
             <span class="pct-resultado__valor" id="taxa-resultado"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card correcao-card" id="correcao">
+      <div class="card-header">
+        <h2><i class="fas fa-coins"></i> Correção Monetária <span class="corr-indices-label">IPCA · IGP-M · Poupança</span></h2>
+      </div>
+      <div class="card-body">
+        <div class="campo">
+          <label for="corr-valor">Valor original (R$)</label>
+          <input type="text" id="corr-valor" class="moeda" placeholder="1.000,00" inputmode="decimal">
+        </div>
+        <div class="corr-row">
+          <div class="campo">
+            <label for="corr-data-ini">De</label>
+            <input type="month" id="corr-data-ini">
+          </div>
+          <div class="campo">
+            <label for="corr-data-fim">Até</label>
+            <input type="month" id="corr-data-fim">
+          </div>
+        </div>
+        <button class="btn-calcular" id="btn-calcular-corr">Corrigir</button>
+        <div id="resultado-corr" hidden>
+          <div class="corr-resultados" id="corr-resultados"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card pct-card" id="porcentagem">
+      <div class="card-header">
+        <h2><i class="fas fa-percent"></i> Porcentagem</h2>
+      </div>
+      <div class="card-body">
+        <div class="pct-mode-selector" role="tablist" aria-label="Modalidades de porcentagem">
+          <button class="pct-mode-btn active" role="tab" aria-selected="true" data-mode="pct-of">% de</button>
+          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="is-pct">é quantos %</button>
+          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="increase">Aumento</button>
+          <button class="pct-mode-btn" role="tab" aria-selected="false" data-mode="discount">Desconto</button>
+        </div>
+
+        <div id="pct-inputs" class="pct-inputs">
+          <div class="rate-row">
+            <div class="campo">
+              <label for="pct-x">Valor da porcentagem (%)</label>
+              <input type="text" id="pct-x" class="porcentagem" placeholder="20" inputmode="decimal">
+            </div>
+            <div class="campo">
+              <label for="pct-y">Valor principal (R$)</label>
+              <input type="text" id="pct-y" class="moeda" placeholder="1.500,00" inputmode="decimal">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-calcular" id="btn-calcular-pct">Calcular</button>
+
+        <div id="resultado-pct" hidden>
+          <div class="pct-resultado-item">
+            <span class="pct-resultado__rotulo" id="pct-rotulo">Resultado</span>
+            <span class="pct-resultado__valor" id="pct-valor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="juros-compostos" class="card juros-compostos-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-pie"></i> Juros Compostos</h2>
+      </div>
+      <div class="card-body">
+        <div class="rate-row">
+          <div class="campo">
+            <label for="jc-pv">Valor inicial (R$)</label>
+            <input type="text" id="jc-pv" class="moeda" placeholder="0,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="jc-pmt">Aporte mensal (R$)</label>
+            <input type="text" id="jc-pmt" class="moeda" placeholder="0,00" inputmode="decimal">
+          </div>
+        </div>
+        <div class="rate-row">
+          <div class="campo">
+            <label for="jc-i">Taxa mensal (%)</label>
+            <input type="text" id="jc-i" class="porcentagem" placeholder="1,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="jc-i-anual">Taxa anual (%)</label>
+            <input type="text" id="jc-i-anual" class="porcentagem" placeholder="12,68" inputmode="decimal">
+          </div>
+        </div>
+        <div class="campo">
+          <label for="jc-n">Período (meses)</label>
+          <input type="text" id="jc-n" class="numero" placeholder="12" inputmode="numeric">
+        </div>
+
+        <button class="btn-calcular" id="btn-calcular-jc">Calcular</button>
+
+        <div id="resultado-jc" hidden>
+          <div class="resumo-jc">
+            <div class="resumo-item">
+              <span class="rotulo">Valor Final</span>
+              <span class="valor destaque" id="jc-valor-final"></span>
+            </div>
+            <div class="resumo-item">
+              <span class="rotulo">Total Investido</span>
+              <span class="valor" id="jc-total-investido"></span>
+            </div>
+            <div class="resumo-item">
+              <span class="rotulo">Total Juros</span>
+              <span class="valor destaque-verde" id="jc-total-juros"></span>
+            </div>
+          </div>
+
+          <div class="grafico-wrapper-jc">
+            <canvas id="grafico-jc"></canvas>
+          </div>
+
+          <div class="tabela-wrapper">
+            <table id="tabela-jc"></table>
           </div>
         </div>
       </div>
@@ -213,8 +302,6 @@
               <label for="unid-valor">Valor</label>
               <input type="text" id="unid-valor" placeholder="100" inputmode="decimal">
             </div>
-          </div>
-          <div class="unid-row">
             <div class="campo">
               <label for="unid-de">De</label>
               <select id="unid-de"></select>
@@ -233,32 +320,6 @@
         </div>
       </div>
     </div>
-
-    <div class="card correcao-card" id="correcao">
-      <div class="card-header">
-        <h2><i class="fas fa-coins"></i> Correção Monetária <span class="corr-indices-label">IPCA · IGP-M · Poupança</span></h2>
-      </div>
-      <div class="card-body">
-        <div class="campo">
-          <label for="corr-valor">Valor original (R$)</label>
-          <input type="text" id="corr-valor" class="moeda" placeholder="1.000,00" inputmode="decimal">
-        </div>
-        <div class="corr-row">
-          <div class="campo">
-            <label for="corr-data-ini">De</label>
-            <input type="month" id="corr-data-ini">
-          </div>
-          <div class="campo">
-            <label for="corr-data-fim">Até</label>
-            <input type="month" id="corr-data-fim">
-          </div>
-        </div>
-        <button class="btn-calcular" id="btn-calcular-corr">Corrigir</button>
-        <div id="resultado-corr" hidden>
-          <div class="corr-resultados" id="corr-resultados"></div>
-        </div>
-      </div>
-    </div>
   </main>
 
   <footer class="footer">
@@ -274,10 +335,10 @@
         <h4>FERRAMENTAS</h4>
         <ul>
           <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Simulador PRICE vs SAC</a></li>
-          <li><a href="conversor-moedas" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
-          <li><a href="juros-compostos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-pie"></i> Juros Compostos</a></li>
-          <li><a href="calculadora-de-porcentagem" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-percent"></i> Calculadora de Porcentagem</a></li>
-          <li><a href="comparador-investimentos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
+           <li><a href="conversor-moedas.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+          <li><a href="#juros-compostos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-pie"></i> Juros Compostos</a></li>
+          <li><a href="calculadoras.html#porcentagem" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-percent"></i> Porcentagem</a></li>
+          <li><a href="comparador-investimentos.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
         </ul>
       </div>
       <div class="footer__afiliado">
@@ -298,5 +359,6 @@
 
   <script src="js/utils.js" defer></script>
   <script src="js/calculadora-de-porcentagem.min.js" defer></script>
+  <script src="js/juros-compostos.min.js" defer></script>
 </body>
 </html>

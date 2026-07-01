@@ -159,16 +159,6 @@ function renderGrafico(rows, pv) {
   });
 }
 
-function exemploRapido() {
-  document.getElementById('jc-pv').value = fmt.numero(10000);
-  document.getElementById('jc-pmt').value = fmt.numero(500);
-  const i = 0.01;
-  document.getElementById('jc-i').value = fmt.pctInput(i);
-  document.getElementById('jc-i-anual').value = fmt.pctInput(TAXA_ANUAL(i));
-  document.getElementById('jc-n').value = '60';
-  calcularJC();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   setupCurrencyMask();
   setupIntegerMask();
@@ -177,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupHamburgerMenu();
 
   document.getElementById('btn-calcular-jc')?.addEventListener('click', calcularJC);
-  document.getElementById('btn-exemplo-jc')?.addEventListener('click', exemploRapido);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {

@@ -10,11 +10,9 @@
   .pct-main {
     grid-template-columns: 1fr 1fr;
   }
-  .pct-main .correcao-card {
-    grid-column: 1 / -1;
-  }
   .pct-card,
   .taxa-card,
+  .juros-compostos-card,
   .consumo-card,
   .unid-card {
     display: flex;
@@ -22,6 +20,7 @@
   }
   .pct-card .card-body,
   .taxa-card .card-body,
+  .juros-compostos-card .card-body,
   .consumo-card .card-body,
   .unid-card .card-body {
     flex: 1;
@@ -30,6 +29,7 @@
   }
   .pct-card .btn-calcular,
   .taxa-card .btn-calcular,
+  .juros-compostos-card .btn-calcular,
   .consumo-card .btn-calcular,
   .unid-card .btn-calcular {
     margin-top: auto;
@@ -330,10 +330,11 @@
 
 .unid-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
+
 
 .unid-row .campo {
   margin-bottom: 0;

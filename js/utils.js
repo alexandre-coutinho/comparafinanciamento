@@ -105,8 +105,10 @@ function setupPercentMask(containerSelector) {
 
 function setupHamburgerMenu() {
   const hamburger = document.getElementById('btn-hamburger');
+  if (!hamburger || hamburger.dataset.hamburgerBound) return;
+  hamburger.dataset.hamburgerBound = 'true';
   const headerNav = document.getElementById('header-nav');
-  hamburger?.addEventListener('click', () => {
+  hamburger.addEventListener('click', () => {
     const open = headerNav.classList.toggle('header__nav--open');
     hamburger.setAttribute('aria-expanded', open);
   });
