@@ -1,0 +1,181 @@
+function getIRAliquot(meses) {
+  if (meses <= 6) return 0.225;
+  if (meses <= 12) return 0.20;
+  if (meses <= 24) return 0.175;
+  return 0.15;
+}
+
+function calcularInvestimentos() {
+  const pv = parseMoeda(document.getElementById('inv-valor').value);
+  const n = parseInt(document.getElementById('inv-prazo').value.replace(/\D/g, ''), 10);
+
+  const cdiAA = parsePct(document.getElementById('inv-cdi').value);
+  const ipcaAA = parsePct(document.getElementById('inv-ipca').value);
+  const cdbPct = parsePct(document.getElementById('inv-cdb-pct').value);
+  const lciPct = parsePct(document.getElementById('inv-lci-pct').value);
+  const lcaPct = parsePct(document.getElementById('inv-lca-pct').value);
+  const tselicAA = parsePct(document.getElementById('inv-tselic-pct').value);
+  const prefixAA = parsePct(document.getElementById('inv-prefixado').value);
+  const ipcaMaisAA = parsePct(document.getElementById('inv-ipca-mais').value);
+
+  if (pv <= 0) { mostrarToast('Informe o valor inicial.'); return; }
+  if (isNaN(n) || n < 1) { mostrarToast('Informe o prazo em meses.'); return; }
+  if (isNaN(cdiAA) || cdiAA <= 0) { mostrarToast('Informe a taxa CDI/SELIC.'); return; }
+
+  const cdiAM = TAXA_MENSAL(cdiAA);
+  const ipcaAM = TAXA_MENSAL(ipcaAA);
+  const ipcaMaisNominalAA = (1 + ipcaAA) * (1 + ipcaMaisAA) - 1;
+  const ipcaMaisNominalAM = TAXA_MENSAL(ipcaMaisNominalAA);
+  const acaoCompra = parseMoeda(document.getElementById('inv-acao-compra').value);
+  const acaoVenda = parseMoeda(document.getElementById('inv-acao-venda').value);
+  const temAcao = acaoCompra > 0 && acaoVenda > 0;
+  const acaoTV = temAcao ? acaoVenda / acaoCompra : 1;
+  const acaoAM = temAcao ? Math.pow(acaoTV, 1 / n) - 1 : 0;
+
+  const investimentos = [
+    {
+      nome: 'CDB',
+      taxaBrutaLabel: (cdbPct * 100).toFixed(0).replace('.', ',') + '% CDI',
+      taxaAM: cdiAM * cdbPct,
+      tributado: true,
+    },
+    {
+      nome: 'LCI',
+      taxaBrutaLabel: (lciPct * 100).toFixed(0).replace('.', ',') + '% CDI',
+      taxaAM: cdiAM * lciPct,
+      tributado: false,
+    },
+    {
+      nome: 'LCA',
+      taxaBrutaLabel: (lcaPct * 100).toFixed(0).replace('.', ',') + '% CDI',
+      taxaAM: cdiAM * lcaPct,
+      tributado: false,
+    },
+    {
+      nome: 'Tesouro Selic',
+      taxaBrutaLabel: fmt.pct(tselicAA),
+      taxaAM: TAXA_MENSAL(tselicAA),
+      tributado: true,
+    },
+    {
+      nome: 'Tesouro Prefixado',
+      taxaBrutaLabel: fmt.pct(prefixAA),
+      taxaAM: TAXA_MENSAL(prefixAA),
+      tributado: true,
+    },
+    {
+      nome: 'Tesouro IPCA+',
+      taxaBrutaLabel: 'IPCA + ' + fmt.pct(ipcaMaisAA),
+      taxaAM: ipcaMaisNominalAM,
+      tributado: true,
+    },
+    {
+      nome: 'Ação Hipotética',
+      taxaBrutaLabel: temAcao ? fmt.moeda(acaoCompra) + ' - ' + fmt.moeda(acaoVenda) : '—',
+      taxaAM: acaoAM,
+      tributado: true,
+    },
+  ];
+
+  const irAliquota = getIRAliquot(n);
+  let melhorIdx = 0;
+  let melhorLiquido = -1;
+
+  const resultados = investimentos.map((inv, idx) => {
+    const fvBruto = pv * Math.pow(1 + inv.taxaAM, n);
+    const rendimento = fvBruto - pv;
+    const ir = inv.tributado ? rendimento * irAliquota : 0;
+    const fvLiquido = fvBruto - ir;
+
+    if (fvLiquido > melhorLiquido) {
+      melhorLiquido = fvLiquido;
+      melhorIdx = idx;
+    }
+
+    const taxaBrutaAA = TAXA_ANUAL(inv.taxaAM);
+
+    return {
+      nome: inv.nome,
+      taxaBruta: fmt.pct(taxaBrutaAA),
+      taxaBrutaLabel: inv.taxaBrutaLabel,
+      fvBruto,
+      ir,
+      fvLiquido,
+      pctInicial: (fvLiquido / pv - 1) * 100,
+      idx,
+      tributado: inv.tributado,
+    };
+  });
+
+  const R = melhorLiquido / pv;
+  resultados.forEach(r => {
+    if (r.fvLiquido >= melhorLiquido - 0.001) {
+      r.paraVencer = 'vencedor';
+      return;
+    }
+    const taxaAMNeeded = r.tributado
+      ? Math.pow((R - 1) / (1 - irAliquota) + 1, 1 / n) - 1
+      : Math.pow(R, 1 / n) - 1;
+    const taxaAANeeded = TAXA_ANUAL(taxaAMNeeded);
+    if (r.idx <= 2) {
+      r.paraVencer = (taxaAANeeded / cdiAA * 100).toFixed(1).replace('.', ',') + '% CDI';
+    } else if (r.idx <= 4) {
+      r.paraVencer = fmt.pct(taxaAANeeded);
+    } else if (r.idx === 6 && temAcao) {
+      r.paraVencer = 'venda em ' + fmt.moeda(acaoCompra * (R - irAliquota) / (1 - irAliquota));
+    } else {
+      r.paraVencer = 'IPCA+ ' + fmt.pct((1 + taxaAANeeded) / (1 + ipcaAA) - 1);
+    }
+  });
+
+  const headers = ['Investimento', 'Taxa Bruta', 'Valor Bruto', 'IR', 'Valor Líquido', 'Rentabilidade', 'Para Vencer'];
+  const html = '<thead><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr></thead>'
+    + '<tbody>' + resultados.map((r, idx) => {
+      const cls = idx === melhorIdx ? ' class="melhor"' : '';
+      return '<tr' + cls + '>'
+        + '<td>' + r.nome + '</td>'
+        + '<td>' + r.taxaBruta + ' <span class="inv-taxa-label">(' + r.taxaBrutaLabel + ')</span></td>'
+        + '<td>' + fmt.moeda(r.fvBruto) + '</td>'
+        + '<td>' + (r.ir > 0 ? fmt.moeda(r.ir) : 'Isento') + '</td>'
+        + '<td>' + fmt.moeda(r.fvLiquido) + '</td>'
+        + '<td>' + r.pctInicial.toFixed(2).replace('.', ',') + '%</td>'
+        + '<td>' + r.paraVencer + '</td>'
+        + '</tr>';
+    }).join('') + '</tbody>';
+
+  document.getElementById('inv-tabela').innerHTML = html;
+
+  document.getElementById('resultado-inv').hidden = false;
+}
+
+function exemploRapidoInv() {
+  document.getElementById('inv-valor').value = fmt.numero(10000);
+  document.getElementById('inv-prazo').value = '12';
+  document.getElementById('inv-cdi').value = fmt.pctInput(0.1465);
+  document.getElementById('inv-ipca').value = fmt.pctInput(0.05);
+  document.getElementById('inv-cdb-pct').value = fmt.pctInput(1);
+  document.getElementById('inv-lci-pct').value = fmt.pctInput(0.93);
+  document.getElementById('inv-lca-pct').value = fmt.pctInput(0.92);
+  document.getElementById('inv-tselic-pct').value = fmt.pctInput(0.1465);
+  document.getElementById('inv-prefixado').value = fmt.pctInput(0.14);
+  document.getElementById('inv-ipca-mais').value = fmt.pctInput(0.06);
+  document.getElementById('inv-acao-compra').value = fmt.numero(50);
+  document.getElementById('inv-acao-venda').value = fmt.numero(57.5);
+  calcularInvestimentos();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupCurrencyMask();
+  setupPercentMask();
+  setupIntegerMask();
+  setupHamburgerMenu();
+
+  document.getElementById('btn-calcular-inv')?.addEventListener('click', calcularInvestimentos);
+  document.getElementById('btn-exemplo-inv')?.addEventListener('click', exemploRapidoInv);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.closest('.inv-card')) {
+      calcularInvestimentos();
+    }
+  });
+});

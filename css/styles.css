@@ -359,7 +359,9 @@ footer {
 }
 
 @media (min-width: 768px) {
-  .footer__content { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .footer__content { grid-template-columns: 1fr 1fr 1fr; }
+  .footer__brand .footer__logo { justify-content: center; }
+  .footer__desc { text-align: center; }
 }
 
 .footer__logo {
@@ -414,9 +416,9 @@ footer {
 .footer__dev {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 0.75rem;
-  text-align: right;
+  text-align: center;
 }
 
 .footer__dev-logo {
@@ -435,6 +437,10 @@ footer {
   align-items: center;
   gap: 0.75rem;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer__afiliado { align-items: flex-end; text-align: right; }
 }
 
 .footer__info { text-align: center; }
@@ -637,12 +643,8 @@ footer {
     gap: 0.25rem;
     text-align: center;
   }
-  .footer__info li i {
+   .footer__info li i {
     display: none;
-  }
-  .footer__dev {
-    align-items: center;
-    text-align: center;
   }
   .footer h4 {
     width: 100%;

@@ -1,6 +1,6 @@
 # Compara Financiamento
 
-Conjunto de ferramentas financeiras gratuitas: simulador PRICE vs SAC, conversor de moedas e calculadora de juros compostos.
+Conjunto de ferramentas financeiras gratuitas: simulador PRICE vs SAC, conversor de moedas, calculadora de juros compostos, calculadora de porcentagem e comparador de investimentos.
 
 ## Funcionalidades
 
@@ -29,6 +29,8 @@ Conjunto de ferramentas financeiras gratuitas: simulador PRICE vs SAC, conversor
 | `/` | Simulador Tabela PRICE vs Tabela SAC |
 | `/conversor-moedas.html` | Conversor de moedas em tempo real |
 | `/juros-compostos.html` | Calculadora de juros compostos com aportes |
+| `/calculadora-de-porcentagem.html` | Calculadora de porcentagem com consumo de combustível |
+| `/comparador-investimentos.html` | Comparador de investimentos (CDB, LCI, LCA, Tesouro, Ações) |
 
 ## Deploy
 

@@ -1,0 +1,202 @@
+.inv-main {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inv-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.inv-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.inv-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.inv-card .card-body > .campo {
+  margin-bottom: 1rem;
+}
+
+.inv-card .btn-calcular {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-bottom: 1rem;
+}
+
+.inv-card .btn-calcular:hover {
+  background: #1e40af;
+  transform: scale(1.01);
+}
+
+.inv-card .btn-calcular:active {
+  transform: scale(0.98);
+}
+
+.inv-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.inv-row .campo {
+  margin-bottom: 0;
+}
+
+.inv-row-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.inv-subtitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.inv-subtitle i {
+  margin-right: 0.35rem;
+}
+
+.inv-tabela-wrapper {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.inv-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.inv-tabela th {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.inv-tabela th:first-child {
+  text-align: left;
+}
+
+.inv-tabela td {
+  padding: 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.inv-tabela td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.inv-tabela tr:nth-child(even) {
+  background: var(--bg);
+}
+
+.inv-tabela tr:hover {
+  background: var(--primary-light);
+}
+
+.inv-tabela .melhor {
+  background: #dcfce7 !important;
+}
+
+.inv-tabela .melhor td {
+  font-weight: 700;
+  color: #166534;
+}
+
+.inv-tabela .inv-taxa-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.inv-equivalencia {
+  background: var(--bg);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.inv-equivalencia h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.inv-equivalencia h3 i {
+  margin-right: 0.35rem;
+}
+
+.inv-equivalencia p {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+#resultado-inv[hidden] {
+  display: none;
+}
+
+.inv-main .card-visao-rapida__body {
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  .inv-main {
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .inv-main {
+    padding: 0;
+  }
+
+  .inv-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inv-row-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .inv-tabela {
+    font-size: 0.7rem;
+  }
+
+  .inv-tabela th,
+  .inv-tabela td {
+    padding: 0.4rem 0.3rem;
+  }
+}

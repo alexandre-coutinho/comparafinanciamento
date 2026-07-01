@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparador de Investimentos — Renda Fixa + Ações</title>
+  <meta name="description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações lado a lado. Veja o valor líquido com IR descontado e descubra qual rende mais para o seu prazo.">
+  <meta name="keywords" content="comparador de investimentos, CDB vs LCI vs LCA, tesouro direto, ação, calcular rentabilidade líquida, IR investimentos, tabela regressiva IR, comparar CDB com LCI, simulador investimentos">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/comparador-investimentos">
+  <link rel="icon" type="image/png" href="img/logo.png">
+
+  <meta property="og:title" content="Comparador de Investimentos — Renda Fixa + Ações">
+  <meta property="og:description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações lado a lado com IR descontado. Grátis e online.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/comparador-investimentos">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
+  <meta property="og:image:alt" content="Comparador de Investimentos — Compara Financiamento">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Comparador de Investimentos — Renda Fixa + Ações">
+  <meta name="twitter:description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações com IR descontado.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Comparador de Investimentos",
+    "url": "https://comparafinanciamento.com.br/comparador-investimentos",
+    "description": "Compare CDB, LCI, LCA e títulos do Tesouro Direto lado a lado. Veja o valor líquido com IR descontado pela tabela regressiva e descubra qual investimento rende mais.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": "pt-BR",
+    "featureList": [
+      "Comparação lado a lado de CDB, LCI, LCA e Tesouro Direto",
+      "Cálculo do IR pela tabela regressiva",
+      "Tabela de equivalência CDI para investimentos isentos",
+      "Simulação com taxas personalizadas"
+    ],
+    "image": "https://comparafinanciamento.com.br/img/logo.png",
+    "author": {
+      "@type": "Organization",
+      "name": "Compara Financiamento"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/comparador-investimentos.min.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+  <header>
+    <div class="header__content">
+      <div class="header__brand">
+        <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" loading="lazy"></a>
+        <div class="header__brand-text">
+          <h1>Comparador de Investimentos</h1>
+          <p>CDB × LCI × LCA × Tesouro Direto × Renda variável</p>
+        </div>
+      </div>
+      <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="header__nav" id="header-nav">
+        <a href="/#price">PRICE</a>
+        <a href="/#sac">SAC</a>
+        <a href="conversor-moedas">CONVERSOR</a>
+        <a href="juros-compostos">JUROS COMPOSTOS</a>
+        <a href="calculadora-de-porcentagem">PORCENTAGEM</a>
+        <a href="calculadora-de-porcentagem.html#taxa">TAXA DE JUROS</a>
+        <a href="calculadora-de-porcentagem.html#correcao">CORREÇÃO MONETÁRIA</a>
+        <a href="calculadora-de-porcentagem.html#consumo">COMBUSTÍVEL</a>
+        <a href="calculadora-de-porcentagem.html#unidades">CONVERSOR DE UNIDADES</a>
+        <a href="comparador-investimentos">INVESTIMENTOS</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/#depoimentos">DEPOIMENTOS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="inv-main">
+    <div class="card card-visao-rapida">
+      <div class="card-body card-visao-rapida__body">
+        <div class="card-visao-rapida__texto">
+          <strong>Quer ver na prática?</strong>
+          <span>Carregue um exemplo com taxas típicas do mercado.</span>
+        </div>
+        <button class="btn-visao-rapida" id="btn-exemplo-inv">
+          Carregar exemplo <small>R$ 10.000 • 12 meses • CDB 100% • LCI 93% • LCA 92%</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="card inv-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-bar"></i> Comparar Investimentos</h2>
+      </div>
+      <div class="card-body">
+        <div class="inv-row">
+          <div class="campo">
+            <label for="inv-valor">Valor inicial (R$)</label>
+            <input type="text" id="inv-valor" class="moeda" placeholder="10.000,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-prazo">Prazo (meses)</label>
+            <input type="text" id="inv-prazo" class="numero" placeholder="12" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="inv-subtitle"><i class="fas fa-chart-line"></i> Cenário Econômico</div>
+        <div class="inv-row">
+          <div class="campo">
+            <label for="inv-cdi">CDI/SELIC (% a.a.)</label>
+            <input type="text" id="inv-cdi" class="porcentagem" placeholder="14,65" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-ipca">IPCA estimado (% a.a.)</label>
+            <input type="text" id="inv-ipca" class="porcentagem" placeholder="5,00" inputmode="decimal">
+          </div>
+        </div>
+
+        <div class="inv-subtitle"><i class="fas fa-university"></i> Renda Fixa Bancária</div>
+        <div class="inv-row inv-row-3">
+          <div class="campo">
+            <label for="inv-cdb-pct">CDB (% do CDI)</label>
+            <input type="text" id="inv-cdb-pct" class="porcentagem" placeholder="100" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-lci-pct">LCI (% do CDI)</label>
+            <input type="text" id="inv-lci-pct" class="porcentagem" placeholder="93" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-lca-pct">LCA (% do CDI)</label>
+            <input type="text" id="inv-lca-pct" class="porcentagem" placeholder="92" inputmode="decimal">
+          </div>
+        </div>
+
+        <div class="inv-subtitle"><i class="fas fa-landmark"></i> Tesouro Direto</div>
+        <div class="inv-row inv-row-3">
+          <div class="campo">
+            <label for="inv-tselic-pct">Tesouro Selic (% a.a.)</label>
+            <input type="text" id="inv-tselic-pct" class="porcentagem" placeholder="14,65" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-prefixado">Tesouro Prefixado (% a.a.)</label>
+            <input type="text" id="inv-prefixado" class="porcentagem" placeholder="14,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-ipca-mais">Tesouro IPCA+ (% a.a.)</label>
+            <input type="text" id="inv-ipca-mais" class="porcentagem" placeholder="6,00" inputmode="decimal">
+          </div>
+        </div>
+
+        <div class="inv-subtitle"><i class="fas fa-chart-line"></i> Renda Variável</div>
+        <div class="inv-row">
+          <div class="campo">
+            <label for="inv-acao-compra">Ação — Preço de compra (R$)</label>
+            <input type="text" id="inv-acao-compra" class="moeda" placeholder="50,00" inputmode="decimal">
+          </div>
+          <div class="campo">
+            <label for="inv-acao-venda">Ação — Preço de venda (R$)</label>
+            <input type="text" id="inv-acao-venda" class="moeda" placeholder="57,50" inputmode="decimal">
+          </div>
+        </div>
+
+        <button class="btn-calcular" id="btn-calcular-inv">Comparar</button>
+
+        <div id="resultado-inv" hidden>
+          <div class="inv-tabela-wrapper">
+            <table class="inv-tabela" id="inv-tabela"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="img/logo.webp" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
+          <span>Compara <span>Financiamento</span></span>
+        </div>
+        <p class="footer__desc">Compare financiamentos PRICE vs SAC, converta moedas em tempo real, simule juros compostos, calcule porcentagens e compare investimentos CDB × LCI × LCA × Tesouro Direto × Ações. Tudo grátis e online.</p>
+      </div>
+      <div class="footer__info">
+        <h4>FERRAMENTAS</h4>
+        <ul>
+          <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Simulador PRICE vs SAC</a></li>
+          <li><a href="conversor-moedas" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+          <li><a href="juros-compostos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-pie"></i> Juros Compostos</a></li>
+          <li><a href="calculadora-de-porcentagem" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-percent"></i> Calculadora de Porcentagem</a></li>
+          <li><a href="comparador-investimentos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
+        </ul>
+      </div>
+      <div class="footer__afiliado">
+        <h4>ENTRE EM CONTATO</h4>
+        <p class="footer__email"><a href="mailto:suporte@comparafinanciamento.com.br" data-cfemail="false">suporte@comparafinanciamento.com.br</a></p>
+        <div class="footer__dev">
+          <h4>Desenvolvido por</h4>
+          <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
+            <img src="img/Preview.webp" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/comparador-investimentos.min.js" defer></script>
+</body>
+</html>

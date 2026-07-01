@@ -1,0 +1,427 @@
+function togglePctMode(btn) {
+  document.querySelectorAll('.pct-mode-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  updatePctInputs(btn.dataset.mode);
+  document.getElementById('resultado-pct').hidden = true;
+}
+
+function updatePctInputs(mode) {
+  const container = document.getElementById('pct-inputs');
+  const xLabel = document.querySelector('label[for="pct-x"]');
+  const yLabel = document.querySelector('label[for="pct-y"]');
+  const xInput = document.getElementById('pct-x');
+  const yInput = document.getElementById('pct-y');
+
+  xInput.value = '';
+  yInput.value = '';
+  xInput.className = 'porcentagem';
+  yInput.className = 'moeda';
+
+  switch (mode) {
+    case 'pct-of':
+      xLabel.textContent = 'Valor da porcentagem (%)';
+      yLabel.textContent = 'Valor principal (R$)';
+      break;
+    case 'is-pct':
+      xLabel.textContent = 'Valor parcial (R$)';
+      xInput.className = 'moeda';
+      yLabel.textContent = 'Valor total (R$)';
+      yInput.className = 'moeda';
+      break;
+    case 'increase':
+      xLabel.textContent = 'Percentual de aumento (%)';
+      yLabel.textContent = 'Valor original (R$)';
+      break;
+    case 'discount':
+      xLabel.textContent = 'Percentual de desconto (%)';
+      yLabel.textContent = 'Valor original (R$)';
+      break;
+  }
+}
+
+function calcularPct() {
+  const mode = document.querySelector('.pct-mode-btn.active')?.dataset.mode || 'pct-of';
+  const xInput = document.getElementById('pct-x');
+  const yInput = document.getElementById('pct-y');
+  const isXCurrency = xInput.className === 'moeda';
+  const x = isXCurrency ? parseMoeda(xInput.value) : parsePct(xInput.value);
+  const y = parseMoeda(yInput.value);
+
+  if (isNaN(y) || y < 0) {
+    mostrarToast('Informe um valor principal válido.');
+    return;
+  }
+
+  let resultado, rotulo;
+
+  switch (mode) {
+    case 'pct-of': {
+      if (isNaN(x) || x < 0) { mostrarToast('Informe a porcentagem.'); return; }
+      resultado = y * x;
+      rotulo = `${fmt.pctInput(x).replace(',', ',')}% de ${fmt.moeda(y)}`;
+      break;
+    }
+    case 'is-pct': {
+      if (isNaN(x) || x < 0) { mostrarToast('Informe o valor parcial.'); return; }
+      if (y === 0) { mostrarToast('O valor total não pode ser zero.'); return; }
+      resultado = (x / y) * 100;
+      rotulo = `${fmt.moeda(x)} é quantos % de ${fmt.moeda(y)}?`;
+      break;
+    }
+    case 'increase': {
+      if (isNaN(x) || x < 0) { mostrarToast('Informe o percentual de aumento.'); return; }
+      resultado = y * (1 + x);
+      rotulo = `${fmt.moeda(y)} com aumento de ${(x * 100).toFixed(2).replace('.', ',')}%`;
+      break;
+    }
+    case 'discount': {
+      if (isNaN(x) || x < 0) { mostrarToast('Informe o percentual de desconto.'); return; }
+      resultado = y * (1 - x);
+      rotulo = `${fmt.moeda(y)} com desconto de ${(x * 100).toFixed(2).replace('.', ',')}%`;
+      break;
+    }
+  }
+
+  document.getElementById('pct-rotulo').textContent = rotulo;
+  document.getElementById('pct-valor').textContent = mode === 'is-pct'
+    ? resultado.toFixed(2).replace('.', ',') + '%'
+    : fmt.moeda(resultado);
+  document.getElementById('resultado-pct').hidden = false;
+}
+
+function converterTaxa() {
+  const valor = parsePct(document.getElementById('taxa-valor').value);
+  const de = document.getElementById('taxa-de').value;
+  const para = document.getElementById('taxa-para').value;
+
+  if (isNaN(valor) || valor < 0) {
+    mostrarToast('Informe uma taxa válida.');
+    return;
+  }
+
+  if (de === para) {
+    mostrarToast('Selecione períodos diferentes para converter.');
+    return;
+  }
+
+  let resultado;
+
+  if (de === 'diaria' && para === 'mensal') {
+    resultado = (1 + valor) ** 30 - 1;
+  } else if (de === 'diaria' && para === 'anual') {
+    resultado = (1 + valor) ** 360 - 1;
+  } else if (de === 'mensal' && para === 'diaria') {
+    resultado = (1 + valor) ** (1 / 30) - 1;
+  } else if (de === 'mensal' && para === 'anual') {
+    resultado = TAXA_ANUAL(valor);
+  } else if (de === 'anual' && para === 'mensal') {
+    resultado = TAXA_MENSAL(valor);
+  } else if (de === 'anual' && para === 'diaria') {
+    resultado = TAXA_MENSAL(valor);
+    const mensal = resultado;
+    resultado = (1 + mensal) ** (1 / 30) - 1;
+  }
+
+  const pct = (resultado * 100);
+  const pctStr = pct < 0.01
+    ? pct.toFixed(6).replace('.', ',') + '%'
+    : pct.toFixed(2).replace('.', ',') + '%';
+  document.getElementById('taxa-resultado').textContent = pctStr;
+  document.getElementById('resultado-taxa').hidden = false;
+}
+
+let HIST_IPCA = {
+  '2022-01':0.54,'2022-02':1.01,'2022-03':1.62,'2022-04':1.06,'2022-05':0.47,'2022-06':0.67,'2022-07':-0.68,'2022-08':-0.36,'2022-09':-0.29,'2022-10':0.59,'2022-11':0.41,'2022-12':0.62,
+  '2023-01':0.53,'2023-02':0.84,'2023-03':0.71,'2023-04':0.61,'2023-05':0.23,'2023-06':-0.08,'2023-07':0.12,'2023-08':0.23,'2023-09':0.26,'2023-10':0.24,'2023-11':0.28,'2023-12':0.56,
+  '2024-01':0.42,'2024-02':0.83,'2024-03':0.16,'2024-04':0.38,'2024-05':0.46,'2024-06':0.21,'2024-07':0.38,'2024-08':-0.02,'2024-09':0.44,'2024-10':0.56,'2024-11':0.39,'2024-12':0.52,
+  '2025-01':0.16,'2025-02':1.31,'2025-03':0.56,'2025-04':0.43,'2025-05':0.26,'2025-06':0.24,'2025-07':0.26,'2025-08':-0.11,'2025-09':0.48,'2025-10':0.09,'2025-11':0.18,'2025-12':0.33,
+  '2026-01':0.33,'2026-02':0.70,'2026-03':0.88,'2026-04':0.67,'2026-05':0.58,
+};
+
+let HIST_IGPM = {
+  '2022-01':1.82,'2022-02':0.87,'2022-03':1.74,'2022-04':1.41,'2022-05':0.52,'2022-06':0.59,'2022-07':-0.28,'2022-08':-0.70,'2022-09':-0.95,'2022-10':-0.97,'2022-11':-0.56,'2022-12':-0.52,
+  '2023-01':0.21,'2023-02':-0.17,'2023-03':0.05,'2023-04':-0.61,'2023-05':-1.93,'2023-06':-1.78,'2023-07':-0.40,'2023-08':-0.14,'2023-09':0.37,'2023-10':0.49,'2023-11':0.51,'2023-12':0.74,
+  '2024-01':0.07,'2024-02':-0.52,'2024-03':-0.47,'2024-04':0.48,'2024-05':0.73,'2024-06':0.81,'2024-07':0.61,'2024-08':0.12,'2024-09':0.53,'2024-10':0.96,'2024-11':0.87,'2024-12':0.92,
+  '2025-01':0.27,'2025-02':1.06,'2025-03':-0.34,'2025-04':0.24,'2025-05':-0.49,'2025-06':-1.67,'2025-07':-0.77,'2025-08':0.36,'2025-09':0.42,'2025-10':-0.36,'2025-11':0.27,'2025-12':-0.01,
+  '2026-01':0.41,'2026-02':-0.73,'2026-03':0.52,'2026-04':2.73,'2026-05':0.84,'2026-06':-0.50,
+};
+
+let HIST_POUP = {
+  '2022-01':0.56,'2022-02':0.64,'2022-03':0.60,'2022-04':0.56,'2022-05':0.67,'2022-06':0.65,'2022-07':0.66,'2022-08':0.74,'2022-09':0.68,'2022-10':0.65,'2022-11':0.65,'2022-12':0.64,
+  '2023-01':0.64,'2023-02':0.64,'2023-03':0.64,'2023-04':0.64,'2023-05':0.64,'2023-06':0.64,'2023-07':0.64,'2023-08':0.64,'2023-09':0.64,'2023-10':0.64,'2023-11':0.64,'2023-12':0.64,
+  '2024-01':0.59,'2024-02':0.51,'2024-03':0.53,'2024-04':0.60,'2024-05':0.59,'2024-06':0.54,'2024-07':0.57,'2024-08':0.57,'2024-09':0.57,'2024-10':0.59,'2024-11':0.56,'2024-12':0.58,
+  '2025-01':0.67,'2025-02':0.63,'2025-03':0.64,'2025-04':0.67,'2025-05':0.67,'2025-06':0.67,'2025-07':0.68,'2025-08':0.67,'2025-09':0.68,'2025-10':0.67,'2025-11':0.66,'2025-12':0.68,
+  '2026-01':0.67,'2026-02':0.62,'2026-03':0.67,'2026-04':0.67,'2026-05':0.67,'2026-06':0.67,
+};
+
+
+
+
+
+function calcAcumulado(hist, dataIni, dataFim) {
+  const keys = Object.keys(hist).filter(k => k >= dataIni && k <= dataFim).sort();
+  if (keys.length === 0) return null;
+  let acc = 1;
+  for (const k of keys) {
+    acc *= (1 + hist[k] / 100);
+  }
+  return (acc - 1) * 100;
+}
+
+const INDICES = [
+  { id: 'ipca', nome: 'IPCA (IBGE)', hist: () => HIST_IPCA },
+  { id: 'igpm', nome: 'IGP-M (FGV)', hist: () => HIST_IGPM },
+  { id: 'poupanca', nome: 'Poupança', hist: () => HIST_POUP },
+];
+
+function corrigirValor() {
+  const valor = parseMoeda(document.getElementById('corr-valor').value);
+  const dataIni = document.getElementById('corr-data-ini').value;
+  const dataFim = document.getElementById('corr-data-fim').value;
+
+  if (isNaN(valor) || valor < 0) {
+    mostrarToast('Informe um valor original válido.');
+    return;
+  }
+  if (!dataIni || !dataFim) {
+    mostrarToast('Selecione o período de correção.');
+    return;
+  }
+  if (dataFim <= dataIni) {
+    mostrarToast('A data final deve ser posterior à data inicial.');
+    return;
+  }
+
+  const container = document.getElementById('corr-resultados');
+  container.innerHTML = '';
+  let algumOk = false;
+
+  for (const idx of INDICES) {
+    const pctAcum = calcAcumulado(idx.hist(), dataIni, dataFim);
+    if (pctAcum === null) continue;
+    algumOk = true;
+    const corrigido = valor * (1 + pctAcum / 100);
+    container.innerHTML += `
+      <div class="corr-card">
+        <div class="corr-card__nome">${idx.nome}</div>
+        <div class="corr-card__pct">${pctAcum.toFixed(2).replace('.', ',')}%</div>
+        <div class="corr-card__valor">${fmt.moeda(corrigido)}</div>
+      </div>`;
+  }
+
+  if (!algumOk) {
+    mostrarToast('Período sem dados disponíveis para nenhum índice.');
+    return;
+  }
+
+  document.getElementById('resultado-corr').hidden = false;
+}
+
+function exemploRapidoPct() {
+  document.querySelector('.pct-mode-btn[data-mode="pct-of"]')?.click();
+  document.getElementById('pct-x').value = '20';
+  document.getElementById('pct-y').value = '1.500,00';
+  calcularPct();
+}
+
+const UNID_CATEGORIAS = {
+  temperatura: {
+    nome: 'Temperatura',
+    unidades: [
+      { id: 'celsius', nome: '°C - Celsius', base: v => v, destino: (v, u) => u(v) },
+      { id: 'fahrenheit', nome: '°F - Fahrenheit', base: v => (v - 32) * 5 / 9, destino: (v, u) => u(v) * 9 / 5 + 32 },
+      { id: 'kelvin', nome: 'K - Kelvin', base: v => v - 273.15, destino: (v, u) => u(v) + 273.15 },
+    ],
+    converter(Valor, deId, paraId) {
+      const de = this.unidades.find(u => u.id === deId);
+      const para = this.unidades.find(u => u.id === paraId);
+      const celsius = de.base(Valor);
+      return para.destino(celsius, v => v);
+    },
+  },
+  distancia: {
+    nome: 'Distância',
+    unidades: [
+      { id: 'km', nome: 'km - Quilômetros', base: v => v * 1000, destino: (v, u) => u(v) / 1000 },
+      { id: 'm', nome: 'm - Metros', base: v => v, destino: (v, u) => u(v) },
+      { id: 'cm', nome: 'cm - Centímetros', base: v => v / 100, destino: (v, u) => u(v) * 100 },
+      { id: 'mm', nome: 'mm - Milímetros', base: v => v / 1000, destino: (v, u) => u(v) * 1000 },
+      { id: 'pol', nome: 'in - Polegadas', base: v => v * 0.0254, destino: (v, u) => u(v) / 0.0254 },
+      { id: 'milha', nome: 'mi - Milhas', base: v => v * 1609.344, destino: (v, u) => u(v) / 1609.344 },
+    ],
+    converter(Valor, deId, paraId) {
+      const de = this.unidades.find(u => u.id === deId);
+      const para = this.unidades.find(u => u.id === paraId);
+      const metros = de.base(Valor);
+      return para.destino(metros, v => v);
+    },
+  },
+  massa: {
+    nome: 'Massa',
+    unidades: [
+      { id: 'kg', nome: 'kg - Quilogramas', base: v => v * 1000, destino: (v, u) => u(v) / 1000 },
+      { id: 'g', nome: 'g - Gramas', base: v => v, destino: (v, u) => u(v) },
+      { id: 'mg', nome: 'mg - Miligramas', base: v => v / 1000, destino: (v, u) => u(v) * 1000 },
+      { id: 'lb', nome: 'lb - Libras', base: v => v * 453.59237, destino: (v, u) => u(v) / 453.59237 },
+    ],
+    converter(Valor, deId, paraId) {
+      const de = this.unidades.find(u => u.id === deId);
+      const para = this.unidades.find(u => u.id === paraId);
+      const gramas = de.base(Valor);
+      return para.destino(gramas, v => v);
+    },
+  },
+};
+
+function toggleUnidTab(btn) {
+  document.querySelectorAll('.unid-tab').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  preencherUnidades(btn.dataset.unid);
+  document.getElementById('resultado-unid').hidden = true;
+}
+
+function preencherUnidades(categoriaId) {
+  const cat = UNID_CATEGORIAS[categoriaId];
+  if (!cat) return;
+  const deEl = document.getElementById('unid-de');
+  const paraEl = document.getElementById('unid-para');
+  const opt = cat.unidades.map(u => `<option value="${u.id}">${u.nome}</option>`).join('');
+  deEl.innerHTML = opt;
+  paraEl.innerHTML = opt;
+  if (paraEl.options.length > 1) paraEl.selectedIndex = 1;
+}
+
+function converterUnidade() {
+  const catId = document.querySelector('.unid-tab.active')?.dataset.unid || 'temperatura';
+  const cat = UNID_CATEGORIAS[catId];
+  const valor = parseFloat(document.getElementById('unid-valor').value.replace(',', '.'));
+  const de = document.getElementById('unid-de').value;
+  const para = document.getElementById('unid-para').value;
+
+  if (isNaN(valor)) {
+    mostrarToast('Informe um valor válido.');
+    return;
+  }
+
+  const resultado = cat.converter(valor, de, para);
+  const deNome = cat.unidades.find(u => u.id === de).nome;
+  const paraNome = cat.unidades.find(u => u.id === para).nome;
+  document.getElementById('unid-resultado').textContent =
+    `${Number(valor.toFixed(6))} ${deNome.split(' - ')[0]} = ${Number(resultado.toFixed(6))} ${paraNome.split(' - ')[0]}`;
+  document.getElementById('resultado-unid').hidden = false;
+}
+
+function calcularConsumo() {
+  const distancia = parseMoeda(document.getElementById('comb-distancia').value);
+  const litros = parseMoeda(document.getElementById('comb-litros').value);
+  const kmlInput = parseMoeda(document.getElementById('comb-consumo').value);
+  const preco = parseMoeda(document.getElementById('comb-preco').value);
+
+  const hasDistancia = !isNaN(distancia) && distancia > 0;
+  const hasLitros = !isNaN(litros) && litros > 0;
+  const hasKml = !isNaN(kmlInput) && kmlInput > 0;
+
+  const preenchidos = [hasDistancia, hasLitros, hasKml].filter(Boolean).length;
+  if (preenchidos < 2) {
+    mostrarToast('Preencha pelo menos 2 campos: distância, litros ou consumo.');
+    return;
+  }
+
+  let kml, litrosUsados, dist;
+
+  if (hasDistancia && hasLitros) {
+    kml = distancia / litros;
+    litrosUsados = litros;
+    dist = distancia;
+  } else if (hasDistancia && hasKml) {
+    kml = kmlInput;
+    litrosUsados = distancia / kmlInput;
+    dist = distancia;
+  } else if (hasLitros && hasKml) {
+    kml = kmlInput;
+    litrosUsados = litros;
+    dist = litros * kmlInput;
+  }
+
+  const custoTotal = !isNaN(preco) && preco > 0 ? preco * litrosUsados : null;
+
+  let resultado = `${kml.toFixed(1).replace('.', ',')} km/l`;
+  if (custoTotal !== null) {
+    resultado += ` · ${fmt.moeda(custoTotal)}`;
+  }
+
+  document.getElementById('comb-kml').textContent = resultado;
+  document.getElementById('comb-dist-info').innerHTML = `Distância: <strong>${dist.toFixed(1).replace('.', ',')} km</strong>`;
+  document.getElementById('comb-litros-info').innerHTML = `Combustível: <strong>${litrosUsados.toFixed(2).replace('.', ',')} L</strong>`;
+  document.getElementById('comb-custo-info').innerHTML = custoTotal !== null ? `Custo: <strong>${fmt.moeda(custoTotal)}</strong>` : '';
+  document.getElementById('comb-detalhes').hidden = false;
+  document.getElementById('resultado-comb').hidden = false;
+}
+
+async function carregarIndices() {
+  try {
+    const res = await fetch('/api/indices');
+    if (!res.ok) return;
+    const dados = await res.json();
+    if (dados.ipca) HIST_IPCA = { ...HIST_IPCA, ...dados.ipca };
+    if (dados.igpm) HIST_IGPM = { ...HIST_IGPM, ...dados.igpm };
+    if (dados.poupanca) HIST_POUP = { ...HIST_POUP, ...dados.poupanca };
+  } catch (e) {
+    // silently keeps hardcoded defaults
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await carregarIndices();
+  setupCurrencyMask();
+  setupPercentMask();
+  setupHamburgerMenu();
+
+  document.querySelectorAll('.pct-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => togglePctMode(btn));
+  });
+
+  document.getElementById('btn-calcular-pct')?.addEventListener('click', calcularPct);
+  document.getElementById('btn-calcular-taxa')?.addEventListener('click', converterTaxa);
+  document.getElementById('btn-calcular-corr')?.addEventListener('click', corrigirValor);
+  document.getElementById('btn-calcular-comb')?.addEventListener('click', calcularConsumo);
+  document.getElementById('btn-calcular-unid')?.addEventListener('click', converterUnidade);
+  document.getElementById('btn-exemplo-pct')?.addEventListener('click', exemploRapidoPct);
+
+  document.querySelectorAll('.unid-tab').forEach(btn => {
+    btn.addEventListener('click', () => toggleUnidTab(btn));
+  });
+
+  preencherUnidades('temperatura');
+
+  const hoje = new Date();
+  const mesAtual = String(hoje.getMonth() + 1).padStart(2, '0');
+  const anoAtual = hoje.getFullYear();
+  const dataFimEl = document.getElementById('corr-data-fim');
+  if (dataFimEl) dataFimEl.value = `${anoAtual}-${mesAtual}`;
+
+  const dataIni = new Date(hoje.getFullYear(), hoje.getMonth() - 11, 1);
+  const mesIni = String(dataIni.getMonth() + 1).padStart(2, '0');
+  const anoIni = dataIni.getFullYear();
+  const dataIniEl = document.getElementById('corr-data-ini');
+  if (dataIniEl) dataIniEl.value = `${anoIni}-${mesIni}`;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const target = e.target;
+      if (target.closest('.pct-card')) calcularPct();
+      else if (target.closest('.taxa-card')) converterTaxa();
+      else if (target.closest('.correcao-card')) corrigirValor();
+      else if (target.closest('.consumo-card')) calcularConsumo();
+      else if (target.closest('.unid-card')) converterUnidade();
+    }
+  });
+});

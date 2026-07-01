@@ -1,0 +1,408 @@
+.pct-main {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .pct-main {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pct-main .correcao-card {
+    grid-column: 1 / -1;
+  }
+  .pct-card,
+  .taxa-card,
+  .consumo-card,
+  .unid-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .pct-card .card-body,
+  .taxa-card .card-body,
+  .consumo-card .card-body,
+  .unid-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .pct-card .btn-calcular,
+  .taxa-card .btn-calcular,
+  .consumo-card .btn-calcular,
+  .unid-card .btn-calcular {
+    margin-top: auto;
+  }
+}
+
+.pct-card,
+.taxa-card,
+.correcao-card,
+.consumo-card,
+.unid-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.pct-card:hover,
+.taxa-card:hover,
+.correcao-card:hover,
+.consumo-card:hover,
+.unid-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.pct-card .card-header h2,
+.taxa-card .card-header h2,
+.correcao-card .card-header h2,
+.consumo-card .card-header h2,
+.unid-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.pct-card .card-body > .campo,
+.taxa-card .card-body > .campo,
+.correcao-card .card-body > .campo,
+.consumo-card .card-body > .campo,
+.unid-card .card-body > .campo {
+  margin-bottom: 1rem;
+}
+
+.pct-card .btn-calcular,
+.taxa-card .btn-calcular,
+.correcao-card .btn-calcular,
+.consumo-card .btn-calcular,
+.unid-card .btn-calcular {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-bottom: 1rem;
+}
+
+.pct-card .btn-calcular:hover,
+.taxa-card .btn-calcular:hover,
+.correcao-card .btn-calcular:hover,
+.consumo-card .btn-calcular:hover,
+.unid-card .btn-calcular:hover {
+  background: #1e40af;
+  transform: scale(1.01);
+}
+
+.pct-card .btn-calcular:active,
+.taxa-card .btn-calcular:active,
+.correcao-card .btn-calcular:active,
+.consumo-card .btn-calcular:active,
+.unid-card .btn-calcular:active {
+  transform: scale(0.98);
+}
+
+.pct-mode-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.pct-mode-btn {
+  padding: 0.5rem 0.25rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pct-mode-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.pct-mode-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.pct-inputs {
+  transition: opacity 0.15s;
+}
+
+.taxa-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.taxa-row .campo {
+  margin-bottom: 0;
+}
+
+.taxa-row select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.pct-resultado-item {
+  background: var(--bg);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.pct-resultado__rotulo {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.pct-resultado__valor {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.pct-resultado-conta {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  background: var(--bg);
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+}
+
+.corr-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.corr-row .campo {
+  margin-bottom: 0;
+}
+
+.corr-row input[type="month"] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.corr-resultados {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.corr-card {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.corr-card__nome {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.corr-card__pct {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.15rem;
+}
+
+.corr-card__valor {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.corr-indices-label {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.pct-card .card-header,
+.taxa-card .card-header,
+.correcao-card .card-header,
+.consumo-card .card-header,
+.unid-card .card-header {
+  text-align: center;
+}
+
+.consumo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.consumo-row .campo {
+  margin-bottom: 0;
+}
+
+.consumo-detalhes {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.consumo-detalhes strong {
+  color: var(--text);
+}
+
+.unid-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.unid-tab {
+  padding: 0.5rem 0.25rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.unid-tab:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.unid-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.unid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.unid-row .campo {
+  margin-bottom: 0;
+}
+
+.unid-row select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.pct-resultado__valor--sm {
+  font-size: 1.15rem;
+}
+
+#resultado-pct[hidden],
+#resultado-taxa[hidden],
+#resultado-corr[hidden],
+#resultado-comb[hidden],
+#resultado-unid[hidden] {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .pct-main {
+    padding: 0;
+  }
+
+  .pct-main .card-visao-rapida__body {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .pct-mode-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .taxa-row {
+    grid-template-columns: 1fr;
+  }
+
+  .consumo-row {
+    grid-template-columns: 1fr;
+  }
+
+  .unid-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .unid-row {
+    grid-template-columns: 1fr;
+  }
+
+  .corr-row {
+    grid-template-columns: 1fr;
+  }
+
+  .corr-indices-label {
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .corr-resultados {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
