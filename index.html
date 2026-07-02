@@ -342,9 +342,9 @@
       <div class="depoimentos-grid" id="depoimentos-grid">
         <div class="depoimento-card">
           <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <blockquote class="depoimento__texto">"Simulei antes de financiar meu apartamento. A tabela SAC me economizou mais de R$ 47 mil em juros. Ferramenta indispensável!"</blockquote>
+          <blockquote class="depoimento__texto">"Simulei antes de financiar meu apartamento. A tabela SAC foi a melhor escolha — as prestações caem com o tempo. Ferramenta indispensável!"</blockquote>
           <div class="depoimento__autor"><strong>Carlos Mendes</strong><span>São Paulo, SP</span></div>
-          <div class="depoimento__economia"><i class="fas fa-circle" style="color:#059669"></i> SAC · Economizou <strong>R$ 47.320</strong></div>
+          <div class="depoimento__economia"><i class="fas fa-circle" style="color:#059669"></i> Tabela SAC</div>
         </div>
         <div class="depoimento-card">
           <div class="depoimento__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
@@ -383,12 +383,18 @@
         <label for="dep-sistema">Sistema utilizado
           <select id="dep-sistema" name="sistema">
             <option value="">Selecione</option>
-            <option value="PRICE">Tabela PRICE</option>
-            <option value="SAC">Tabela SAC</option>
-            <option value="Ambos">Ambos</option>
+            <option value="PRICE">Price</option>
+            <option value="SAC">Sac</option>
+            <option value="Conversor Moeda">Conversor Moeda</option>
+            <option value="Conversor Taxa Juros">Conversor Taxa Juros</option>
+            <option value="Correção Monetária">Correção Monetária</option>
+            <option value="Porcentagem">Porcentagem</option>
+            <option value="Juros Compostos">Juros Compostos</option>
+            <option value="Consumo Combustível">Consumo Combustível</option>
+            <option value="Conversor Unidades">Conversor Unidades</option>
+            <option value="Investimentos">Investimentos</option>
           </select>
         </label>
-        <label for="dep-economia">Valor economizado (R$) <input type="text" id="dep-economia" name="economia" class="moeda" placeholder="0,00"></label>
         <label for="dep-mensagem">Seu depoimento *<textarea id="dep-mensagem" name="mensagem" rows="4" required placeholder="Conte como o simulador ajudou você..."></textarea></label>
         <button type="submit" class="modal__submit">Enviar depoimento</button>
         <p class="lgpd-notice">Seu depoimento poderá aparecer no site após moderação.</p>

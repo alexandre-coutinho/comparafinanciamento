@@ -515,14 +515,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== DEPOIMENTOS =====
   const depNome = document.getElementById('dep-nome');
-  const depEconomia = document.getElementById('dep-economia');
-  if (depEconomia) {
-    depEconomia.addEventListener('blur', function () {
-      if (!this.value) return;
-      const v = parseMoeda(this.value);
-      if (!isNaN(v)) this.value = fmt.numero(Math.round(v * 100) / 100);
-    });
-  }
 
   const modalDep = document.getElementById('modal-depoimento');
   const formDep = document.getElementById('form-depoimento');
