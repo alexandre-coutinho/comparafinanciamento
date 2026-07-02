@@ -315,41 +315,36 @@ function calcularConsumo() {
   const hasLitros = !isNaN(litros) && litros > 0;
   const hasKml = !isNaN(kmlInput) && kmlInput > 0;
 
-  const preenchidos = [hasDistancia, hasLitros, hasKml].filter(Boolean).length;
-  if (preenchidos < 2) {
-    mostrarToast('Preencha pelo menos 2 campos: distância, litros ou consumo.');
+  // Se o usuário informou o consumo (km/l), ele é prioritário
+  if (hasKml) {
+    const kml = kmlInput;
+    let km, L;
+
+    if (hasDistancia) {
+      km = distancia;
+      L = distancia / kml;
+    } else if (hasLitros) {
+      L = litros;
+      km = litros * kml;
+    } else {
+      mostrarToast('Informe também a distância ou os litros.');
+      return;
+    }
+
+    document.getElementById('comb-kml').textContent = `${kml.toFixed(1).replace('.', ',')} km/l`;
+    document.getElementById('resultado-comb').hidden = false;
     return;
   }
 
-  let kml, litrosUsados, dist;
-
+  // Se o usuário não informou km/l, calcula a partir de distância e litros
   if (hasDistancia && hasLitros) {
-    kml = distancia / litros;
-    litrosUsados = litros;
-    dist = distancia;
-  } else if (hasDistancia && hasKml) {
-    kml = kmlInput;
-    litrosUsados = distancia / kmlInput;
-    dist = distancia;
-  } else if (hasLitros && hasKml) {
-    kml = kmlInput;
-    litrosUsados = litros;
-    dist = litros * kmlInput;
+    const kml = distancia / litros;
+    document.getElementById('comb-kml').textContent = `${kml.toFixed(1).replace('.', ',')} km/l`;
+    document.getElementById('resultado-comb').hidden = false;
+    return;
   }
 
-  const custoTotal = !isNaN(preco) && preco > 0 ? preco * litrosUsados : null;
-
-  let resultado = `${kml.toFixed(1).replace('.', ',')} km/l`;
-  if (custoTotal !== null) {
-    resultado += ` · ${fmt.moeda(custoTotal)}`;
-  }
-
-  document.getElementById('comb-kml').textContent = resultado;
-  document.getElementById('comb-dist-info').innerHTML = `Distância: <strong>${dist.toFixed(1).replace('.', ',')} km</strong>`;
-  document.getElementById('comb-litros-info').innerHTML = `Combustível: <strong>${litrosUsados.toFixed(2).replace('.', ',')} L</strong>`;
-  document.getElementById('comb-custo-info').innerHTML = custoTotal !== null ? `Custo: <strong>${fmt.moeda(custoTotal)}</strong>` : '';
-  document.getElementById('comb-detalhes').hidden = false;
-  document.getElementById('resultado-comb').hidden = false;
+  mostrarToast('Preencha o consumo (km/l) ou a distância e os litros.');
 }
 
 async function carregarIndices() {
