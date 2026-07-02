@@ -26,7 +26,7 @@ export async function onRequest(context) {
     const { nome, email, telefone, tipo, valor, mensagem } = dados;
 
     const msg = [
-      'Compara Financiamento',
+      '*Nova cotação financiamento*',
       '',
       `*Nome:* ${escapeMarkdown(nome) || 'Nao informado'}`,
       `*Email:* ${escapeMarkdown(email) || 'Nao informado'}`,

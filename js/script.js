@@ -346,6 +346,11 @@ function calcularPrice() {
   let n   = parseInt(document.getElementById('price-n').value, 10);
   let pmt = parseMoeda(document.getElementById('price-pmt').value);
 
+  if (isNaN(pv) || isNaN(n)) {
+    mostrarToast('O Valor financiado e o Nº de meses são fundamentais para o cálculo.');
+    return;
+  }
+
   if (isNaN(i)) {
     i = 0.02;
     document.getElementById('price-i').value = fmt.pctInput(i);
@@ -389,6 +394,11 @@ function calcularSAC() {
   const pv = parseMoeda(document.getElementById('sac-pv').value);
   let i  = parsePct(document.getElementById('sac-i').value);
   const n  = parseInt(document.getElementById('sac-n').value, 10);
+
+  if (isNaN(pv) || isNaN(n)) {
+    mostrarToast('O Valor financiado e o Nº de meses são fundamentais para o cálculo.');
+    return;
+  }
 
   if (isNaN(i)) {
     i = 0.02;

@@ -24,7 +24,7 @@ export async function onRequest(context) {
     const { nome, cidade, sistema, economia, mensagem, estrelas } = dados;
 
     const msg = [
-      '📝 *Novo Depoimento*',
+      '*Novo Depoimento*',
       '',
       `*Nome:* ${escapeMarkdown(nome) || 'Nao informado'}`,
       estrelas ? `*Estrelas:* ${'⭐'.repeat(parseInt(estrelas) || 0)}` : null,
