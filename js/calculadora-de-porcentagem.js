@@ -307,44 +307,37 @@ function converterUnidade() {
 
 function calcularConsumo() {
   const distancia = parseMoeda(document.getElementById('comb-distancia').value);
-  const litros = parseMoeda(document.getElementById('comb-litros').value);
   const kmlInput = parseMoeda(document.getElementById('comb-consumo').value);
   const preco = parseMoeda(document.getElementById('comb-preco').value);
 
   const hasDistancia = !isNaN(distancia) && distancia > 0;
-  const hasLitros = !isNaN(litros) && litros > 0;
   const hasKml = !isNaN(kmlInput) && kmlInput > 0;
+  const hasPreco = !isNaN(preco) && preco > 0;
 
-  // Se o usuário informou o consumo (km/l), ele é prioritário
-  if (hasKml) {
-    const kml = kmlInput;
-    let km, L;
+  const faltando = [];
+  if (!hasDistancia) faltando.push('Distância percorrida (km)');
+  if (!hasKml) faltando.push('Consumo (km/l)');
+  if (!hasPreco) faltando.push('Preço do combustível (R$)');
 
-    if (hasDistancia) {
-      km = distancia;
-      L = distancia / kml;
-    } else if (hasLitros) {
-      L = litros;
-      km = litros * kml;
-    } else {
-      mostrarToast('Informe também a distância ou os litros.');
-      return;
-    }
-
-    document.getElementById('comb-kml').textContent = `${kml.toFixed(1).replace('.', ',')} km/l`;
-    document.getElementById('resultado-comb').hidden = false;
+  if (faltando.length > 0) {
+    mostrarToast('Informe: ' + faltando.join(', ') + '.');
     return;
   }
 
-  // Se o usuário não informou km/l, calcula a partir de distância e litros
-  if (hasDistancia && hasLitros) {
-    const kml = distancia / litros;
-    document.getElementById('comb-kml').textContent = `${kml.toFixed(1).replace('.', ',')} km/l`;
-    document.getElementById('resultado-comb').hidden = false;
-    return;
-  }
+  const kml = kmlInput;
+  const litros = distancia / kml;
+  const custo = litros * preco;
 
-  mostrarToast('Preencha o consumo (km/l) ou a distância e os litros.');
+  // Preenche o campo readonly de combustível
+  const litrosEl = document.getElementById('comb-litros');
+  litrosEl.value = litros.toFixed(1).replace('.', ',');
+
+  // Resultados
+  document.getElementById('comb-litros-resultado').textContent = `${litros.toFixed(1).replace('.', ',')} L`;
+  document.getElementById('comb-preco-resultado').textContent = fmt.moeda(preco);
+  document.getElementById('comb-custo-resultado').textContent = fmt.moeda(custo);
+
+  document.getElementById('resultado-comb').hidden = false;
 }
 
 async function carregarIndices() {

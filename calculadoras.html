@@ -265,8 +265,8 @@
         </div>
         <div class="consumo-row">
           <div class="campo">
-            <label for="comb-litros">Combustível usado (L)</label>
-            <input type="text" id="comb-litros" class="moeda" placeholder="25" inputmode="decimal">
+            <label for="comb-litros">Combustível (L)</label>
+            <input type="text" id="comb-litros" class="moeda" placeholder="—" readonly>
           </div>
           <div class="campo">
             <label for="comb-preco">Preço por litro (R$)</label>
@@ -276,11 +276,16 @@
         <button class="btn-calcular" id="btn-calcular-comb">Calcular</button>
         <div id="resultado-comb" hidden>
           <div class="pct-resultado-item">
-            <span class="pct-resultado__rotulo">Consumo</span>
-            <span class="pct-resultado__valor" id="comb-kml"></span>
+            <span class="pct-resultado__rotulo">Combustível (L)</span>
+            <span class="pct-resultado__valor" id="comb-litros-resultado"></span>
           </div>
-          <div class="consumo-detalhes" id="comb-detalhes" hidden>
-            <p><span id="comb-dist-info"></span> <span id="comb-litros-info"></span> <span id="comb-custo-info"></span></p>
+          <div class="pct-resultado-item">
+            <span class="pct-resultado__rotulo">Preço por litro (R$)</span>
+            <span class="pct-resultado__valor" id="comb-preco-resultado"></span>
+          </div>
+          <div class="pct-resultado-item">
+            <span class="pct-resultado__rotulo">Custo do Percurso (R$)</span>
+            <span class="pct-resultado__valor" id="comb-custo-resultado"></span>
           </div>
         </div>
       </div>
