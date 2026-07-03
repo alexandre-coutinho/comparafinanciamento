@@ -1,0 +1,30 @@
+name: Bump Version
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+
+      - name: Bump version and update footers
+        run: node scripts/bump-version.js
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          VERSION=$(node -p "require('./version.json').major + '.' + require('./version.json').minor + '.' + require('./version.json').patch")
+          git add version.json index.html calculadoras.html comparador-investimentos.html conversor-moedas.html
+          git commit -m "chore: bump version to v$VERSION" || echo "No changes to commit"
+          git push origin main --tags
