@@ -27,13 +27,6 @@
     display: flex;
     flex-direction: column;
   }
-  .pct-card .btn-calcular,
-  .taxa-card .btn-calcular,
-  .juros-compostos-card .btn-calcular,
-  .consumo-card .btn-calcular,
-  .unid-card .btn-calcular {
-    margin-top: auto;
-  }
 }
 
 .pct-card,
@@ -90,6 +83,7 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .pct-card .btn-calcular:hover,
@@ -141,6 +135,7 @@
 }
 
 .pct-inputs {
+  margin-bottom: 1rem;
   transition: opacity 0.15s;
 }
 
@@ -169,10 +164,10 @@
 
 .pct-resultado-item {
   background: var(--bg);
-  padding: 1rem;
+  padding: 1rem 1rem 0.25rem;
   border-radius: 8px;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .pct-resultado__rotulo {
@@ -361,6 +356,10 @@
 #resultado-comb[hidden],
 #resultado-unid[hidden] {
   display: none;
+}
+
+#resultado-pct {
+  margin-top: 1rem;
 }
 
 @media (max-width: 767px) {

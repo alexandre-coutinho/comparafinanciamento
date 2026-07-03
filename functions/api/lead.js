@@ -23,13 +23,12 @@ export async function onRequest(context) {
 
   try {
     const dados = await request.json();
-    const { nome, email, telefone, tipo, valor, mensagem } = dados;
+    const { nome, telefone, tipo, valor, mensagem } = dados;
 
     const msg = [
       '*Nova cotação financiamento*',
       '',
       `*Nome:* ${escapeMarkdown(nome) || 'Nao informado'}`,
-      `*Email:* ${escapeMarkdown(email) || 'Nao informado'}`,
       `*Telefone:* ${escapeMarkdown(telefone) || 'Nao informado'}`,
       `*Tipo:* ${escapeMarkdown(tipo) || 'Nao informado'}`,
       `*Valor:* ${escapeMarkdown(valor) || 'Nao informado'}`,

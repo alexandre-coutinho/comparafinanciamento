@@ -90,6 +90,7 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .pct-card .btn-calcular:hover,
@@ -141,6 +142,7 @@
 }
 
 .pct-inputs {
+  margin-bottom: 1rem;
   transition: opacity 0.15s;
 }
 
@@ -362,6 +364,10 @@
 #resultado-comb[hidden],
 #resultado-unid[hidden] {
   display: none;
+}
+
+#resultado-pct {
+  margin-top: 1rem;
 }
 
 @media (max-width: 767px) {

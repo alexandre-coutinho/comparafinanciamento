@@ -182,7 +182,53 @@
         </div>
       </div>
     </div>
+
+  <div style="text-align:center;padding:1.5rem 0">
+    <button class="btn-depoimento" id="btn-abrir-depoimento"><i class="fas fa-pen"></i> Deixe seu depoimento</button>
+  </div>
   </main>
+
+  <!-- Modal depoimento -->
+  <div class="modal-overlay" id="modal-depoimento" hidden>
+    <div class="modal">
+      <button class="modal__close" id="btn-fechar-depoimento" aria-label="Fechar">&times;</button>
+      <h3>Deixe seu depoimento</h3>
+      <p class="modal__sub">Compartilhe sua experiência conosco.</p>
+      <form id="form-depoimento">
+        <label>
+          Avaliação
+          <div class="star-rating" id="star-rating">
+            <i class="fas fa-star" data-value="1"></i>
+            <i class="fas fa-star" data-value="2"></i>
+            <i class="fas fa-star" data-value="3"></i>
+            <i class="fas fa-star" data-value="4"></i>
+            <i class="fas fa-star" data-value="5"></i>
+          </div>
+          <input type="hidden" name="estrelas" id="dep-estrelas" value="5">
+        </label>
+        <label for="dep-nome">Nome *<input type="text" id="dep-nome" name="nome" required></label>
+        <label for="dep-cidade">Cidade <input type="text" id="dep-cidade" name="cidade" placeholder="Ex: São Paulo, SP"></label>
+        <label for="dep-sistema">Sistema utilizado
+          <select id="dep-sistema" name="sistema">
+            <option value="">Selecione</option>
+            <option value="PRICE">Price</option>
+            <option value="SAC">Sac</option>
+            <option value="Conversor Moeda">Conversor Moeda</option>
+            <option value="Conversor Taxa Juros">Conversor Taxa Juros</option>
+            <option value="Correção Monetária">Correção Monetária</option>
+            <option value="Porcentagem">Porcentagem</option>
+            <option value="Juros Compostos">Juros Compostos</option>
+            <option value="Consumo Combustível">Consumo Combustível</option>
+            <option value="Conversor Unidades">Conversor Unidades</option>
+            <option value="Investimentos">Investimentos</option>
+          </select>
+        </label>
+        <label for="dep-mensagem">Seu depoimento *<textarea id="dep-mensagem" name="mensagem" rows="4" required placeholder="Conte como o simulador ajudou você..."></textarea></label>
+        <button type="submit" class="modal__submit">Enviar depoimento</button>
+        <p class="lgpd-notice">Seu depoimento poderá aparecer no site após moderação.</p>
+      </form>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="footer__content">

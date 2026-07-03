@@ -117,3 +117,67 @@ function setupHamburgerMenu() {
     hamburger.setAttribute('aria-expanded', 'false');
   }));
 }
+
+function initDepoimento() {
+  const modalDep = document.getElementById('modal-depoimento');
+  const formDep = document.getElementById('form-depoimento');
+  if (!modalDep || !formDep) return;
+
+  const starRating = document.getElementById('star-rating');
+  const depEstrelas = document.getElementById('dep-estrelas');
+  starRating?.addEventListener('click', (e) => {
+    const star = e.target.closest('i');
+    if (!star) return;
+    const val = parseInt(star.dataset.value);
+    depEstrelas.value = val;
+    starRating.querySelectorAll('i').forEach(s => {
+      s.classList.toggle('active', parseInt(s.dataset.value) <= val);
+    });
+  });
+  starRating?.querySelectorAll('i').forEach(s => {
+    s.addEventListener('mouseenter', () => {
+      const val = parseInt(s.dataset.value);
+      starRating.querySelectorAll('i').forEach(st => {
+        st.classList.toggle('active', parseInt(st.dataset.value) <= val);
+      });
+    });
+    s.addEventListener('mouseleave', () => {
+      const val = parseInt(depEstrelas.value);
+      starRating.querySelectorAll('i').forEach(st => {
+        st.classList.toggle('active', parseInt(st.dataset.value) <= val);
+      });
+    });
+  });
+
+  function abrirModalDep() { modalDep.hidden = false; }
+  function fecharModalDep() { modalDep.hidden = true; }
+
+  document.getElementById('btn-abrir-depoimento')?.addEventListener('click', abrirModalDep);
+  document.getElementById('btn-fechar-depoimento')?.addEventListener('click', fecharModalDep);
+  modalDep.addEventListener('click', (e) => { if (e.target === modalDep) fecharModalDep(); });
+
+  formDep.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = formDep.querySelector('.modal__submit');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    const dados = Object.fromEntries(new FormData(formDep));
+
+    try {
+      const res = await fetch('/api/depoimento', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados),
+      });
+      if (!res.ok) throw new Error('Erro ao enviar');
+      formDep.reset();
+      fecharModalDep();
+      setTimeout(() => alert('Depoimento enviado! Após moderação ele aparecerá no site.'), 100);
+    } catch {
+      alert('Erro ao enviar. Tente novamente mais tarde.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Enviar depoimento';
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initDepoimento);
