@@ -3,41 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Moedas Grátis — Cotações em Tempo Real</title>
-  <meta name="description" content="Converta moedas online grátis: USD, EUR, BTC e muito mais. Cotação em tempo real com gráfico dos últimos 30 dias. Conversor de moedas rápido e preciso.">
-  <meta name="keywords" content="conversor de moedas, cotação, dólar, euro, bitcoin, câmbio, converter moeda, calculadora moedas">
+  <title>Calculadora de Precificação — Custos e Preço de Venda</title>
+  <meta name="description" content="Calcule o custo unitário e o preço de venda ideal para seus produtos. Planilha interativa de precificação para empreendedores com markup, margem de lucro e análise de ingredientes/insumos.">
+  <meta name="keywords" content="calculadora de precificação, calcular preço de venda, markup, margem de lucro, custo unitário, planilha de custos, formação de preço">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://comparafinanciamento.com.br/conversor-moedas">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/calculadora-precificacao">
   <link rel="icon" type="image/png" href="img/logo.png">
 
-  <meta property="og:title" content="Conversor de Moedas Grátis — Cotações em Tempo Real">
-  <meta property="og:description" content="Converta moedas online com cotação em tempo real. USD, EUR, BTC, GBP e muito mais. Gráfico dos últimos 30 dias.">
-  <meta property="og:url" content="https://comparafinanciamento.com.br/conversor-moedas">
+  <meta property="og:title" content="Calculadora de Precificação — Custos e Preço de Venda">
+  <meta property="og:description" content="Calcule custos e preço de venda com planilha interativa. Perfeito para empreendedores que querem precificar seus produtos corretamente.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/calculadora-precificacao">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
-  <meta property="og:image:alt" content="Conversor de Moedas — Compara Financiamento">
+  <meta property="og:image:alt" content="Calculadora de Precificação — Compara Financiamento">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Conversor de Moedas Grátis — Cotações em Tempo Real">
-  <meta name="twitter:description" content="Converta moedas online com cotação em tempo real. USD, EUR, BTC, GBP e muito mais.">
+  <meta name="twitter:title" content="Calculadora de Precificação — Custos e Preço de Venda">
+  <meta name="twitter:description" content="Calcule custos e preço de venda com planilha interativa grátis.">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Conversor de Moedas",
-    "url": "https://comparafinanciamento.com.br/conversor-moedas",
-    "description": "Converta moedas online gratuitamente com cotações em tempo real da AwesomeAPI. Suporte a USD, EUR, BTC, GBP, ARS e mais de 30 moedas com gráfico de 30 dias.",
+    "name": "Calculadora de Precificação",
+    "url": "https://comparafinanciamento.com.br/calculadora-precificacao",
+    "description": "Planilha interativa para calcular custo unitário, margem de lucro e preço de venda de produtos. Ideal para empreendedores e pequenos negócios.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
     "inLanguage": "pt-BR",
     "featureList": [
-      "Conversão de moedas em tempo real",
-      "Busca por código ou nome da moeda",
-      "Gráfico dos últimos 30 dias",
-      "Cotações USD, EUR, BTC, GBP e mais"
+      "Tabela dinâmica de ingredientes/insumos com cálculo automático de custo",
+      "Cálculo do percentual de cada insumo sobre o custo total",
+      "Margem de lucro e preço de venda automáticos",
+      "Botão para copiar a tabela"
     ],
     "image": "https://comparafinanciamento.com.br/img/logo.png",
     "author": {
@@ -54,7 +54,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.min.css">
-  <link rel="stylesheet" href="css/conversor.min.css">
+  <link rel="stylesheet" href="css/calculadora-precificacao.min.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
@@ -63,8 +63,8 @@
       <div class="header__brand">
         <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" fetchpriority="high"></a>
         <div class="header__brand-text">
-          <h1>Conversor de Moedas</h1>
-          <p>Cotações em <strong>Tempo Real</strong></p>
+          <h1>Calculadora de Precificação</h1>
+          <p>Custos, margem, estoque e preço de venda</p>
         </div>
       </div>
       <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
@@ -81,7 +81,7 @@
         <a href="calculadoras.html#juros-compostos">Juros compostos</a>
         <a href="calculadoras.html#consumo">Consumo de combustível</a>
         <a href="calculadoras.html#unidades">Conversor de unidades</a>
-        <a href="calculadora-precificacao.html">Precificação</a>
+        <a href="calculadora-precificacao.html" class="nav--active">Precificação</a>
         <a href="comparador-investimentos.html">Investimentos</a>
         <a href="/#faq">FAQ</a>
         <a href="/#depoimentos">Depoimentos</a>
@@ -89,57 +89,64 @@
     </div>
   </header>
 
-  <main id="main-content" class="conversor-main">
-    <div class="conversor-card">
+  <main id="main-content" class="prec-main">
+    <div class="card prec-card">
       <div class="card-header">
-        <h2><i class="fas fa-exchange-alt"></i> Conversor de Moedas</h2>
+        <h2><i class="fas fa-cubes"></i> Planilha de Precificação</h2>
       </div>
       <div class="card-body">
-        <div class="conversor-grid">
-          <div class="conversor-row">
-            <div class="campo">
-              <label for="conv-amount">Valor</label>
-              <input type="text" id="conv-amount" placeholder="1,00" inputmode="decimal" value="1,00">
-            </div>
-            <div class="campo">
-              <label for="conv-from">De</label>
-              <select id="conv-from" data-code="USD"></select>
-            </div>
-            <button class="conversor-btn-swap" id="btn-swap" aria-label="Inverter moedas">
-              <i class="fas fa-arrows-alt-h"></i>
-            </button>
-            <div class="campo">
-              <label for="conv-to">Para</label>
-              <select id="conv-to" data-code="BRL"></select>
-            </div>
-          </div>
-          <button class="conversor-btn-converter" id="btn-converter">Converter</button>
+        <div class="prec-toolbar">
+          <button class="btn-prec" id="btn-add-row"><i class="fas fa-plus"></i> Adicionar insumo</button>
+          <button class="btn-prec btn-prec--outline" id="btn-exemplo"><i class="fas fa-file-import"></i> Carregar exemplo</button>
+          <button class="btn-prec btn-prec--outline" id="btn-copy-table"><i class="fas fa-copy"></i> Copiar tabela</button>
         </div>
 
-        <div class="conversor-resultado" id="conv-resultado" hidden>
-          <p class="conversor-resultado__valor" id="conv-valor"></p>
-          <div class="conversor-resultado__info" id="conv-info" hidden>
-            <span id="conv-variacao" class="conversor-resultado__variacao"></span>
-            <span id="conv-high"></span>
-            <span id="conv-low"></span>
+        <div class="prec-tabela-wrapper">
+          <table class="prec-tabela" id="prec-tabela">
+            <thead>
+              <tr>
+                <th class="col-acao"></th>
+                <th class="col-insumo">Ingrediente / Insumo</th>
+                <th class="col-preco">Preço (R$)</th>
+                <th class="col-qtd-pacote">Qtd. Pacote</th>
+                <th class="col-produzir-qtd">P/ Produzir</th>
+                <th class="col-produzir-un">Un.</th>
+                <th class="col-custo">Custo (R$)</th>
+                <th class="col-pct">%</th>
+                <th class="col-fornecedor">Fornecedor</th>
+                <th class="col-data">Última Compra</th>
+                <th class="col-estoque">Estoque</th>
+                <th class="col-posso-produzir">Posso Produzir</th>
+                <th class="col-obs">Observações</th>
+              </tr>
+            </thead>
+            <tbody id="prec-tbody">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prec-copy-mobile">
+          <button class="btn-prec btn-prec--outline" id="btn-copy-table-mobile"><i class="fas fa-copy"></i> Copiar tabela</button>
+        </div>
+
+        <div class="prec-resumo" id="prec-resumo">
+          <div class="prec-resumo__item prec-resumo__item--destaque">
+            <span class="prec-resumo__rotulo">Custo Total</span>
+            <span class="prec-resumo__valor" id="prec-custo-total">R$ 0,00</span>
           </div>
-          <p id="conv-data" class="conversor-resultado__data" hidden></p>
-          <p id="conv-erro" class="conversor-resultado__erro" hidden></p>
+          <div class="prec-resumo__item prec-resumo__item--destaque">
+            <span class="prec-resumo__rotulo">(Edite) MÃO DE OBRA R$</span>
+            <span class="prec-resumo__valor">
+              <input type="text" id="prec-margem" class="moeda" placeholder="0,00" value="0,00" inputmode="decimal">
+            </span>
+          </div>
+          <div class="prec-resumo__item prec-resumo__item--destaque">
+            <span class="prec-resumo__rotulo">Preço de Venda</span>
+            <span class="prec-resumo__valor" id="prec-preco-venda">R$ 0,00</span>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="conversor-card" id="card-grafico" hidden>
-      <div class="card-header">
-        <h2><i class="fas fa-chart-line"></i> Variação — Últimos 30 dias</h2>
-      </div>
-      <div class="card-body">
-        <div class="conversor-grafico-wrapper">
-          <canvas id="chart-conversor"></canvas>
-        </div>
-      </div>
-    </div>
-
 
   <div style="text-align:center;padding:1.5rem 0">
     <button class="btn-depoimento" id="btn-abrir-depoimento"><i class="fas fa-pen"></i> Deixe seu depoimento</button>
@@ -196,13 +203,13 @@
           <img src="img/logo.webp" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
           <span>Compara <span>Financiamento</span></span>
         </div>
-        <p class="footer__desc">Converta moedas em tempo real com taxas atualizadas: Dólar, Euro, Real, Bitcoin e mais. Grátis e online.</p>
+        <p class="footer__desc">Calcule custos, margem, estoque e preço de venda com a planilha interativa de precificação. Ideal para empreendedores e pequenos negócios.</p>
       </div>
       <div class="footer__info">
         <h4>FERRAMENTAS</h4>
         <ul>
           <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-house-chimney"></i> Simulador PRICE vs SAC</a></li>
-           <li><a href="conversor-moedas.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+          <li><a href="conversor-moedas.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
           <li><a href="calculadoras.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Calculadoras</a></li>
           <li><a href="comparador-investimentos.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
           <li><a href="calculadora-precificacao.html" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-cubes"></i> Precificação</a></li>
@@ -220,11 +227,11 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <p>v2.4.4 • &copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+      <p>v2.4.3 &bull; &copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <script src="js/utils.js" defer></script>
-  <script src="js/conversor.min.js" defer></script>
+  <script src="js/calculadora-precificacao.min.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,320 @@
+.prec-main {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.prec-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.prec-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.prec-card .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.prec-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.btn-prec {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-prec:hover {
+  background: #1e40af;
+  transform: scale(1.03);
+}
+
+.btn-prec:active {
+  transform: scale(0.97);
+}
+
+.btn-prec--outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+.btn-prec--outline:hover {
+  background: var(--primary-light);
+}
+
+.prec-tabela-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.prec-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.prec-tabela th {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.45rem 0.3rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.65rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.prec-tabela td {
+  padding: 0.3rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.prec-tabela td input,
+.prec-tabela td select {
+  text-align: center;
+}
+
+.prec-tabela td .prec-insumo,
+.prec-tabela td .prec-fornecedor,
+.prec-tabela td .prec-obs {
+  text-align: left;
+}
+
+.prec-tabela td input,
+.prec-tabela td select {
+  width: 100%;
+  padding: 0.3rem 0.35rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-family: var(--font);
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.2s;
+  outline: none;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.prec-tabela td input:focus,
+.prec-tabela td select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
+}
+
+.prec-tabela td input::placeholder,
+.prec-resumo__valor input::placeholder {
+  color: var(--border);
+  opacity: 0.35;
+}
+
+.prec-tabela td input.prec-default {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.prec-tabela td input[readonly] {
+  border: none;
+  background: transparent;
+  cursor: default;
+  font-weight: 700;
+  padding: 0;
+  color: var(--text);
+  min-width: 0;
+  width: 100%;
+}
+
+.prec-tabela .btn-remove-row {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.prec-tabela .btn-remove-row:hover {
+  background: #fef2f2;
+}
+
+.prec-tabela tfoot td {
+  font-weight: 700;
+  background: var(--bg);
+  padding: 0.5rem 0.3rem;
+  border-top: 2px solid var(--border);
+}
+
+.prec-resumo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.prec-resumo__item {
+  background: var(--bg);
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.prec-resumo__item--destaque {
+  background: linear-gradient(135deg, #e8effd, #f0fdf4);
+  border-color: #c7d2fe;
+}
+
+.prec-resumo__rotulo {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.prec-resumo__valor {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.prec-resumo__item--destaque .prec-resumo__valor {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.prec-resumo__valor input {
+  width: 140px;
+  max-width: 100%;
+  padding: 0.3rem 0.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-family: var(--font);
+  color: var(--text);
+  text-align: center;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.2s;
+  background: transparent;
+}
+
+#prec-margem {
+  width: auto;
+  max-width: 100%;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--text);
+}
+
+#prec-margem:focus {
+  box-shadow: none;
+  border-color: transparent;
+  outline: none;
+}
+
+.prec-resumo__valor input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
+}
+
+/* Column widths */
+.col-acao { min-width: 28px; }
+.col-insumo { min-width: 120px; }
+.col-preco { min-width: 80px; }
+.col-qtd-pacote { min-width: 70px; }
+.col-produzir-qtd { min-width: 65px; }
+.col-produzir-un { min-width: 50px; }
+.col-custo { min-width: 75px; }
+.col-pct { min-width: 50px; }
+.col-fornecedor { min-width: 80px; }
+.col-data { min-width: 85px; }
+.col-estoque { min-width: 60px; }
+.col-posso-produzir { min-width: 75px; }
+.col-obs { min-width: 100px; }
+
+@media (min-width: 992px) {
+  .prec-main {
+    max-width: 1400px;
+  }
+}
+
+.prec-copy-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .prec-main {
+    padding: 0;
+  }
+
+  .prec-copy-mobile {
+    display: block;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  .prec-copy-mobile .btn-prec {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .prec-tabela {
+    font-size: 0.65rem;
+  }
+
+  .prec-tabela th,
+  .prec-tabela td {
+    padding: 0.25rem 0.2rem;
+  }
+
+  .prec-tabela td input,
+  .prec-tabela td select {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.25rem;
+  }
+
+  #btn-copy-table {
+    display: none;
+  }
+
+  .prec-resumo {
+    grid-template-columns: 1fr;
+  }
+}
