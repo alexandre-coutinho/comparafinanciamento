@@ -3,43 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparador de Investimentos — Renda Fixa + Ações</title>
-  <meta name="description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações lado a lado. Veja o valor líquido com IR descontado e descubra qual rende mais para o seu prazo.">
-  <meta name="keywords" content="comparador de investimentos, CDB vs LCI vs LCA, tesouro direto, ação, calcular rentabilidade líquida, IR investimentos, tabela regressiva IR, comparar CDB com LCI, simulador investimentos">
+  <title>Sobre — Compara Financiamento</title>
+  <meta name="description" content="Saiba mais sobre o Compara Financiamento, a plataforma gratuita de ferramentas financeiras: simulador PRICE vs SAC, calculadoras, conversor de moedas e mais.">
+  <meta name="keywords" content="Compara Financiamento, sobre, ferramentas financeiras, simulador PRICE SAC, calculadora financeira, conversor moedas, Alexandre Coutinho">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://comparafinanciamento.com.br/comparador-investimentos">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/sobre">
   <link rel="icon" type="image/png" href="img/logo.png">
 
-  <meta property="og:title" content="Comparador de Investimentos — Renda Fixa + Ações">
-  <meta property="og:description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações lado a lado com IR descontado. Grátis e online.">
-  <meta property="og:url" content="https://comparafinanciamento.com.br/comparador-investimentos">
+  <meta property="og:title" content="Sobre — Compara Financiamento">
+  <meta property="og:description" content="Plataforma gratuita de ferramentas financeiras: simule PRICE vs SAC, converta moedas, calcule juros compostos e muito mais.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/sobre">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
-  <meta property="og:image:alt" content="Comparador de Investimentos — Compara Financiamento">
+  <meta property="og:image:alt" content="Compara Financiamento — Sobre">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Comparador de Investimentos — Renda Fixa + Ações">
-  <meta name="twitter:description" content="Compare CDB, LCI, LCA, Tesouro Direto e ações com IR descontado.">
+  <meta name="twitter:title" content="Sobre — Compara Financiamento">
+  <meta name="twitter:description" content="Plataforma gratuita de ferramentas financeiras: simule PRICE vs SAC, converta moedas, calcule juros compostos e muito mais.">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Comparador de Investimentos",
-    "url": "https://comparafinanciamento.com.br/comparador-investimentos",
-    "description": "Compare CDB, LCI, LCA e títulos do Tesouro Direto lado a lado. Veja o valor líquido com IR descontado pela tabela regressiva e descubra qual investimento rende mais.",
+    "name": "Compara Financiamento",
+    "url": "https://comparafinanciamento.com.br/sobre",
+    "description": "Plataforma gratuita de ferramentas financeiras: simulador PRICE vs SAC, conversor de moedas, calculadora de juros compostos, correção monetária e mais.",
     "applicationCategory": "FinanceApplication",
+    "applicationSubCategory": "Financial Calculator Suite",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
     "inLanguage": "pt-BR",
-    "featureList": [
-      "Comparação lado a lado de CDB, LCI, LCA e Tesouro Direto",
-      "Cálculo do IR pela tabela regressiva",
-      "Tabela de equivalência CDI para investimentos isentos",
-      "Simulação com taxas personalizadas"
-    ],
     "image": "https://comparafinanciamento.com.br/img/logo.png",
+    "featureList": [
+      "Simulador PRICE vs SAC",
+      "Conversor de Moedas em tempo real",
+      "Calculadoras Financeiras",
+      "Comparador de Investimentos",
+      "Calculadora de Precificação"
+    ],
     "author": {
       "@type": "Organization",
       "name": "Compara Financiamento"
@@ -54,7 +56,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.min.css">
-  <link rel="stylesheet" href="css/comparador-investimentos.min.css">
+  <link rel="stylesheet" href="css/sobre.min.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
@@ -63,8 +65,8 @@
       <div class="header__brand">
         <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" fetchpriority="high"></a>
         <div class="header__brand-text">
-          <h1>Comparador de Investimentos</h1>
-          <p>CDB × LCI × LCA × Tesouro Direto × Renda variável</p>
+          <h1>Sobre</h1>
+          <p>Conheça o Compara Financiamento</p>
         </div>
       </div>
       <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
@@ -90,102 +92,63 @@
     </div>
   </header>
 
-  <main id="main-content" class="inv-main">
-    <div class="card card-visao-rapida">
-      <div class="card-body card-visao-rapida__body">
-        <div class="card-visao-rapida__texto">
-          <strong>Quer ver na prática?</strong>
-          <span>Carregue um exemplo com taxas típicas do mercado.</span>
-        </div>
-        <button class="btn-visao-rapida" id="btn-exemplo-inv">
-          Carregar exemplo <small>R$ 10.000 • 12 meses • CDB 100% • LCI 93% • LCA 92%</small>
-        </button>
+  <main id="main-content" class="sobre-main">
+    <section class="sobre-hero">
+      <h1>Sobre o Compara Financiamento</h1>
+      <p class="sobre-hero__text">O <strong>Compara Financiamento</strong> é uma plataforma gratuita de ferramentas financeiras criada para ajudar você a tomar decisões mais inteligentes com o seu dinheiro.</p>
+    </section>
+
+    <section class="sobre-section">
+      <h2>O que oferecemos</h2>
+      <div class="sobre-offerings">
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <h3>Por que oferecemos ferramentas gratuitas?</h3>
+          <p>Acreditamos no crescimento mútuo através do conhecimento compartilhado.</p>
+        </article>
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-scale-balanced"></i></div>
+          <h3><a href="/">Simulador PRICE vs SAC</a></h3>
+          <p>Compare os dois sistemas de amortização lado a lado com gráfico interativo e tabela detalhada.</p>
+        </article>
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-money-bill-transfer"></i></div>
+          <h3><a href="conversor-moedas">Conversor de Moedas</a></h3>
+          <p>Cotações em tempo real com gráfico dos últimos 30 dias.</p>
+        </article>
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-calculator"></i></div>
+          <h3><a href="calculadoras">Calculadoras Financeiras</a></h3>
+          <p>Porcentagem, taxa de juros, correção monetária, juros compostos, consumo de combustível e conversor de unidades.</p>
+        </article>
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-chart-simple"></i></div>
+          <h3><a href="comparador-investimentos">Comparador de Investimentos</a></h3>
+          <p>Compare CDB, LCI, LCA, Tesouro Direto e ações com IR descontado.</p>
+        </article>
+        <article class="sobre-card">
+          <div class="sobre-card__icon"><i class="fas fa-tag"></i></div>
+          <h3><a href="calculadora-precificacao">Calculadora de Precificação</a></h3>
+          <p>Calcule custos e preço de venda ideal para seus produtos.</p>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <div class="card inv-card">
-      <div class="card-header">
-        <h2><i class="fas fa-chart-bar"></i> Comparar Investimentos</h2>
+    <section class="sobre-section">
+      <h2>Sobre o desenvolvedor</h2>
+      <div class="sobre-dev">
+        <div class="sobre-dev__text">
+          <p>O <strong>Compara Financiamento</strong> foi desenvolvido por <strong>Alexandre Coutinho</strong>, Desenvolvedor Web Full Stack de Cotia, SP.</p>
+          <p>Com mais de 20 anos de experiência em elétrica e automação, migrou para o desenvolvimento web e hoje combina essa bagagem técnica com habilidades em tecnologia na criação de sites institucionais, landing pages, sistemas web personalizados e soluções digitais.</p>
+          <p><strong>Tecnologias e ferramentas:</strong> HTML5, CSS3, JavaScript, Python, SEO, UX, IA aplicada.</p>
+        </div>
+        <blockquote class="sobre-quote">
+          <p>"Acredito na resolução de problemas, aprendizado contínuo, planejamento, organização e ética como pilares para entregar valor real aos clientes."</p>
+        </blockquote>
       </div>
-      <div class="card-body">
-        <div class="inv-row">
-          <div class="campo">
-            <label for="inv-valor">Valor inicial (R$)</label>
-            <input type="text" id="inv-valor" class="moeda" placeholder="10.000,00" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-prazo">Prazo (meses)</label>
-            <input type="text" id="inv-prazo" class="numero" placeholder="12" inputmode="numeric">
-          </div>
-        </div>
+    </section>
 
-        <div class="inv-subtitle"><i class="fas fa-chart-line"></i> Cenário Econômico</div>
-        <div class="inv-row">
-          <div class="campo">
-            <label for="inv-cdi">CDI/SELIC (% a.a.)</label>
-            <input type="text" id="inv-cdi" class="porcentagem" placeholder="14,65" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-ipca">IPCA estimado (% a.a.)</label>
-            <input type="text" id="inv-ipca" class="porcentagem" placeholder="5,00" inputmode="decimal">
-          </div>
-        </div>
-
-        <div class="inv-subtitle"><i class="fas fa-university"></i> Renda Fixa Bancária</div>
-        <div class="inv-row inv-row-3">
-          <div class="campo">
-            <label for="inv-cdb-pct">CDB (% do CDI)</label>
-            <input type="text" id="inv-cdb-pct" class="porcentagem" placeholder="100" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-lci-pct">LCI (% do CDI)</label>
-            <input type="text" id="inv-lci-pct" class="porcentagem" placeholder="93" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-lca-pct">LCA (% do CDI)</label>
-            <input type="text" id="inv-lca-pct" class="porcentagem" placeholder="92" inputmode="decimal">
-          </div>
-        </div>
-
-        <div class="inv-subtitle"><i class="fas fa-landmark"></i> Tesouro Direto</div>
-        <div class="inv-row inv-row-3">
-          <div class="campo">
-            <label for="inv-tselic-pct">Tesouro Selic (% a.a.)</label>
-            <input type="text" id="inv-tselic-pct" class="porcentagem" placeholder="14,65" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-prefixado">Tesouro Prefixado (% a.a.)</label>
-            <input type="text" id="inv-prefixado" class="porcentagem" placeholder="14,00" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-ipca-mais">Tesouro IPCA+ (% a.a.)</label>
-            <input type="text" id="inv-ipca-mais" class="porcentagem" placeholder="6,00" inputmode="decimal">
-          </div>
-        </div>
-
-        <div class="inv-subtitle"><i class="fas fa-chart-line"></i> Renda Variável</div>
-        <div class="inv-row">
-          <div class="campo">
-            <label for="inv-acao-compra">Ação — Preço de compra (R$)</label>
-            <input type="text" id="inv-acao-compra" class="moeda" placeholder="50,00" inputmode="decimal">
-          </div>
-          <div class="campo">
-            <label for="inv-acao-venda">Ação — Preço de venda (R$)</label>
-            <input type="text" id="inv-acao-venda" class="moeda" placeholder="57,50" inputmode="decimal">
-          </div>
-        </div>
-
-        <button class="btn-calcular" id="btn-calcular-inv">Comparar</button>
-
-        <div id="resultado-inv" hidden>
-          <div class="inv-tabela-wrapper">
-            <table class="inv-tabela" id="inv-tabela"></table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  <div style="text-align:center;padding:1.5rem 0">
+  <div style="text-align:center;padding:2rem 0 0">
     <button class="btn-depoimento" id="btn-abrir-depoimento"><i class="fas fa-pen"></i> Deixe seu depoimento</button>
   </div>
   </main>
@@ -240,13 +203,13 @@
           <img src="img/logo.webp" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
           <span>Compara <span>Financiamento</span></span>
         </div>
-        <p class="footer__desc">Simule e compare CDB, LCI, LCA, Tesouro Direto e Ações lado a lado. Veja o rendimento líquido de cada investimento e quem sai vencedor. Grátis e online.</p>
+        <p class="footer__desc">Plataforma gratuita de ferramentas financeiras: simule PRICE vs SAC, converta moedas, calcule juros compostos, correção monetária, compare investimentos e precifique seus produtos.</p>
       </div>
       <div class="footer__info">
         <h4>FERRAMENTAS</h4>
         <ul>
           <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-house-chimney"></i> Simulador PRICE vs SAC</a></li>
-           <li><a href="conversor-moedas" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+          <li><a href="conversor-moedas" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
           <li><a href="calculadoras" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Calculadoras</a></li>
           <li><a href="comparador-investimentos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
           <li><a href="calculadora-precificacao" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-cubes"></i> Precificação</a></li>
@@ -267,11 +230,10 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <p>v2.4.11 • &copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+      <p>v2.4.10 • &copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <script src="js/utils.js" defer></script>
-  <script src="js/comparador-investimentos.min.js" defer></script>
 </body>
 </html>

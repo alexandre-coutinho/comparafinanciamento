@@ -4,6 +4,7 @@
   --price-color: #1a56db;
   --sac-color: #059669;
   --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
   --card-bg: #ffffff;
   --text: #1e293b;
   --text-secondary: #475569;
@@ -359,9 +360,13 @@ footer {
 }
 
 @media (min-width: 768px) {
-  .footer__content { grid-template-columns: 1fr 1fr 1fr; }
+  .footer__content { grid-template-columns: 1fr 1fr 1fr 1fr; }
   .footer__brand .footer__logo { justify-content: center; }
   .footer__desc { text-align: center; }
+}
+
+@media (min-width: 768px) {
+  .footer__dev { align-items: flex-end; text-align: right; }
 }
 
 .footer__logo {
@@ -384,18 +389,20 @@ footer {
 }
 
 .footer__email {
-  margin-top: -1rem;
   font-size: 0.85rem;
+}
+.footer__email:first-of-type {
+  margin-top: -1rem;
 }
 
 .footer__email a {
-  color: #60a5fa;
+  color: #cbd5e1;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer__email a:hover {
-  color: #93bbfc;
+  color: #fff;
   text-decoration: underline;
 }
 
@@ -452,6 +459,9 @@ footer {
   color: var(--primary);
   margin-right: 0.3rem;
 }
+
+.footer .fa-instagram { color: #E4405F; }
+.footer .fa-linkedin { color: #0A66C2; }
 
 .footer__bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -608,48 +618,55 @@ footer {
   .card .card-header__inner { flex-wrap: wrap; }
   .footer__content {
     grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-    gap: 1.75rem;
+    justify-items: start;
+    text-align: left;
   }
   .footer__content > div {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
   .footer__logo {
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
   }
   .footer__desc {
     max-width: 24rem;
-    text-align: center;
+    text-align: left;
   }
   .footer__email {
     margin-top: 0;
-    text-align: center;
+    text-align: left;
     overflow-wrap: anywhere;
   }
   .footer__info ul {
     display: block;
     width: 100%;
-    text-align: center !important;
+    text-align: left !important;
   }
   .footer__info li {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 0.25rem;
-    text-align: center;
+    text-align: left;
   }
-   .footer__info li i {
+  .footer__info li i {
     display: none;
   }
+
   .footer h4 {
     width: 100%;
+    text-align: left;
+  }
+  .footer__content > .footer__dev {
+    align-items: center;
+    text-align: center;
+  }
+  .footer__content > .footer__dev h4 {
     text-align: center;
   }
   .grafico-wrapper { height: 180px; }

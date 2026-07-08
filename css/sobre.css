@@ -1,0 +1,131 @@
+.sobre-main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.sobre-main a {
+  color: var(--primary, #1a56db);
+  text-decoration: none;
+}
+.sobre-main a:hover {
+  text-decoration: underline;
+}
+
+.sobre-hero {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+.sobre-hero h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.sobre-hero__text {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--text-secondary, #475569);
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+.sobre-section {
+  padding: 3rem 0;
+}
+.sobre-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.sobre-offerings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.sobre-card {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.sobre-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 2px 12px rgba(26,86,219,0.08);
+}
+.sobre-card__icon {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+.sobre-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.sobre-card h3 a {
+  color: var(--text);
+}
+.sobre-card h3 a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+.sobre-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+  text-align: justify;
+}
+
+.sobre-dev {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.sobre-dev__text p {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  color: var(--text);
+  text-align: justify;
+}
+.sobre-dev__text p:last-child {
+  margin-bottom: 0;
+}
+
+.sobre-quote {
+  border-left: 3px solid var(--primary);
+  padding: 1.25rem 1.5rem;
+  margin: 0;
+  background: var(--bg-alt, #f8fafc);
+  border-radius: 0 8px 8px 0;
+}
+.sobre-quote p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary, #475569);
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .sobre-hero h1 {
+    font-size: 2rem;
+  }
+  .sobre-dev {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .sobre-offerings {
+    grid-template-columns: 1fr;
+  }
+}
