@@ -544,6 +544,8 @@ footer {
   top: 100%;
   right: 0;
   min-width: 200px;
+  max-height: calc(100vh - 100%);
+  overflow-y: auto;
   background: linear-gradient(135deg, #1e3a8a, #1a56db);
   flex-direction: column;
   padding: 0.5rem 1rem 1rem;
