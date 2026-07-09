@@ -180,7 +180,4 @@ function initDepoimento() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  initDepoimento();
-  setupHamburgerMenu();
-});
+document.addEventListener('DOMContentLoaded', initDepoimento);
