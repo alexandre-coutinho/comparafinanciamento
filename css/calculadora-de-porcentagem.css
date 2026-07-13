@@ -220,35 +220,35 @@
 
 .corr-resultados {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
 }
 
 .corr-card {
   background: var(--bg);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 6px;
+  padding: 0.5rem 0.3rem;
   text-align: center;
   border: 1px solid var(--border);
 }
 
 .corr-card__nome {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: var(--text-secondary);
-  margin-bottom: 0.25rem;
-}
-
-.corr-card__pct {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--primary);
   margin-bottom: 0.15rem;
 }
 
+.corr-card__pct {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.1rem;
+}
+
 .corr-card__valor {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text);
 }
 
