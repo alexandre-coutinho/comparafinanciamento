@@ -18,7 +18,7 @@ const SERIES = [
   { name: 'ipca', code: '10844' },
   { name: 'igpm', code: '189' },
   { name: 'poupanca', code: '195' },
-  { name: 'tr', code: '243' },
+  { name: 'tr', code: '7811' },
   { name: 'selic', code: '1178' },
 ];
 
