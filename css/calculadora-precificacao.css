@@ -284,10 +284,18 @@
     padding: 0;
   }
 
+  .prec-card {
+    overflow: visible;
+  }
+
+  .prec-card .card-body {
+    padding: 0.75rem;
+  }
+
   .prec-copy-mobile {
     display: block;
     text-align: center;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
   }
 
   .prec-copy-mobile .btn-prec {
@@ -316,18 +324,19 @@
 
   .prec-resumo {
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .prec-resumo__item {
-    padding: 0.5rem;
+    padding: 0.35rem 0.5rem;
   }
 
   .prec-resumo__item--destaque .prec-resumo__valor {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .prec-resumo__rotulo {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
+    margin-bottom: 0;
   }
 }
