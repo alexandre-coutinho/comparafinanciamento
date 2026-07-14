@@ -307,6 +307,19 @@
     font-size: 0.65rem;
   }
 
+  .prec-tabela-wrapper {
+    scrollbar-width: auto;
+  }
+
+  .prec-tabela-wrapper::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  .prec-tabela-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 6px;
+  }
+
   .prec-tabela th {
     padding: 0.5rem 0.3rem;
   }
