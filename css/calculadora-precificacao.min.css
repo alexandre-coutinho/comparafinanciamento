@@ -307,15 +307,18 @@
     font-size: 0.65rem;
   }
 
-  .prec-tabela th,
+  .prec-tabela th {
+    padding: 0.5rem 0.3rem;
+  }
+
   .prec-tabela td {
-    padding: 0.25rem 0.2rem;
+    padding: 0.35rem 0.3rem;
   }
 
   .prec-tabela td input,
   .prec-tabela td select {
-    font-size: 0.75rem;
-    padding: 0.65rem 0.3rem;
+    font-size: 0.85rem;
+    padding: 0.9rem 0.35rem;
   }
 
   #btn-copy-table {
@@ -328,20 +331,20 @@
   }
 
   .prec-resumo__item {
-    padding: 1.25rem 1rem;
+    padding: 0.6rem 0.75rem;
   }
 
   .prec-resumo__item--destaque .prec-resumo__valor {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   .prec-resumo__rotulo {
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.1rem;
   }
 
   #prec-margem {
-    padding: 0.5rem 0;
-    font-size: 1.3rem;
+    padding: 0.3rem 0;
+    font-size: 1rem;
   }
 }
