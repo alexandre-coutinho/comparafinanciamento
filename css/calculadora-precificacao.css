@@ -328,19 +328,20 @@
   }
 
   .prec-resumo__item {
-    padding: 0.6rem 0.75rem;
+    padding: 1.25rem 1rem;
   }
 
   .prec-resumo__item--destaque .prec-resumo__valor {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
   .prec-resumo__rotulo {
-    font-size: 0.65rem;
-    margin-bottom: 0.15rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
   }
 
   #prec-margem {
-    padding: 0.25rem 0;
+    padding: 0.5rem 0;
+    font-size: 1.3rem;
   }
 }
