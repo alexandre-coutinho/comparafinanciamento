@@ -188,7 +188,7 @@ function calcular() {
   elResultado.classList.add('luz-resultado--show');
 
   const detalheEl = document.getElementById('luz-result-detalhe-impostos');
-  if (detalheEl) detalheEl.textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes — ${dist.cidade}/${dist.estado} • ${dist.sigla} • ${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
+  if (detalheEl) detalheEl.innerHTML = `${totalKwh.toFixed(1).replace('.', ',')}kWh/mes - ${dist.cidade}/${dist.estado} ${dist.sigla}<br>Bandeira ${band.nome} (${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh) valida ate ${fmtData(dist.valido_ate)}`;
 
   const impostos = window.__impostos;
   const elValorAntigo = document.getElementById('luz-result-valor-com-impostos');
@@ -222,8 +222,6 @@ function calcular() {
   }
 
   function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
-  const vigenciaEl = document.getElementById('luz-result-vigencia');
-  if (vigenciaEl) vigenciaEl.innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>valida ate ${fmtData(dist.valido_ate)}`;
   } catch (e) { console.warn('calcular():', e); mostrarErro('Erro ao calcular. Tente novamente.'); }
 }
 
