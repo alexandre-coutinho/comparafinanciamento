@@ -185,9 +185,15 @@ function calcular() {
   const elResultado = document.getElementById('luz-resultado');
   elResultado.classList.add('luz-resultado--show');
 
-  document.getElementById('luz-result-detalhe-impostos').textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes — ${dist.cidade}/${dist.estado} • ${dist.sigla} • ${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
+  const detalheEl = document.getElementById('luz-result-detalhe-impostos');
+  if (detalheEl) detalheEl.textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes — ${dist.cidade}/${dist.estado} • ${dist.sigla} • ${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
 
   const impostos = window.__impostos;
+  const elValorAntigo = document.getElementById('luz-result-valor-com-impostos');
+  const elValorCorreto = document.getElementById('luz-result-valor-correto');
+  const elAliquotas = document.getElementById('luz-result-aliquotas');
+  const elAliquotasCorreto = document.getElementById('luz-result-aliquotas-correto');
+
   if (impostos && impostos.icms_por_uf && impostos.icms_por_uf[dist.estado]) {
     const limiteReduzido = impostos.icms_reduzido_limite_kwh || 200;
     const icmsPct = (totalKwh <= limiteReduzido && impostos.icms_por_uf_reduzido)
@@ -200,21 +206,22 @@ function calcular() {
     const totalAntigo = total / (1 - icms - pis - cofins);
     const totalCorreto = total * (1 + pis + cofins) * (1 + icms);
 
-    document.getElementById('luz-result-valor-com-impostos').textContent = totalAntigo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    document.getElementById('luz-result-valor-correto').textContent = totalCorreto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (elValorAntigo) elValorAntigo.textContent = totalAntigo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (elValorCorreto) elValorCorreto.textContent = totalCorreto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
     const label = `ICMS ${icmsPct}% | PIS ${impostos.pis}% | COFINS ${impostos.cofins}%`;
-    document.getElementById('luz-result-aliquotas').textContent = label;
-    document.getElementById('luz-result-aliquotas-correto').textContent = label;
+    if (elAliquotas) elAliquotas.textContent = label;
+    if (elAliquotasCorreto) elAliquotasCorreto.textContent = label;
   } else {
-    document.getElementById('luz-result-valor-com-impostos').textContent = '-';
-    document.getElementById('luz-result-valor-correto').textContent = '-';
-    document.getElementById('luz-result-aliquotas').textContent = 'Indisponivel';
-    document.getElementById('luz-result-aliquotas-correto').textContent = 'Indisponivel';
+    if (elValorAntigo) elValorAntigo.textContent = '-';
+    if (elValorCorreto) elValorCorreto.textContent = '-';
+    if (elAliquotas) elAliquotas.textContent = 'Indisponivel';
+    if (elAliquotasCorreto) elAliquotasCorreto.textContent = 'Indisponivel';
   }
 
   function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
-  document.getElementById('luz-result-vigencia').innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>valida ate ${fmtData(dist.valido_ate)}`;
+  const vigenciaEl = document.getElementById('luz-result-vigencia');
+  if (vigenciaEl) vigenciaEl.innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>valida ate ${fmtData(dist.valido_ate)}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
