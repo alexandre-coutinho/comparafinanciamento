@@ -20,18 +20,19 @@ function esconderErro() {
 function criarLinhaEquipamento(idx) {
   const div = document.createElement('div');
   div.className = 'luz-equip-row';
+  const label = (text) => idx === 0 ? `<label>${text}</label>` : '';
   div.innerHTML = `
     <span class="luz-equip-num">${idx + 1}</span>
     <div class="campo">
-      <label>Potencia (W)</label>
+      ${label('Potencia (W)')}
       <input type="number" class="campo__input luz-potencia" min="1" step="1" inputmode="numeric" data-idx="${idx}">
     </div>
     <div class="campo">
-      <label>h/dia</label>
+      ${label('h/dia')}
       <input type="number" class="campo__input luz-horas" min="0.5" max="24" step="0.5" inputmode="decimal" data-idx="${idx}">
     </div>
     <div class="campo">
-      <label>dias/mes</label>
+      ${label('dias/mes')}
       <input type="number" class="campo__input luz-dias" min="1" max="31" step="1" inputmode="numeric" data-idx="${idx}">
     </div>
   `;
