@@ -187,8 +187,11 @@ function calcular() {
   const elResultado = document.getElementById('luz-resultado');
   elResultado.classList.add('luz-resultado--show');
 
-  const detalheEl = document.getElementById('luz-result-detalhe-impostos');
-  if (detalheEl) detalheEl.innerHTML = `${totalKwh.toFixed(1).replace('.', ',')}kWh/mes - ${dist.cidade}/${dist.estado} ${dist.sigla}<br>Bandeira ${band.nome} (${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh) valida ate ${fmtData(dist.valido_ate)}`;
+  const consumoTexto = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes`;
+  const elConsumoAntigo = document.getElementById('luz-result-consumo-antigo');
+  const elConsumoCorreto = document.getElementById('luz-result-consumo-correto');
+  if (elConsumoAntigo) elConsumoAntigo.textContent = consumoTexto;
+  if (elConsumoCorreto) elConsumoCorreto.textContent = consumoTexto;
 
   const impostos = window.__impostos;
   const elValorAntigo = document.getElementById('luz-result-valor-com-impostos');
@@ -221,7 +224,7 @@ function calcular() {
     if (elAliquotasCorreto) elAliquotasCorreto.textContent = 'Indisponivel';
   }
 
-  function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
+
   } catch (e) { console.warn('calcular():', e); mostrarErro('Erro ao calcular. Tente novamente.'); }
 }
 
