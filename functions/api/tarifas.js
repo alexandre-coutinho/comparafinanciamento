@@ -1,5 +1,5 @@
 const CAPITAIS = {
-  'ELETROPAULO':   { cidade: 'São Paulo',       estado: 'SP' },
+  'ENEL SP':       { cidade: 'São Paulo',       estado: 'SP' },
   'LIGHT SESA':    { cidade: 'Rio de Janeiro',   estado: 'RJ' },
   'CEMIG-D':       { cidade: 'Belo Horizonte',   estado: 'MG' },
   'Neoenergia Brasília': { cidade: 'Brasília',   estado: 'DF' },

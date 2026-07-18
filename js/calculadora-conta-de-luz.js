@@ -99,9 +99,8 @@ function montarRanking(distribuidoras) {
   let html = '<table class="luz-ranking-table"><thead><tr><th>#</th><th>Distribuidora</th><th>Cidade / UF</th><th style="text-align:right">Tarifa (R$/kWh)</th></tr></thead><tbody>';
   for (let i = 0; i < sorted.length; i++) {
     const d = sorted[i];
-    const cor = i < 3 ? '#15803d' : i < 8 ? '#1d4ed8' : '#6b7280';
     html += `<tr>
-      <td class="luz-ranking-pos" style="color:${cor}">${i + 1}</td>
+      <td class="luz-ranking-pos">${i + 1}</td>
       <td>${d.sigla}</td>
       <td>${d.cidade} / ${d.estado}</td>
       <td class="luz-ranking-tarifa">${d.total_kwh.toFixed(6).replace('.', ',')}</td>
@@ -153,12 +152,12 @@ function calcular() {
   const elResultado = document.getElementById('luz-resultado');
   elResultado.classList.add('luz-resultado--show');
 
-  document.getElementById('luz-result-kwh').textContent = totalKwh.toFixed(2).replace('.', ',');
   document.getElementById('luz-result-valor').textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   document.getElementById('luz-result-tarifa').textContent = `${dist.cidade}/${dist.estado} • ${dist.sigla}`;
   document.getElementById('luz-result-bandeira').textContent = `${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
   document.getElementById('luz-result-detalhe').textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes`;
-  document.getElementById('luz-result-vigencia').textContent = `Tarifa vigente desde ${dist.vigencia} (valida ate ${dist.valido_ate})`;
+  function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
+  document.getElementById('luz-result-vigencia').innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>válida até ${fmtData(dist.valido_ate)}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
