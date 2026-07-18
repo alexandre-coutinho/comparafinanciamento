@@ -1,4 +1,4 @@
-function mostrarLoading() {
+﻿function mostrarLoading() {
   document.getElementById('luz-distribuidora').innerHTML = '<option value="">Carregando distribuidoras...</option>';
   document.getElementById('luz-loading').style.display = 'block';
 }
@@ -23,7 +23,7 @@ function criarLinhaEquipamento(idx) {
   div.innerHTML = `
     <span class="luz-equip-num">${idx + 1}</span>
     <div class="campo">
-      <label>Potência (W)</label>
+      <label>Potencia (W)</label>
       <input type="number" class="campo__input luz-potencia" min="1" step="1" inputmode="numeric" data-idx="${idx}">
     </div>
     <div class="campo">
@@ -31,7 +31,7 @@ function criarLinhaEquipamento(idx) {
       <input type="number" class="campo__input luz-horas" min="0.5" max="24" step="0.5" inputmode="decimal" data-idx="${idx}">
     </div>
     <div class="campo">
-      <label>dias/mês</label>
+      <label>dias/mes</label>
       <input type="number" class="campo__input luz-dias" min="1" max="31" step="1" inputmode="numeric" data-idx="${idx}">
     </div>
   `;
@@ -72,6 +72,17 @@ async function carregarBandeiras() {
   }
 }
 
+async function carregarImpostos() {
+  try {
+    const res = await fetch('/api/impostos');
+    if (!res.ok) throw new Error('Falha');
+    window.__impostos = await res.json();
+  } catch (e) {
+    console.error('Erro impostos:', e);
+    window.__impostos = null;
+  }
+}
+
 async function carregarDistribuidoras() {
   mostrarLoading();
   esconderErro();
@@ -102,7 +113,7 @@ function preencherSelect(distribuidoras) {
   for (const d of distribuidoras) {
     const opt = document.createElement('option');
     opt.value = d.sigla;
-    opt.textContent = `${d.cidade} / ${d.estado} — ${d.sigla}`;
+    opt.textContent = `${d.cidade} / ${d.estado} - ${d.sigla}`;
     sel.appendChild(opt);
   }
 }
@@ -174,18 +185,44 @@ function calcular() {
   const elResultado = document.getElementById('luz-resultado');
   elResultado.classList.add('luz-resultado--show');
 
-  document.getElementById('luz-result-valor').textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  document.getElementById('luz-result-tarifa').textContent = `${dist.cidade}/${dist.estado} • ${dist.sigla}`;
-  document.getElementById('luz-result-bandeira').textContent = `${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
-  document.getElementById('luz-result-detalhe').textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes`;
+  document.getElementById('luz-result-detalhe-impostos').textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes — ${dist.cidade}/${dist.estado} • ${dist.sigla} • ${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
+
+  const impostos = window.__impostos;
+  if (impostos && impostos.icms_por_uf && impostos.icms_por_uf[dist.estado]) {
+    const limiteReduzido = impostos.icms_reduzido_limite_kwh || 200;
+    const icmsPct = (totalKwh <= limiteReduzido && impostos.icms_por_uf_reduzido)
+      ? impostos.icms_por_uf_reduzido[dist.estado]
+      : impostos.icms_por_uf[dist.estado];
+    const icms = icmsPct / 100;
+    const pis = impostos.pis / 100;
+    const cofins = impostos.cofins / 100;
+
+    const totalAntigo = total / (1 - icms - pis - cofins);
+    const totalCorreto = total * (1 + pis + cofins) * (1 + icms);
+
+    document.getElementById('luz-result-valor-com-impostos').textContent = totalAntigo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    document.getElementById('luz-result-valor-correto').textContent = totalCorreto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    const label = `ICMS ${icmsPct}% | PIS ${impostos.pis}% | COFINS ${impostos.cofins}%`;
+    document.getElementById('luz-result-aliquotas').textContent = label;
+    document.getElementById('luz-result-aliquotas-correto').textContent = label;
+  } else {
+    document.getElementById('luz-result-valor-com-impostos').textContent = '-';
+    document.getElementById('luz-result-valor-correto').textContent = '-';
+    document.getElementById('luz-result-aliquotas').textContent = 'Indisponivel';
+    document.getElementById('luz-result-aliquotas-correto').textContent = 'Indisponivel';
+  }
+
   function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
-  document.getElementById('luz-result-vigencia').innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>válida até ${fmtData(dist.valido_ate)}`;
+  document.getElementById('luz-result-vigencia').innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>valida ate ${fmtData(dist.valido_ate)}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   montarEquipamentos();
   carregarDistribuidoras();
   carregarBandeiras();
+  carregarImpostos();
+  setupHamburgerMenu();
 
   document.querySelectorAll('#luz-equipamentos input').forEach(el => {
     el.addEventListener('input', () => calcular());

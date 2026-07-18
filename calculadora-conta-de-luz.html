@@ -67,6 +67,12 @@
         <a href="/#sac">Sac</a>
         <a href="conversor-moedas">Conversor Moeda</a>
         <a href="calculadoras">Calculadoras</a>
+        <a href="calculadoras#taxa">Conversor de taxa de juros</a>
+        <a href="calculadoras#correcao">Correção monetária</a>
+        <a href="calculadoras#porcentagem">Porcentagem</a>
+        <a href="calculadoras#juros-compostos">Juros compostos</a>
+        <a href="calculadoras#consumo">Consumo de combustível</a>
+        <a href="calculadoras#unidades">Conversor de unidades</a>
         <a href="calculadora-conta-de-luz" class="nav--active">Conta de Luz</a>
         <a href="calculadora-precificacao">Precificação</a>
         <a href="comparador-investimentos">Investimentos</a>
@@ -114,16 +120,21 @@
 
         <div id="luz-resultado" class="luz-resultado">
           <div class="luz-result-flex">
-            <div class="luz-result-box" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;">
-              <h3>Valor Estimado na Conta</h3>
-              <div class="valor" style="color:#1d4ed8;" id="luz-result-valor">R$ 0,00</div>
-              <div class="subtexto" id="luz-result-detalhe"></div>
-              <div class="subtexto" id="luz-result-tarifa"></div>
-              <div class="subtexto" id="luz-result-bandeira"></div>
-              <div class="subtexto" id="luz-result-vigencia" style="font-size:0.75rem;margin-top:0.5rem;"></div>
-              <div class="subtexto" style="font-size:0.7rem;margin-top:0.25rem;color:var(--text-secondary);">* Valores sem impostos (ICMS, PIS/COFINS)</div>
+            <div class="luz-result-box" style="background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5;">
+              <h3>Valor c/ Impostos (Método Antigo)</h3>
+              <div class="valor" style="color:#dc2626;" id="luz-result-valor-com-impostos">R$ 0,00</div>
+              <div class="subtexto" id="luz-result-aliquotas"></div>
+              <div class="subtexto" style="font-size:0.7rem;margin-top:0.25rem;color:var(--text-secondary);">ICMS incluso na base do PIS/COFINS (metodologia anterior à Tese do Século).</div>
+            </div>
+            <div class="luz-result-box" style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-color:#facc15;">
+              <h3>Valor c/ Impostos (Tese do Século)</h3>
+              <div class="valor" style="color:#a16207;" id="luz-result-valor-correto">R$ 0,00</div>
+              <div class="subtexto" id="luz-result-aliquotas-correto"></div>
+              <div class="subtexto" style="font-size:0.7rem;margin-top:0.25rem;color:var(--text-secondary);">PIS/COFINS calculados antes do ICMS (conforme STF Tema 69).</div>
             </div>
           </div>
+          <div class="subtexto" style="font-size:0.75rem;text-align:center;margin-top:0.5rem;" id="luz-result-detalhe-impostos"></div>
+          <div class="subtexto" id="luz-result-vigencia" style="font-size:0.75rem;text-align:center;margin-top:0.25rem;"></div>
         </div>
       </div>
     </div>
@@ -142,6 +153,73 @@
         <div id="luz-ranking-tabela" style="display:none;overflow-x:auto"></div>
       </div>
     </div>
+    <section class="card card-faq" id="faq" aria-label="Perguntas frequentes sobre a Tese do Século e tributos na conta de luz">
+      <div class="card-header">
+        <h2><i class="fas fa-gavel"></i> Tese do Século — ICMS na Conta de Luz</h2>
+      </div>
+      <div class="card-body faq-list">
+        <details class="faq-item" name="faq-luz">
+          <summary>O que é a "Tese do Século"?</summary>
+          <p>A <strong>"Tese do Século"</strong> é como ficou conhecida a decisão do Supremo Tribunal Federal (STF) que, em 2017, decidiu que o <strong>ICMS não pode integrar a base de cálculo do PIS e da COFINS</strong>. Ou seja: as distribuidoras de energia estavam calculando PIS e COFINS sobre um valor maior do que o correto, incluindo o próprio ICMS na conta — o que inflava artificialmente esses tributos federais. O nome reflete a magnitude da decisão, que impactou não só o setor elétrico, mas todos os setores da economia que recolhem PIS/COFINS sobre o faturamento.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>O que exatamente o STF decidiu?</summary>
+          <p>Em março de 2017, no <strong>Tema 69 da Repercussão Geral</strong> (RE 574.706), o STF fixou a seguinte tese: <em>"O ICMS não compõe a base de cálculo para a incidência do PIS e da COFINS."</em> Na prática, isso significa que, ao calcular o valor de PIS e COFINS devidos, a empresa (ou distribuidora) não pode incluir o valor do ICMS na base de cálculo — apenas o valor da venda sem o ICMS. Em 2021, o STF definiu que os efeitos valeriam a partir de <strong>15 de março de 2017</strong>. Em agosto de 2025, o STF validou definitivamente a Lei 14.385/2022, que obriga as distribuidoras a devolverem os valores cobrados indevidamente aos consumidores.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Isso significa que a conta de luz sempre foi calculada errado?</summary>
+          <p>Sim, o cálculo dos tributos na conta de luz estava errado desde a criação do PIS e da COFINS. As distribuidoras incluíam o ICMS na base de cálculo do PIS/COFINS, o que fazia com que o consumidor pagasse <strong>"imposto sobre imposto"</strong>. Esse erro só foi corrigido juridicamente em 2017 com a "Tese do Século". No entanto, a correção prática — com a devolução efetiva dos valores aos consumidores — levou anos para ser implementada e só começou de forma sistemática após a Lei 14.385/2022 e a regulamentação da ANEEL em julho de 2025. Desde 2005, a ANEEL já excluía PIS, COFINS e ICMS da chamada Receita Requerida das tarifas, mas as distribuidoras continuavam repassando esses tributos aos consumidores — e, após ganharem na Justiça o direito de excluir o ICMS da base do PIS/COFINS, <strong>ficaram com os créditos</strong> em vez de repassá-los ao consumidor. Foi essa distorção que a Lei 14.385/2022 veio corrigir.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>As distribuidoras têm que devolver o dinheiro? Como funciona?</summary>
+          <p>Sim. A <strong>Lei 14.385/2022</strong> (mantida pelo STF em agosto de 2025) determina que as distribuidoras de energia devem devolver integralmente aos consumidores os valores de PIS/COFINS que foram cobrados a mais em razão da inclusão indevida do ICMS na base de cálculo. A devolução ocorre de forma <strong>difusa</strong> — ou seja, não é por consumidor individual, mas sim por <strong>desconto nas tarifas de energia</strong> ao longo do ciclo tarifário anual. A ANEEL regulamentou a metodologia em julho de 2025. As distribuidoras têm <strong>10 anos</strong> para efetuar a devolução, contados a partir do momento em que efetivamente receberam a restituição dos tributos ou da homologação da compensação. Podem ser deduzidos tributos incidentes sobre a restituição e honorários advocatícios específicos gastos para obter os créditos.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Desde quando os consumidores podem receber a devolução?</summary>
+          <p>Os efeitos da decisão do STF valem desde <strong>15 de março de 2017</strong>. Portanto, os valores cobrados indevidamente a partir dessa data devem ser devolvidos. O prazo prescricional para o consumidor pleitear a devolução é de <strong>10 anos</strong>, contados da data em que a distribuidora efetivamente recebeu a restituição do indébito ou da homologação definitiva da compensação — o que, na prática, pode variar conforme cada empresa. Estima-se que mais de <strong>R$ 53 bilhões</strong> já foram devolvidos aos consumidores até 2025 por meio de reduções tarifárias determinadas pela ANEEL.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Como a devolução aparece na minha conta de luz?</summary>
+          <p>A devolução não aparece como uma linha específica na sua fatura. A ANEEL determinou que o ressarcimento seja feito de forma <strong>difusa</strong>, ou seja, a tarifa de energia é calculada já com o desconto embutido, espalhado por todos os consumidores da área de concessão ao longo dos 12 meses do ciclo tarifário. Na prática, você paga um valor <strong>menor por kWh</strong> do que pagaria se esses créditos não estivessem sendo abatidos. As distribuidoras precisam informar à ANEEL, com 45 dias de antecedência da revisão tarifária, os valores pagos de ICMS, os créditos obtidos judicialmente e os tributos incidentes, e a agência ajusta a tarifa para refletir a devolução. Para consumidores que já obtiveram devolução direta por decisão judicial individual, a ANEEL exige que a distribuidora identifique eventuais valores repassados em duplicidade e faça o ajuste destacado na fatura.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Como saber se estou sendo ressarcido?</summary>
+          <p>Como a devolução é feita de forma <strong>difusa</strong> (desconto embutido na tarifa de todos os consumidores da região), você <strong>não vai encontrar uma linha específica</strong> na sua fatura com o título "Ressarcimento Tese do Século" ou "Devolução PIS/COFINS". Para verificar se está sendo beneficiado, você pode:</p>
+          <p><strong>1. Comparar a tarifa homologada pela ANEEL</strong> — Acesse o site da ANEEL e consulte o histórico de tarifas da sua distribuidora. Se a tarifa do ano atual teve um reajuste abaixo da inflação (ou até redução real), é provável que os créditos estejam sendo abatidos.<br>
+          <strong>2. Consultar o processo tarifário da sua distribuidora</strong> — A ANEEL publica todos os processos de revisão e reajuste tarifário no seu site. Você pode consultar se a distribuidora incluiu créditos de PIS/COFINS no cálculo da tarifa do ano.<br>
+          <strong>3. Ler o comunicado de reajuste</strong> — Toda distribuidora é obrigada a publicar, com antecedência, os novos valores de tarifa. Esses comunicados costumam mencionar se houve abatimento de créditos tributários.<br>
+          <strong>4. Ações judiciais individuais</strong> — Se você ou seu advogado ingressaram com uma ação própria pedindo a devolução dos valores, o ressarcimento pode vir por depósito judicial ou ordem de compensação destacada na fatura, e aí sim aparecerá discriminado.</p>
+          <p>Na dúvida, entre em contato com a ouvidoria da sua distribuidora ou com a ANEEL (telefone 167) para obter informações sobre como os créditos tributários estão sendo aplicados na sua conta.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Quanto a ANEEL já devolveu e qual o impacto atual?</summary>
+          <p>De acordo com dados de 2026, a ANEEL já devolveu aproximadamente <strong>R$ 53,21 bilhões</strong> aos consumidores até dezembro de 2025, considerando os processos tarifários de distribuidoras e permissionárias de energia elétrica. O valor inclui devoluções feitas por meio de revisões tarifárias extraordinárias previstas na Lei 14.385/2022. A título de comparação, só em 2025 foram descontados cerca de <strong>R$ 5 bilhões</strong>. O impacto médio na tarifa varia conforme a distribuidora e a região, mas representa uma redução de alguns pontos percentuais no valor final da conta de luz.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Como é calculada a tarifa de energia elétrica no Brasil?</summary>
+          <p>A tarifa de energia é composta por três grandes blocos de custos, definidos e regulados pela ANEEL:</p>
+          <p><strong>1. Custos de Geração (TE — Tarifa de Energia):</strong> custo da energia comprada das usinas geradoras, incluindo Itaipu e os leilões de energia.<br>
+          <strong>2. Custos de Transporte (TUSD — Tarifa de Uso do Sistema de Distribuição):</strong> inclui transmissão (redes básicas), distribuição (fios, postes, subestações), conexão, perdas técnicas e não-técnicas.<br>
+          <strong>3. Encargos Setoriais:</strong> CDE (Conta de Desenvolvimento Energético — R$ 41,4 bilhões só em 2025), PROINFA, CCC, TFSEE (Taxa de Fiscalização), P&D, ESS/ERR (Encargos de Serviço do Sistema), CFURH (royalties de Itaipu), entre outros criados por lei.</p>
+          <p>Somam-se a esses custos as <strong>Bandeiras Tarifárias</strong> (sinalização mensal do custo da geração) e, por fim, os <strong>tributos</strong> — ICMS (estadual), PIS, COFINS (federais) e CIP (municipal).</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>E como os impostos são calculados na conta de luz?</summary>
+          <p>Os tributos são calculados <strong>por dentro</strong> (embutidos na base) e seguem uma ordem específica que a "Tese do Século" corrigiu:</p>
+          <p><strong>Base sem impostos</strong> = consumo × (TE + TUSD) + valor da bandeira tarifária</p>
+          <p><strong>1. PIS/COFINS</strong> — incidem sobre a base <strong>sem ICMS</strong>:<br>
+          <code>base_pis_cofins = base_sem_impostos / (1 - alíquota PIS - alíquota COFINS)</code></p>
+          <p><strong>2. ICMS</strong> — incide sobre a base <strong>com todos os impostos</strong> (cálculo "por dentro"):<br>
+          <code>valor_final = base_pis_cofins / (1 - alíquota ICMS)</code></p>
+          <p>Antes da "Tese do Século", o PIS/COFINS era calculado incluindo o ICMS na base — ou seja, o contribuinte pagava <strong>PIS e COFINS sobre o valor do ICMS</strong>, um "imposto sobre imposto" que a decisão do STF declarou ilegal.</p>
+          <p>Importante: o ICMS da energia elétrica tem alíquotas diferenciadas por estado, geralmente <strong>mais altas</strong> que o ICMS geral — variando de 17% a 30% dependendo da UF.</p>
+        </details>
+        <details class="faq-item" name="faq-luz">
+          <summary>Esta calculadora considera esses impostos?</summary>
+          <p>Atualmente a calculadora exibe os <strong>valores sem impostos</strong> (base pura: TE + TUSD + bandeira). Futuramente pretendemos adicionar a opção de visualizar o valor estimado com os tributos incidentes (ICMS, PIS/COFINS), utilizando as alíquotas de cada estado — respeitando o cálculo correto determinado pela "Tese do Século": PIS/COFINS sobre base sem ICMS, e ICMS "por dentro" sobre o total. Consulte a FAQ sobre "Como é calculada a tarifa" acima para entender a fórmula completa.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
