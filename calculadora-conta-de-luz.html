@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Conta de Luz — Simulador de Consumo de Energia</title>
+  <meta name="description" content="Calcule o consumo de qualquer equipamento elétrico e veja o valor estimado da sua conta de luz com base nas tarifas da ANEEL por distribuidora e bandeira tarifária.">
+  <meta name="keywords" content="calculadora conta de luz, simulador energia elétrica, calcular kWh, tarifa ANEEL, bandeira tarifária, consumo equipamento">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://comparafinanciamento.com.br/calculadora-conta-de-luz">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="manifest" href="img/site.webmanifest">
+
+  <meta property="og:title" content="Calculadora de Conta de Luz — Simulador de Consumo">
+  <meta property="og:description" content="Calcule o consumo de qualquer equipamento em kWh e descubra quanto ele custa na sua conta de luz com tarifas reais da ANEEL.">
+  <meta property="og:url" content="https://comparafinanciamento.com.br/calculadora-conta-de-luz">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://comparafinanciamento.com.br/img/logo.png">
+  <meta property="og:image:alt" content="Calculadora de Conta de Luz — Compara Financiamento">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Calculadora de Conta de Luz — Simulador de Consumo">
+  <meta name="twitter:description" content="Calcule o consumo e valor da conta de energia com tarifas ANEEL atualizadas.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calculadora de Conta de Luz",
+    "url": "https://comparafinanciamento.com.br/calculadora-conta-de-luz",
+    "description": "Calculadora de consumo de energia elétrica que utiliza tarifas da ANEEL para estimar o valor da conta de luz de qualquer equipamento.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": "pt-BR",
+    "image": "https://comparafinanciamento.com.br/img/logo.png",
+    "author": { "@type": "Organization", "name": "Compara Financiamento" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/calculadora-conta-de-luz.min.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+  <header>
+    <div class="header__content">
+      <div class="header__brand">
+        <a href="/" aria-label="Página inicial"><img src="img/logo.webp" alt="Compara Financiamento" class="header__logo" width="316" height="250" fetchpriority="high"></a>
+        <div class="header__brand-text">
+          <h1>Calculadora de Conta de Luz</h1>
+          <p>Simule o consumo e o valor da energia elétrica</p>
+        </div>
+      </div>
+      <button class="header__hamburger" id="btn-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="header__nav" id="header-nav">
+        <a href="sobre">Sobre</a>
+        <a href="/#price">Price</a>
+        <a href="/#sac">Sac</a>
+        <a href="conversor-moedas">Conversor Moeda</a>
+        <a href="calculadoras">Calculadoras</a>
+        <a href="calculadora-conta-de-luz" class="nav--active">Conta de Luz</a>
+        <a href="calculadora-precificacao">Precificação</a>
+        <a href="comparador-investimentos">Investimentos</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/#depoimentos">Depoimentos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="luz-main">
+    <div class="card luz-card">
+      <div class="card-header">
+        <h2><i class="fas fa-bolt"></i> Seus Equipamentos</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Adicione até 5 equipamentos. O consumo total em kWh e o custo estimado na conta de luz serão calculados automaticamente.
+        </p>
+
+        <div id="luz-equipamentos"></div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
+
+        <div class="luz-row-2">
+          <div class="campo">
+            <label for="luz-distribuidora">Distribuidoras de energia <span style="color:red">*</span></label>
+            <select id="luz-distribuidora" class="luz-select"></select>
+            <div id="luz-loading" class="luz-loading" style="display:none">
+              <span class="spinner"></span> Carregando tarifas da ANEEL...
+            </div>
+          </div>
+          <div class="campo">
+            <label for="luz-bandeira">Bandeira tarifária <span style="color:red">*</span></label>
+            <select id="luz-bandeira" class="luz-select">
+              <option value="">Selecione</option>
+              <option value="verde">Verde (sem adicional)</option>
+              <option value="amarela">Amarela (R$ 0,01874/kWh)</option>
+              <option value="vermelha1">Vermelha P1 (R$ 0,04463/kWh)</option>
+              <option value="vermelha2">Vermelha P2 (R$ 0,07877/kWh)</option>
+            </select>
+            <div class="luz-bandeira-info">Valores vigentes para 2026. Consulte a ANEEL para confirmar.</div>
+          </div>
+        </div>
+
+        <div id="luz-erro" class="luz-erro" style="display:none"></div>
+
+        <button class="luz-btn" onclick="calcular()">
+          <i class="fas fa-calculator"></i> Calcular
+        </button>
+
+        <div id="luz-resultado" class="luz-resultado">
+          <div class="luz-result-flex">
+            <div class="luz-result-box">
+              <h3>Consumo Total Estimado</h3>
+              <div class="valor" id="luz-result-kwh">0,00</div>
+              <div class="subtexto">kWh/mês</div>
+            </div>
+            <div class="luz-result-box" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;">
+              <h3>Valor Estimado na Conta</h3>
+              <div class="valor" style="color:#1d4ed8;" id="luz-result-valor">R$ 0,00</div>
+              <div class="subtexto" id="luz-result-detalhe"></div>
+              <div class="subtexto" id="luz-result-tarifa"></div>
+              <div class="subtexto" id="luz-result-bandeira"></div>
+              <div class="subtexto" id="luz-result-vigencia" style="font-size:0.75rem;margin-top:0.5rem;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card luz-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-bar"></i> Ranking de Tarifas por Distribuidora</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+          Tarifas residenciais (B1 convencional) das distribuidoras das capitais + DF, ordenadas da mais barata para a mais cara. Fonte: ANEEL.
+        </p>
+        <div id="luz-ranking-loading" class="luz-loading">
+          <span class="spinner"></span> Carregando ranking...
+        </div>
+        <div id="luz-ranking-tabela" style="display:none;overflow-x:auto"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="img/logo.webp" alt="Compara Financiamento" class="footer__logo-img" width="316" height="250" loading="lazy">
+          <span>Compara <span>Financiamento</span></span>
+        </div>
+        <p class="footer__desc">Calcule o consumo de energia elétrica e estime o valor da sua conta de luz com tarifas ANEEL atualizadas por distribuidora e bandeira tarifária.</p>
+      </div>
+      <div class="footer__info">
+        <h4>FERRAMENTAS</h4>
+        <ul>
+          <li><a href="/" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-house-chimney"></i> Simulador PRICE vs SAC</a></li>
+          <li><a href="conversor-moedas" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-exchange-alt"></i> Conversor de Moedas</a></li>
+          <li><a href="calculadoras" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-calculator"></i> Calculadoras</a></li>
+          <li><a href="comparador-investimentos" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-chart-bar"></i> Comparador de Investimentos</a></li>
+          <li><a href="calculadora-precificacao" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-cubes"></i> Precificação</a></li>
+          <li><a href="calculadora-conta-de-luz" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-bolt"></i> Conta de Luz</a></li>
+          <li><a href="sobre" style="color:#cbd5e1;text-decoration:none"><i class="fas fa-info-circle"></i> Sobre</a></li>
+        </ul>
+      </div>
+      <div class="footer__afiliado">
+        <h4>ENTRE EM CONTATO</h4>
+        <p class="footer__email"><a href="mailto:suporte@comparafinanciamento.com.br"><i class="fas fa-envelope"></i> suporte@comparafinanciamento.com.br</a></p>
+        <p class="footer__email"><a href="https://www.instagram.com/alexandrecoutinho81/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> @alexandrecoutinho81</a></p>
+        <p class="footer__email"><a href="https://www.linkedin.com/in/alexandrecoutinho/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> /in/alexandrecoutinho</a></p>
+      </div>
+      <div class="footer__dev">
+        <h4>Desenvolvido por</h4>
+        <a href="https://solucoesite.com.br/" target="_blank" rel="noopener noreferrer">
+          <img src="img/Preview.webp" alt="SoluçõeSite" class="footer__dev-logo" width="200" height="200" loading="lazy">
+        </a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Compara Financiamento. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/calculadora-conta-de-luz.min.js" defer></script>
+</body>
+</html>

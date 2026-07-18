@@ -39,6 +39,8 @@ Conjunto de ferramentas financeiras gratuitas: simulador PRICE vs SAC, conversor
 | `/calculadoras.html` | Calculadoras: taxa de juros, correção monetária, porcentagem, juros compostos, consumo de combustível, conversor de unidades |
 | `/comparador-investimentos.html` | Comparador de investimentos (CDB, LCI, LCA, Tesouro, Ações) |
 | `/calculadora-precificacao.html` | Calculadora de precificação (custos, margem, preço de venda) |
+| `/calculadora-conta-de-luz.html` | Calculadora de conta de luz (5 equipamentos, tarifas ANEEL) |
+| `/sobre.html` | Sobre o projeto e as ferramentas |
 
 ## Segurança (Headers HTTP)
 

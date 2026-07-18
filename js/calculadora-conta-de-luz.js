@@ -1,0 +1,175 @@
+const BANDEIRAS = {
+  verde:    { nome: 'Verde',  adicional_kwh: 0 },
+  amarela:  { nome: 'Amarela', adicional_kwh: 0.01874 },
+  vermelha1: { nome: 'Vermelha Patamar 1', adicional_kwh: 0.04463 },
+  vermelha2: { nome: 'Vermelha Patamar 2', adicional_kwh: 0.07877 },
+};
+
+function mostrarLoading() {
+  document.getElementById('luz-distribuidora').innerHTML = '<option value="">Carregando distribuidoras...</option>';
+  document.getElementById('luz-loading').style.display = 'block';
+}
+
+function esconderLoading() {
+  document.getElementById('luz-loading').style.display = 'none';
+}
+
+function mostrarErro(msg) {
+  const el = document.getElementById('luz-erro');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function esconderErro() {
+  document.getElementById('luz-erro').style.display = 'none';
+}
+
+function criarLinhaEquipamento(idx) {
+  const div = document.createElement('div');
+  div.className = 'luz-equip-row';
+  div.innerHTML = `
+    <span class="luz-equip-num">${idx + 1}</span>
+    <div class="campo">
+      <label>Potência (W)</label>
+      <input type="number" class="campo__input luz-potencia" min="1" step="1" inputmode="numeric" data-idx="${idx}">
+    </div>
+    <div class="campo">
+      <label>h/dia</label>
+      <input type="number" class="campo__input luz-horas" min="0.5" max="24" step="0.5" inputmode="decimal" data-idx="${idx}">
+    </div>
+    <div class="campo">
+      <label>dias/mês</label>
+      <input type="number" class="campo__input luz-dias" min="1" max="31" step="1" inputmode="numeric" data-idx="${idx}">
+    </div>
+  `;
+  return div;
+}
+
+function montarEquipamentos() {
+  const container = document.getElementById('luz-equipamentos');
+  for (let i = 0; i < 5; i++) {
+    container.appendChild(criarLinhaEquipamento(i));
+  }
+}
+
+async function carregarDistribuidoras() {
+  mostrarLoading();
+  esconderErro();
+
+  try {
+    const res = await fetch('/api/tarifas');
+    if (!res.ok) throw new Error('Falha ao carregar');
+    const data = await res.json();
+    if (data.error || !data.distribuidoras || data.distribuidoras.length === 0) {
+      throw new Error(data.error || 'Nenhuma distribuidora encontrada');
+    }
+    preencherSelect(data.distribuidoras);
+    montarRanking(data.distribuidoras);
+    window.__tarifas = data.distribuidoras;
+  } catch (e) {
+    console.error('Erro ao carregar tarifas:', e);
+    mostrarErro('Nao foi possivel carregar as distribuidoras. Tente novamente mais tarde.');
+    document.getElementById('luz-distribuidora').innerHTML = '<option value="">Indisponivel</option>';
+    document.getElementById('luz-ranking-loading').textContent = 'Ranking indisponivel';
+  } finally {
+    esconderLoading();
+  }
+}
+
+function preencherSelect(distribuidoras) {
+  const sel = document.getElementById('luz-distribuidora');
+  sel.innerHTML = '<option value="">Selecione a distribuidora</option>';
+  for (const d of distribuidoras) {
+    const opt = document.createElement('option');
+    opt.value = d.sigla;
+    opt.textContent = `${d.cidade} / ${d.estado} — ${d.sigla}`;
+    sel.appendChild(opt);
+  }
+}
+
+function montarRanking(distribuidoras) {
+  const sorted = [...distribuidoras].sort((a, b) => a.total_kwh - b.total_kwh);
+
+  const loading = document.getElementById('luz-ranking-loading');
+  loading.style.display = 'none';
+
+  const container = document.getElementById('luz-ranking-tabela');
+  container.style.display = 'block';
+
+  let html = '<table class="luz-ranking-table"><thead><tr><th>#</th><th>Distribuidora</th><th>Cidade / UF</th><th style="text-align:right">Tarifa (R$/kWh)</th></tr></thead><tbody>';
+  for (let i = 0; i < sorted.length; i++) {
+    const d = sorted[i];
+    const cor = i < 3 ? '#15803d' : i < 8 ? '#1d4ed8' : '#6b7280';
+    html += `<tr>
+      <td class="luz-ranking-pos" style="color:${cor}">${i + 1}</td>
+      <td>${d.sigla}</td>
+      <td>${d.cidade} / ${d.estado}</td>
+      <td class="luz-ranking-tarifa">${d.total_kwh.toFixed(6).replace('.', ',')}</td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function calcular() {
+  esconderErro();
+
+  const rows = document.querySelectorAll('.luz-equip-row');
+  let totalKwh = 0;
+
+  for (const row of rows) {
+    const potencia = parseFloat(row.querySelector('.luz-potencia').value);
+    const horas = parseFloat(row.querySelector('.luz-horas').value);
+    const dias = parseFloat(row.querySelector('.luz-dias').value);
+
+    if (!potencia || potencia <= 0) continue;
+
+    const h = (!horas || horas <= 0) ? 0 : horas;
+    const d = (!dias || dias <= 0) ? 0 : dias;
+
+    if (h <= 0 || d <= 0) continue;
+
+    const kwh = (potencia / 1000) * h * d;
+    totalKwh += kwh;
+  }
+
+  const sigla = document.getElementById('luz-distribuidora').value;
+  const bandeira = document.getElementById('luz-bandeira').value;
+
+  if (totalKwh <= 0) { mostrarErro('Preencha ao menos um equipamento com potencia, horas e dias validos.'); return; }
+  if (!sigla) { mostrarErro('Selecione uma distribuidora.'); return; }
+  if (!bandeira) { mostrarErro('Selecione a bandeira tarifaria.'); return; }
+
+  const tarifas = window.__tarifas || [];
+  const dist = tarifas.find(d => d.sigla === sigla);
+  if (!dist) { mostrarErro('Distribuidora nao encontrada.'); return; }
+
+  const band = BANDEIRAS[bandeira];
+
+  const custoEnergia = totalKwh * dist.total_kwh;
+  const custoBandeira = totalKwh * band.adicional_kwh;
+  const total = custoEnergia + custoBandeira;
+
+  const elResultado = document.getElementById('luz-resultado');
+  elResultado.classList.add('luz-resultado--show');
+
+  document.getElementById('luz-result-kwh').textContent = totalKwh.toFixed(2).replace('.', ',');
+  document.getElementById('luz-result-valor').textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('luz-result-tarifa').textContent = `${dist.cidade}/${dist.estado} • ${dist.sigla}`;
+  document.getElementById('luz-result-bandeira').textContent = `${band.nome}${band.adicional_kwh > 0 ? ` (R$ ${band.adicional_kwh.toFixed(4).replace('.', ',')}/kWh)` : ''}`;
+  document.getElementById('luz-result-detalhe').textContent = `${totalKwh.toFixed(1).replace('.', ',')} kWh/mes`;
+  document.getElementById('luz-result-vigencia').textContent = `Tarifa vigente desde ${dist.vigencia} (valida ate ${dist.valido_ate})`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  montarEquipamentos();
+  carregarDistribuidoras();
+
+  document.querySelectorAll('#luz-equipamentos input').forEach(el => {
+    el.addEventListener('input', () => calcular());
+    el.addEventListener('change', () => calcular());
+  });
+
+  document.getElementById('luz-distribuidora').addEventListener('change', () => calcular());
+  document.getElementById('luz-bandeira').addEventListener('change', () => calcular());
+});
