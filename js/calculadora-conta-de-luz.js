@@ -1,10 +1,3 @@
-const BANDEIRAS = {
-  verde:    { nome: 'Verde',  adicional_kwh: 0 },
-  amarela:  { nome: 'Amarela', adicional_kwh: 0.01874 },
-  vermelha1: { nome: 'Vermelha Patamar 1', adicional_kwh: 0.04463 },
-  vermelha2: { nome: 'Vermelha Patamar 2', adicional_kwh: 0.07877 },
-};
-
 function mostrarLoading() {
   document.getElementById('luz-distribuidora').innerHTML = '<option value="">Carregando distribuidoras...</option>';
   document.getElementById('luz-loading').style.display = 'block';
@@ -52,6 +45,33 @@ function montarEquipamentos() {
   }
 }
 
+async function carregarBandeiras() {
+  try {
+    const res = await fetch('/api/bandeiras');
+    if (!res.ok) throw new Error('Falha');
+    const data = await res.json();
+    window.__bandeiras = {};
+
+    const sel = document.getElementById('luz-bandeira');
+    sel.innerHTML = '<option value="">Selecione a bandeira</option>';
+
+    for (const b of data.bandeiras) {
+      const opt = document.createElement('option');
+      opt.value = b.chave;
+      opt.textContent = `${b.nome} (R$ ${b.adicional_kwh.toFixed(6).replace('.', ',')}/kWh)`;
+      sel.appendChild(opt);
+      window.__bandeiras[b.chave] = b;
+    }
+
+    if (data.atual && data.atual.chave) {
+      sel.value = data.atual.chave;
+    }
+  } catch (e) {
+    console.error('Erro bandeiras:', e);
+    document.getElementById('luz-bandeira').innerHTML = '<option value="">Indisponivel</option>';
+  }
+}
+
 async function carregarDistribuidoras() {
   mostrarLoading();
   esconderErro();
@@ -96,13 +116,13 @@ function montarRanking(distribuidoras) {
   const container = document.getElementById('luz-ranking-tabela');
   container.style.display = 'block';
 
-  let html = '<table class="luz-ranking-table"><thead><tr><th>#</th><th>Distribuidora</th><th>Cidade / UF</th><th style="text-align:right">Tarifa (R$/kWh)</th></tr></thead><tbody>';
+  let html = '<table class="luz-ranking-table"><thead><tr><th>#</th><th style="text-align:right">Distribuidora</th><th style="text-align:right">Cidade / UF</th><th style="text-align:right">Tarifa (R$/kWh)</th></tr></thead><tbody>';
   for (let i = 0; i < sorted.length; i++) {
     const d = sorted[i];
     html += `<tr>
       <td class="luz-ranking-pos">${i + 1}</td>
-      <td>${d.sigla}</td>
-      <td>${d.cidade} / ${d.estado}</td>
+      <td style="text-align:right">${d.sigla}</td>
+      <td style="text-align:right">${d.cidade} / ${d.estado}</td>
       <td class="luz-ranking-tarifa">${d.total_kwh.toFixed(6).replace('.', ',')}</td>
     </tr>`;
   }
@@ -143,7 +163,9 @@ function calcular() {
   const dist = tarifas.find(d => d.sigla === sigla);
   if (!dist) { mostrarErro('Distribuidora nao encontrada.'); return; }
 
-  const band = BANDEIRAS[bandeira];
+  const bands = window.__bandeiras || {};
+  const band = bands[bandeira];
+  if (!band) { mostrarErro('Bandeira nao encontrada.'); return; }
 
   const custoEnergia = totalKwh * dist.total_kwh;
   const custoBandeira = totalKwh * band.adicional_kwh;
@@ -163,6 +185,7 @@ function calcular() {
 document.addEventListener('DOMContentLoaded', () => {
   montarEquipamentos();
   carregarDistribuidoras();
+  carregarBandeiras();
 
   document.querySelectorAll('#luz-equipamentos input').forEach(el => {
     el.addEventListener('input', () => calcular());

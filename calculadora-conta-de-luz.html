@@ -101,13 +101,8 @@
           <div class="campo">
             <label for="luz-bandeira">Bandeira tarifária <span style="color:red">*</span></label>
             <select id="luz-bandeira" class="luz-select">
-              <option value="">Selecione</option>
-              <option value="verde">Verde (sem adicional)</option>
-              <option value="amarela">Amarela (R$ 0,01874/kWh)</option>
-              <option value="vermelha1">Vermelha P1 (R$ 0,04463/kWh)</option>
-              <option value="vermelha2">Vermelha P2 (R$ 0,07877/kWh)</option>
+              <option value="">Carregando...</option>
             </select>
-            <div class="luz-bandeira-info">Valores vigentes para 2026. Consulte a ANEEL para confirmar.</div>
           </div>
         </div>
 
@@ -126,6 +121,7 @@
               <div class="subtexto" id="luz-result-tarifa"></div>
               <div class="subtexto" id="luz-result-bandeira"></div>
               <div class="subtexto" id="luz-result-vigencia" style="font-size:0.75rem;margin-top:0.5rem;"></div>
+              <div class="subtexto" style="font-size:0.7rem;margin-top:0.25rem;color:var(--text-secondary);">* Valores sem impostos (ICMS, PIS/COFINS)</div>
             </div>
           </div>
         </div>
@@ -138,7 +134,7 @@
       </div>
       <div class="card-body">
         <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
-          Tarifas residenciais (B1 convencional) das distribuidoras das capitais + DF, ordenadas da mais barata para a mais cara. Fonte: ANEEL.
+          Tarifas residenciais (B1 convencional) das distribuidoras das capitais + DF, ordenadas da mais barata para a mais cara. Valores sem impostos (ICMS, PIS/COFINS). Fonte: ANEEL.
         </p>
         <div id="luz-ranking-loading" class="luz-loading">
           <span class="spinner"></span> Carregando ranking...
