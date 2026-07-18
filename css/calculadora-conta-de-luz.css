@@ -219,6 +219,12 @@ main.luz-main {
   font-variant-numeric: tabular-nums;
 }
 
+@media (max-width: 767px) {
+  .luz-equip-row .campo label {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 600px) {
   .luz-equip-row {
     grid-template-columns: 2rem 1fr 1fr 1fr;
