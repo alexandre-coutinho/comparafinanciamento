@@ -142,7 +142,8 @@ function montarRanking(distribuidoras) {
 }
 
 function calcular() {
-  esconderErro();
+  try { esconderErro(); } catch (e) {}
+  try {
 
   const rows = document.querySelectorAll('.luz-equip-row');
   let totalKwh = 0;
@@ -222,6 +223,7 @@ function calcular() {
   function fmtData(d) { const p = d.split('-'); return `${p[2]}-${p[1]}-${p[0]}`; }
   const vigenciaEl = document.getElementById('luz-result-vigencia');
   if (vigenciaEl) vigenciaEl.innerHTML = `Tarifa vigente desde ${fmtData(dist.vigencia)}<br>valida ate ${fmtData(dist.valido_ate)}`;
+  } catch (e) { console.warn('calcular():', e); mostrarErro('Erro ao calcular. Tente novamente.'); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -229,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   carregarDistribuidoras();
   carregarBandeiras();
   carregarImpostos();
-  setupHamburgerMenu();
+  try { setupHamburgerMenu(); } catch (e) { console.warn('Hamburger menu:', e); }
 
   document.querySelectorAll('#luz-equipamentos input').forEach(el => {
     el.addEventListener('input', () => calcular());
