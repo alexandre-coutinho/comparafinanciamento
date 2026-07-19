@@ -24,11 +24,11 @@ function criarLinhaEquipamento(idx) {
   div.innerHTML = `
     <span class="luz-equip-num">${idx + 1}</span>
     <div class="campo">
-      ${label('Potencia (W)')}
+      ${label('Pot. (W)')}
       <input type="number" class="campo__input luz-potencia" min="1" step="1" inputmode="numeric" data-idx="${idx}">
     </div>
     <div class="campo">
-      ${label('h/dia')}
+      ${label('horas/dia')}
       <input type="number" class="campo__input luz-horas" min="0.5" max="24" step="0.5" inputmode="decimal" data-idx="${idx}">
     </div>
     <div class="campo">
@@ -100,7 +100,6 @@ async function carregarDistribuidoras() {
     window.__tarifas = data.distribuidoras;
   } catch (e) {
     console.error('Erro ao carregar tarifas:', e);
-    mostrarErro('Nao foi possivel carregar as distribuidoras. Tente novamente mais tarde.');
     document.getElementById('luz-distribuidora').innerHTML = '<option value="">Indisponivel</option>';
     document.getElementById('luz-ranking-loading').textContent = 'Ranking indisponivel';
   } finally {
@@ -170,12 +169,13 @@ function calcular() {
 
   if (totalKwh <= 0) { mostrarErro('Preencha ao menos um equipamento com potencia, horas e dias validos.'); return; }
   if (!sigla) { mostrarErro('Selecione uma distribuidora.'); return; }
+
   if (!bandeira) { mostrarErro('Selecione a bandeira tarifaria.'); return; }
 
-  const tarifas = window.__tarifas || [];
+  if (!window.__tarifas) { mostrarErro('Nao foi possivel carregar as distribuidoras. Tente novamente mais tarde.'); return; }
+  const tarifas = window.__tarifas;
   const dist = tarifas.find(d => d.sigla === sigla);
   if (!dist) { mostrarErro('Distribuidora nao encontrada.'); return; }
-
   const bands = window.__bandeiras || {};
   const band = bands[bandeira];
   if (!band) { mostrarErro('Bandeira nao encontrada.'); return; }
