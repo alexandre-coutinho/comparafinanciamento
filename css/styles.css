@@ -361,8 +361,12 @@ footer {
 
 @media (min-width: 768px) {
   .footer__content { grid-template-columns: auto minmax(300px, 440px) auto auto; }
-  .footer__brand .footer__logo { justify-content: center; }
-  .footer__desc { text-align: center; }
+  .footer__brand {
+    justify-self: start;
+    text-align: left;
+  }
+  .footer__brand .footer__logo { justify-content: flex-start; }
+  .footer__desc { text-align: left; }
 }
 
 @media (min-width: 768px) {
