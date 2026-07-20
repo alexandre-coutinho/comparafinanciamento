@@ -36,12 +36,24 @@ main.luz-main {
   margin-bottom: 0;
 }
 
+.luz-equip-row .campo label {
+  text-align: center;
+}
+
 .luz-equip-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--primary);
   white-space: nowrap;
   text-align: center;
+}
+
+.luz-equip-row:first-child .luz-equip-num {
+  padding-top: calc(0.85rem * 1.6 + 0.25rem);
 }
 
 .luz-row-2 {
