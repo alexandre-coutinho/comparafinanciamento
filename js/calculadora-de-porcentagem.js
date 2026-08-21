@@ -100,11 +100,13 @@ function converterTaxa() {
 
   if (isNaN(valor) || valor < 0) {
     mostrarToast('Informe uma taxa válida.');
+    document.getElementById('resultado-taxa').hidden = true;
     return;
   }
 
   if (de === para) {
     mostrarToast('Selecione períodos diferentes para converter.');
+    document.getElementById('resultado-taxa').hidden = true;
     return;
   }
 
@@ -129,7 +131,7 @@ function converterTaxa() {
   const pct = (resultado * 100);
   const pctStr = pct < 0.01
     ? pct.toFixed(6).replace('.', ',') + '%'
-    : pct.toFixed(2).replace('.', ',') + '%';
+    : pct.toFixed(4).replace('.', ',') + '%';
   document.getElementById('taxa-resultado').textContent = pctStr;
   document.getElementById('resultado-taxa').hidden = false;
 }

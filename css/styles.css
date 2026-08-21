@@ -81,17 +81,24 @@ main {
   padding: 1.5rem 1rem;
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 440px);
+  grid-template-columns: 1fr;
   justify-content: center;
   gap: 1.5rem;
 }
 
 @media (min-width: 992px) {
-  main { grid-template-columns: minmax(0, 440px) minmax(0, 440px); }
+  main { grid-template-columns: 1fr 1fr; }
 }
 
 .card-comparativo {
   grid-column: 1 / -1;
+}
+
+[aria-label="Sobre o simulador"] {
+  grid-column: 1 / -1;
+}
+[aria-label="Sobre o simulador"] p {
+  text-align: justify;
 }
 
 .card-visao-rapida {
